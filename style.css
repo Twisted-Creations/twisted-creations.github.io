@@ -1,5 +1,4 @@
 h1 {
-  margin: 0px 0px 0px 5px;
   width: 100%;
   padding: 10px;
   color: white;
@@ -7,7 +6,6 @@ h1 {
 }
 
 h2 {
-  margin: 150px 0px 0px 505px;
   width: 45%;
   padding: 25px;
   color: white;
@@ -16,7 +14,6 @@ h2 {
 }
 
 p {
-  margin: 125px 0px 0px 505px;
   width: 45%;
   padding: 25px;
   color: white;
@@ -25,7 +22,6 @@ p {
 }
 
 div {
-  margin: 125px 0px 0px 505px;
   width: 45%;
   padding: 25px;
   color: white;
@@ -34,7 +30,6 @@ div {
 }
 
 form {
-  margin: 125px 0px 0px 505px;
   width: 45%;
   padding: 25px;
   color: white;
