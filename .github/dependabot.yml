@@ -14,4 +14,4 @@ updates:
       prefix: "ci(deps)"
       prefix-development: "ci(deps-dev)"
     reviewers: 
-      - Venage5603
+      - "Venage5603"
