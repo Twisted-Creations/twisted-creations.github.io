@@ -1,4 +1,4 @@
-<h1 align ="Center">Twisted Creations Homepage</h1>
+<h1 align="center">Twisted Creations Homepage</h1>
 
 source code for our company website
 
