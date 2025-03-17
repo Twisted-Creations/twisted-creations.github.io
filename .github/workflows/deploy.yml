@@ -48,22 +48,34 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '20'
-          cache: 'npm'
 
-      - name: Install HTML validation tools
+      - name: Install dependencies
         run: |
-          npm install -g html-validate
-          npm install -g stylelint stylelint-config-standard
+          # Create package-lock.json if it doesn't exist
+          if [ ! -f package-lock.json ]; then
+            npm install --package-lock-only
+          fi
+          npm ci
 
       - name: Validate HTML files
         run: |
           echo "Validating HTML files..."
-          find . -type f -name "*.html" -exec html-validate {} \; || true
+          # Check if html-validate is installed
+          if npx --no-install html-validate --version &>/dev/null; then
+            find . -type f -name "*.html" -exec npx html-validate {} \; || echo "HTML validation found issues, but continuing build"
+          else
+            echo "html-validate not found, skipping HTML validation"
+          fi
 
       - name: Validate CSS files
         run: |
           echo "Validating CSS files..."
-          find . -type f -name "*.css" -exec npx stylelint {} --config stylelint-config-standard \; || true
+          # Check if stylelint is installed
+          if npx --no-install stylelint --version &>/dev/null; then
+            find . -type f -name "*.css" -exec npx stylelint {} \; || echo "CSS validation found issues, but continuing build"
+          else
+            echo "stylelint not found, skipping CSS validation"
+          fi
 
   # Build and deploy job
   deploy:

@@ -34,12 +34,13 @@ updates:
       - dependency-name: "actions/setup-node"
         update-types: ["version-update:semver-patch"]
 
-  # Add npm ecosystem for any future JavaScript dependencies
+  # npm ecosystem for development dependencies
   - package-ecosystem: "npm"
     directory: "/"
     schedule:
       interval: "weekly"
       day: "monday"
+      timezone: "Etc/UTC"
     open-pull-requests-limit: 5
     commit-message:
       prefix: "deps"
