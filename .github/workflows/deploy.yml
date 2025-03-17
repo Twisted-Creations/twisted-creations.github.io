@@ -1,10 +1,24 @@
-# Simple workflow for deploying static content to GitHub Pages
-name: Deploy static content to Pages
+# Workflow for deploying static website to GitHub Pages
+# Documentation: https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site
+
+name: Deploy Website to GitHub Pages
 
 on:
   # Runs on pushes targeting the default branch
   push:
     branches: ["master"]
+    paths-ignore:
+      - "README.md"
+      - ".github/**/*.md"
+      - "LICENSE"
+
+  # Runs on pull requests to preview changes
+  pull_request:
+    branches: ["master"]
+    paths-ignore:
+      - "README.md"
+      - ".github/**/*.md"
+      - "LICENSE"
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -22,22 +36,97 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  # Single deploy job since we're just deploying
-  deploy:
-    environment:
-      name: github-pages
-      url: https://twisted-creations.github.io
+  # Validation job to check HTML and CSS
+  validate:
+    name: Validate Website Files
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
+      - name: Checkout repository
         uses: actions/checkout@v4.2.2
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install HTML validation tools
+        run: |
+          npm install -g html-validate
+          npm install -g stylelint stylelint-config-standard
+
+      - name: Validate HTML files
+        run: |
+          echo "Validating HTML files..."
+          find . -type f -name "*.html" -exec html-validate {} \; || true
+
+      - name: Validate CSS files
+        run: |
+          echo "Validating CSS files..."
+          find . -type f -name "*.css" -exec npx stylelint {} --config stylelint-config-standard \; || true
+
+  # Build and deploy job
+  deploy:
+    name: Deploy to GitHub Pages
+    needs: validate
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4.2.2
+        with:
+          fetch-depth: 0 # Fetch all history for proper last modified dates
+
       - name: Setup Pages
         uses: actions/configure-pages@v5.0.0
+
+      - name: Generate sitemap.xml
+        run: |
+          echo '<?xml version="1.0" encoding="UTF-8"?>' > sitemap.xml
+          echo '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' >> sitemap.xml
+
+          # Add homepage
+          echo '  <url>' >> sitemap.xml
+          echo '    <loc>https://twisted-creations.github.io/</loc>' >> sitemap.xml
+          echo '    <lastmod>'$(date -I)'</lastmod>' >> sitemap.xml
+          echo '    <changefreq>weekly</changefreq>' >> sitemap.xml
+          echo '    <priority>1.0</priority>' >> sitemap.xml
+          echo '  </url>' >> sitemap.xml
+
+          # Add other pages
+          for file in $(find . -name "*.html" ! -name "index.html"); do
+            filename=$(basename "$file" .html)
+            echo '  <url>' >> sitemap.xml
+            echo '    <loc>https://twisted-creations.github.io/'$filename'.html</loc>' >> sitemap.xml
+            echo '    <lastmod>'$(date -I)'</lastmod>' >> sitemap.xml
+            echo '    <changefreq>weekly</changefreq>' >> sitemap.xml
+            echo '    <priority>0.8</priority>' >> sitemap.xml
+            echo '  </url>' >> sitemap.xml
+          done
+
+          echo '</urlset>' >> sitemap.xml
+
+      - name: Generate robots.txt
+        run: |
+          echo 'User-agent: *' > robots.txt
+          echo 'Allow: /' >> robots.txt
+          echo 'Sitemap: https://twisted-creations.github.io/sitemap.xml' >> robots.txt
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3.0.1
         with:
           # Upload entire repository
           path: "."
+
       - name: Deploy to GitHub Pages
         id: deployment
+        if: github.event_name != 'pull_request'
         uses: actions/deploy-pages@v4.0.5
+
+      - name: Post-deployment notification
+        if: success() && github.event_name != 'pull_request'
+        run: |
+          echo "🚀 Website successfully deployed to GitHub Pages!"
+          echo "🔗 Visit: https://twisted-creations.github.io"

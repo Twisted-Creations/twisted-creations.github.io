@@ -1,12 +1,56 @@
+# Dependabot configuration file
+# Documentation: https://docs.github.com/en/code-security/dependabot/dependabot-version-updates/configuration-options-for-the-dependabot.yml-file
+
 version: 2
 updates:
+  # GitHub Actions dependencies
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
-      interval: "daily"
+      interval: "weekly"
+      day: "monday"
+      time: "09:00"
+      timezone: "Etc/UTC"
     open-pull-requests-limit: 10
     commit-message:
       prefix: "ci(deps)"
       prefix-development: "ci(deps-dev)"
     reviewers:
       - "Venage5603"
+    labels:
+      - "dependencies"
+      - "github-actions"
+    pull-request-branch-name:
+      separator: "-"
+    # Group all updates together to reduce PR noise
+    groups:
+      github-actions:
+        patterns:
+          - "*"
+    # Ignore patch updates for some actions to reduce noise
+    ignore:
+      - dependency-name: "actions/checkout"
+        update-types: ["version-update:semver-patch"]
+      - dependency-name: "actions/setup-node"
+        update-types: ["version-update:semver-patch"]
+
+  # Add npm ecosystem for any future JavaScript dependencies
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+    open-pull-requests-limit: 5
+    commit-message:
+      prefix: "deps"
+      prefix-development: "deps-dev"
+    reviewers:
+      - "Venage5603"
+    labels:
+      - "dependencies"
+      - "npm"
+    # Group all dev dependencies together
+    groups:
+      dev-dependencies:
+        dependency-type: "development"
+    versioning-strategy: increase
