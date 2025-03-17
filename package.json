@@ -4,11 +4,13 @@
   "description": "Twisted Creations website",
   "private": true,
   "scripts": {
-    "test": "echo \"No tests configured\""
+    "test": "echo \"No tests configured\"",
+    "validate:html": "html-validate \"**/*.html\"",
+    "validate:css": "stylelint \"**/*.css\""
   },
   "devDependencies": {
-    "html-validate": "^8.15.0",
-    "stylelint": "^16.2.1",
-    "stylelint-config-standard": "^36.0.0"
+    "html-validate": "8.29.0",
+    "stylelint": "16.16.0",
+    "stylelint-config-standard": "36.0.1"
   }
 }
