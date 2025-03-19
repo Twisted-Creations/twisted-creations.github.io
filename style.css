@@ -18,7 +18,10 @@ body {
 }
 
 /* Typography */
-h1, h2, h3, p {
+h1,
+h2,
+h3,
+p {
   color: white;
   font-family: Arial, Helvetica, sans-serif;
 }
@@ -144,7 +147,8 @@ p {
     font-size: 1.3rem;
   }
 
-  p, li {
+  p,
+  li {
     font-size: 0.95rem;
   }
 }

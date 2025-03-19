@@ -9,6 +9,26 @@
 
 This repository contains the source code for the official Twisted Creations website. Our site showcases our game development studio, team members, and our upcoming game projects including "Abandoned: The Asylum of Madness."
 
+## 🔧 Development Setup
+
+### Prerequisites
+
+- Any modern web browser
+- Basic knowledge of HTML and CSS
+
+### Local Development
+
+1. Clone this repository
+2. Open the HTML files in your browser to preview changes
+3. Edit the HTML and CSS files as needed
+
+### Automated Validation
+
+This project uses GitHub Actions for automated validation:
+
+- HTML validation using html-validate
+- CSS validation using stylelint
+
 ## 🎮 About Twisted Creations
 
 We are a passionate group of game developers focused on creating high-quality gaming experiences using Godot 4. Our first major project is "Abandoned: The Asylum of Madness" (ATAM), which is part of our "Twisted Childhood Memories" series.

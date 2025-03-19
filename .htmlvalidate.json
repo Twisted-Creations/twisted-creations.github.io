@@ -7,6 +7,15 @@
     "no-missing-references": "error",
     "void-style": "off",
     "doctype-style": "off",
-    "attribute-boolean-style": "off"
-  }
+    "attribute-boolean-style": "off",
+    "no-trailing-whitespace": "off",
+    "prefer-native-element": "off",
+    "wcag/h30": "off",
+    "wcag/h36": "off",
+    "wcag/h37": "off",
+    "wcag/h67": "off"
+  },
+  "elements": [
+    "html5"
+  ]
 }

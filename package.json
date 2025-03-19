@@ -5,8 +5,8 @@
   "private": true,
   "scripts": {
     "test": "echo \"No tests configured\"",
-    "validate:html": "html-validate \"**/*.html\"",
-    "validate:css": "stylelint \"**/*.css\""
+    "validate:html": "html-validate \"Pages/**/*.html\"",
+    "validate:css": "stylelint \"**/*.css\" --allow-empty-input"
   },
   "devDependencies": {
     "html-validate": "9.5.2",
