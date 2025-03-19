@@ -1,7 +1,7 @@
 # Twisted Creations Homepage
 
 <div align="center">
-  <img src="./Images/Base-Image.png" alt="Twisted Creations Logo" width="300" style="border-radius: 10px"/>
+  <kbd><img src="./Images/Base-Image.png" alt="Twisted Creations Logo" width="300"/></kbd>
   <h3>Official Website for Twisted Creations Game Studio</h3>
 </div>
 

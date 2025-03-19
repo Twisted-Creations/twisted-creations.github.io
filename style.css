@@ -9,7 +9,9 @@ body {
   background-image: url("./Images/Base-Image.png");
   background-repeat: no-repeat;
   background-size: cover;
+  background-position: center center;
   background-attachment: fixed;
+  min-height: 100vh;
   font-family: Arial, Helvetica, sans-serif;
   color: white;
   line-height: 1.6;
@@ -116,6 +118,10 @@ p {
 
 /* Media queries for responsive design */
 @media screen and (max-width: 768px) {
+  body {
+    background-size: auto 100%;
+  }
+
   .site-title {
     font-size: 1.8rem;
   }
@@ -140,5 +146,25 @@ p {
 
   p, li {
     font-size: 0.95rem;
+  }
+}
+
+/* Additional media queries for different screen sizes */
+@media screen and (max-width: 480px) {
+  body {
+    background-size: auto 100%;
+  }
+}
+
+@media screen and (min-width: 1920px) {
+  body {
+    background-size: 100% auto;
+  }
+}
+
+/* Fix for iOS devices that don't handle fixed backgrounds well */
+@supports (-webkit-overflow-scrolling: touch) {
+  body {
+    background-attachment: scroll;
   }
 }
