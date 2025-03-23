@@ -31,7 +31,7 @@ This project uses GitHub Actions for automated validation:
 
 ## 🎮 About Twisted Creations
 
-We are a passionate group of game developers focused on creating high-quality gaming experiences using Godot 4. Our first major project is "Abandoned: The Asylum of Madness" (ATAM), which is part of our "Twisted Childhood Memories" series.
+We are a passionate group of game developers focused on creating high-quality gaming experiences using Unity 6. Our first major project is "Abandoned: The Asylum of Madness" (ATAM), which is part of our "Twisted Childhood Memories" series.
 
 ## 🚀 Website Features
 
