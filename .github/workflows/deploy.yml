@@ -40,7 +40,7 @@ jobs:
   validate:
     name: Validate Website Files
     runs-on: ubuntu-latest
-    continue-on-error: true  # Continue even if validation fails
+    continue-on-error: true # Continue even if validation fails
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4.2.2
@@ -48,7 +48,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: "20"
 
       - name: Install dependencies
         run: |
