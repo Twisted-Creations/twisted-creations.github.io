@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Follow the development progress of Abandoned: The Asylum of Madness and other projects by Twisted Creations. Regular updates on features, challenges, and milestones."
+    />
+    <link rel="stylesheet" href="../style.css" />
+    <title>Twisted Creations: Development Log</title>
+  </head>
+  <body>
+    <header class="header-container">
+      <h1 class="site-title">Development Log</h1>
+      <nav class="nav-links">
+        <a href="index.html">Homepage</a>
+        <a href="About us.html">About us</a>
+        <a href="Our Team.html">Our Team</a>
+        <a href="Game Info.html">Game Info</a>
+        <a href="Devlog.html" class="active">Devlog</a>
+      </nav>
+    </header>
+
+    <main class="content-container">
+      <div class="content-box">
+        <h2>Development Updates</h2>
+        <p>
+          Welcome to our development log! Here we'll share updates on our
+          progress, challenges we've overcome, and exciting new features we're
+          working on.
+        </p>
+
+        <!-- Category filter tabs -->
+        <div class="devlog-filter">
+          <button class="filter-btn active" data-category="all">
+            All Updates
+          </button>
+          <button class="filter-btn" data-category="game">
+            Game Development
+          </button>
+          <button class="filter-btn" data-category="website">
+            Website Updates
+          </button>
+        </div>
+      </div>
+
+      <!-- Devlog entries - newest entries should be added at the top -->
+      <div id="devlog-entries">
+        <!-- Website Development Entry -->
+        <div class="content-box devlog-entry" data-category="website">
+          <span class="category-tag website-tag">Website Update</span>
+          <h3>March 28, 2025 - Devlog Page Creation</h3>
+          <p>
+            Today marks the launch of our development log! This is where we will
+            post updates on the game's progression (essentially a changelog for
+            alpha builds). We will most likely update this on a daily basis
+            depending on how much work we do each day.
+          </p>
+          <p>
+            We've implemented a category system to separate game development
+            updates from website updates, making it easier to follow specific
+            aspects of our project.
+          </p>
+        </div>
+
+        <!-- Website Development Entry -->
+        <div class="content-box devlog-entry" data-category="website">
+          <span class="category-tag website-tag">Website Update</span>
+          <h3>April 11, 2024 - Website Launch</h3>
+          <p>
+            Today marks the official launch of our studio website! We're excited
+            to have a place to share updates about our projects and connect with
+            our community.
+          </p>
+          <p>
+            We've set up the basic structure of the site with information about
+            our team and our current project, "Abandoned: The Asylum of
+            Madness."
+          </p>
+          <p>
+            Next steps include adding more details about game features and
+            regular development updates.
+          </p>
+        </div>
+      </div>
+
+      <!-- Templates for new entries (copy and paste at the top of the entries section) -->
+      <!--
+      Game Development Entry Template:
+      <div class="content-box devlog-entry" data-category="game">
+        <span class="category-tag game-tag">Game Development</span>
+        <h3>[DATE] - [TITLE]</h3>
+        <p>
+          [CONTENT]
+        </p>
+      </div>
+
+      Website Update Entry Template:
+      <div class="content-box devlog-entry" data-category="website">
+        <span class="category-tag website-tag">Website Update</span>
+        <h3>[DATE] - [TITLE]</h3>
+        <p>
+          [CONTENT]
+        </p>
+      </div>
+      -->
+    </main>
+    <footer class="footer-container">
+      <p>
+        &copy; <span class="current-year">2024</span> Twisted Creations. All
+        rights reserved.
+      </p>
+    </footer>
+    <script src="../script.js"></script>
+  </body>
+</html>
