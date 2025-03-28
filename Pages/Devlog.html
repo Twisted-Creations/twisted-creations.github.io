@@ -3,11 +3,20 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#1a1a1a" />
     <meta
       name="description"
       content="Follow the development progress of Abandoned: The Asylum of Madness and other projects by Twisted Creations. Regular updates on features, challenges, and milestones."
     />
     <link rel="stylesheet" href="../style.css" />
+    <!-- Preload critical assets -->
+    <link
+      rel="preload"
+      href="../Images/Base-Image.png"
+      as="image"
+      type="image/png"
+    />
+    <link rel="preload" href="../script.js" as="script" />
     <title>Twisted Creations: Development Log</title>
   </head>
   <body>
@@ -47,6 +56,36 @@
 
       <!-- Devlog entries - newest entries should be added at the top -->
       <div id="devlog-entries">
+        <!-- Website Development Entry -->
+        <div class="content-box devlog-entry" data-category="website">
+          <span class="category-tag website-tag">Website Update</span>
+          <h3>March 28 2025 - Enhanced Background Image System</h3>
+          <p>
+            We've implemented a major improvement to our website's background
+            image system. The new system provides smoother transitions when
+            resizing the browser window or changing device orientation,
+            resulting in a more polished user experience.
+          </p>
+          <p>Key improvements include:</p>
+          <ul>
+            <li>Smooth fade and blur transitions between background states</li>
+            <li>Intelligent image scaling based on device capabilities</li>
+            <li>
+              Performance optimizations for all devices, including low-power
+              mobile devices
+            </li>
+            <li>
+              Better loading experience with preloading and loading indicators
+            </li>
+            <li>Improved accessibility for screen readers</li>
+          </ul>
+          <p>
+            These changes make the website feel more responsive and
+            professional, especially when viewing on different devices or
+            resizing the browser window.
+          </p>
+        </div>
+
         <!-- Website Development Entry -->
         <div class="content-box devlog-entry" data-category="website">
           <span class="category-tag website-tag">Website Update</span>

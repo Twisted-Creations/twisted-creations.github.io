@@ -11,11 +11,6 @@ body {
 }
 
 body {
-  background-image: url("./Images/Base-Image.png");
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: center center;
-  background-attachment: fixed;
   min-height: 100vh;
   font-family: Arial, Helvetica, sans-serif;
   color: white;
@@ -23,6 +18,70 @@ body {
   display: flex;
   flex-direction: column;
   padding-bottom: 20px; /* Add padding at the bottom */
+  position: relative; /* For absolute positioning of background container */
+  /* Fallback background in case JS fails */
+  background-color: #000;
+  /* Prevent FOUC (Flash of Unstyled Content) */
+  opacity: 0;
+  transition: opacity 0.3s ease-in;
+}
+
+/* When JS loads, this class will be added to show content */
+body.content-loaded {
+  opacity: 1;
+}
+
+/* Dynamic background container */
+.background-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  overflow: hidden;
+}
+
+/* Background image elements */
+.bg-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center;
+  transition: opacity 0.5s ease-in-out, filter 0.5s ease-in-out;
+  will-change: opacity, filter; /* Optimize for animations */
+  transform: translateZ(0); /* Force GPU acceleration */
+  backface-visibility: hidden; /* Prevent flickering */
+}
+
+/* Fallback background style */
+.fallback-bg {
+  background: linear-gradient(to bottom, #1a1a1a, #2c2c2c) !important;
+}
+
+/* Loading indicator */
+.loading-indicator {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 50px;
+  height: 50px;
+  margin-top: -25px;
+  margin-left: -25px;
+  border: 5px solid rgba(255, 255, 255, 0.2);
+  border-top-color: rgba(255, 255, 255, 0.8);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 /* Typography */
@@ -281,10 +340,6 @@ p {
 
 /* Media queries for responsive design */
 @media screen and (max-width: 768px) {
-  body {
-    background-size: auto 100%;
-  }
-
   .site-title {
     font-size: 1.8rem;
   }
@@ -315,22 +370,22 @@ p {
 
 /* Additional media queries for different screen sizes */
 @media screen and (max-width: 480px) {
-  body {
-    background-size: auto 100%;
+  /* Smaller devices specific styles */
+  .header-container {
+    padding: 10px;
   }
 }
 
 @media screen and (min-width: 1920px) {
-  body {
-    background-size: 100% auto;
+  /* Large screen specific styles */
+  .content-container {
+    margin-top: 60px;
   }
 }
 
-/* Fix for iOS devices that don't handle fixed backgrounds well */
-@supports (-webkit-overflow-scrolling: touch) {
-  body {
-    background-attachment: scroll;
-  }
+/* High-DPI screens */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  /* High-DPI specific optimizations handled by JS */
 }
 
 /* JavaScript-enhanced elements */

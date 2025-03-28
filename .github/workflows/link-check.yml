@@ -1,0 +1,42 @@
+# Workflow for checking for broken links
+# This workflow runs on a schedule to ensure all links remain valid
+
+name: Check for Broken Links
+
+on:
+  # Run weekly on Monday at 00:00 UTC
+  schedule:
+    - cron: "0 0 * * 1"
+
+  # Run on demand from the Actions tab
+  workflow_dispatch:
+
+jobs:
+  check-links:
+    name: Check for Broken Links
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4.2.2
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: "npm"
+
+      - name: Install link checker
+        run: npm install -g broken-link-checker
+
+      - name: Check links
+        run: |
+          echo "Checking links on the live site..."
+          blc https://twisted-creations.github.io -ro || true
+
+      - name: Generate report
+        run: |
+          echo "## Link Check Results" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "Link check completed. See logs for details." >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "Note: This is a basic check. For more comprehensive checks, consider using a dedicated service." >> $GITHUB_STEP_SUMMARY

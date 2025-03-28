@@ -8,10 +8,24 @@
     "attribute-boolean-style": "off",
     "no-trailing-whitespace": "off",
     "prefer-native-element": "off",
-    "wcag/h30": "off",
-    "wcag/h36": "off",
-    "wcag/h37": "off",
-    "wcag/h67": "off"
+
+    "wcag/h30": "error",
+    "wcag/h36": "error",
+    "wcag/h37": "error",
+    "wcag/h67": "error",
+
+    "no-implicit-button-type": "error",
+    "meta-refresh": "error",
+    "heading-level": "error",
+    "no-autoplay": "error",
+    "prefer-button": "error",
+    "require-sri": "off",
+    "svg-focusable": "error",
+    "valid-id": "error"
   },
-  "elements": ["html5"]
+  "elements": ["html5"],
+  "transform": {
+    "strip-whitespace": true,
+    "attribute-quotes": true
+  }
 }

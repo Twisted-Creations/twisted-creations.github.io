@@ -50,8 +50,17 @@ updates:
     labels:
       - "dependencies"
       - "npm"
-    # Group all dev dependencies together
+    # Group dependencies by type
     groups:
       dev-dependencies:
-        dependency-type: "development"
+        patterns:
+          - "!stylelint*"
+          - "!html-validate"
+          - "*"
+      linting-tools:
+        patterns:
+          - "stylelint*"
+          - "html-validate"
     versioning-strategy: increase
+    # Always include security updates
+    ignore: []

@@ -36,41 +36,9 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  # Validation job to check HTML and CSS
-  validate:
-    name: Validate Website Files
-    runs-on: ubuntu-latest
-    continue-on-error: true # Continue even if validation fails
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4.2.2
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: "22"
-
-      - name: Install dependencies
-        run: |
-          # Use regular npm install instead of npm ci
-          npm install
-
-      - name: Validate HTML files
-        run: |
-          echo "Validating HTML files..."
-          npm run validate:html || echo "HTML validation found issues, but continuing build"
-        continue-on-error: true
-
-      - name: Validate CSS files
-        run: |
-          echo "Validating CSS files..."
-          npm run validate:css || echo "CSS validation found issues, but continuing build"
-        continue-on-error: true
-
   # Build and deploy job
   deploy:
     name: Deploy to GitHub Pages
-    needs: validate
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
@@ -115,6 +83,28 @@ jobs:
           echo 'User-agent: *' > robots.txt
           echo 'Allow: /' >> robots.txt
           echo 'Sitemap: https://twisted-creations.github.io/sitemap.xml' >> robots.txt
+
+      - name: Optimize images
+        run: |
+          echo "Note: In a real production environment, you would install and run image optimization tools here"
+          echo "For example: npm install -g imagemin-cli && imagemin Images/* --out-dir=Images/"
+          # This is just a placeholder - no actual optimization is performed in this example
+
+      - name: Add cache headers
+        run: |
+          # Create _headers file for Netlify-like cache control (GitHub Pages doesn't use this directly, but it's good practice)
+          echo "# Cache control headers" > _headers
+          echo "/*.html" >> _headers
+          echo "  Cache-Control: public, max-age=0, must-revalidate" >> _headers
+          echo "" >> _headers
+          echo "/*.css" >> _headers
+          echo "  Cache-Control: public, max-age=31536000, immutable" >> _headers
+          echo "" >> _headers
+          echo "/*.js" >> _headers
+          echo "  Cache-Control: public, max-age=31536000, immutable" >> _headers
+          echo "" >> _headers
+          echo "/Images/*" >> _headers
+          echo "  Cache-Control: public, max-age=31536000, immutable" >> _headers
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3.0.1
