@@ -62,5 +62,7 @@ updates:
           - "stylelint*"
           - "html-validate"
     versioning-strategy: increase
-    # Always include security updates
-    ignore: []
+    # Only ignore minor/patch updates for postcss to reduce noise
+    ignore:
+      - dependency-name: "postcss"
+        update-types: ["version-update:semver-patch"]
