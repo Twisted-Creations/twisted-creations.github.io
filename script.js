@@ -309,16 +309,15 @@ function initSmoothBackgroundScaling() {
     return img;
   }
 
-  // Function to update background image
-  function updateBackgroundImage() {
-    // Get current background if it exists
-    const currentBg = bgContainer.querySelector(".active-bg");
+  // Create a single persistent background element that we'll transform
+  let bgElement = null;
+  let isFirstLoad = true;
+  let isTransitioning = false;
 
-    // Get optimal image size
-    const size = getOptimalImageSize();
-
+  // Function to create or update the background image
+  function setupBackgroundImage() {
     // Create a loading indicator if this is the first load
-    if (!currentBg && !bgContainer.querySelector(".loading-indicator")) {
+    if (isFirstLoad && !bgContainer.querySelector(".loading-indicator")) {
       const loadingIndicator = document.createElement("div");
       loadingIndicator.classList.add("loading-indicator");
       bgContainer.appendChild(loadingIndicator);
@@ -329,114 +328,153 @@ function initSmoothBackgroundScaling() {
       bgImagePath,
       // Success callback
       (img) => {
-        // Create new background element
-        const newBg = document.createElement("div");
-        newBg.classList.add("bg-image");
+        if (isFirstLoad) {
+          // First time setup - create the background element
+          bgElement = document.createElement("div");
+          bgElement.classList.add("bg-image", "active-bg");
 
-        // Set initial opacity to 0 for smooth transition
-        newBg.style.opacity = "0";
+          // Set initial styles
+          bgElement.style.opacity = "0";
+          bgElement.style.backgroundImage = `url(${bgImagePath})`;
+          bgElement.style.backgroundSize = "cover";
+          bgElement.style.backgroundPosition = "center center";
+          bgElement.style.transition =
+            "opacity 0.5s ease-in-out, transform 0.3s ease-out, filter 0.5s ease-in-out";
 
-        // Apply background image with optimal sizing
-        newBg.style.backgroundImage = `url(${bgImagePath})`;
-        newBg.style.backgroundSize = "cover";
-        newBg.style.backgroundPosition = "center center";
+          // Add blur filter initially for smoother appearance
+          bgElement.style.filter = "blur(5px)";
 
-        // Add blur filter initially for smoother appearance
-        newBg.style.filter = "blur(5px)";
+          // Add to container
+          bgContainer.appendChild(bgElement);
 
-        // Add to container
-        bgContainer.appendChild(newBg);
-
-        // Remove any loading indicator
-        const loadingIndicator =
-          bgContainer.querySelector(".loading-indicator");
-        if (loadingIndicator) {
-          bgContainer.removeChild(loadingIndicator);
-        }
-
-        // Force browser to process the new element before transition
-        setTimeout(() => {
-          // Remove blur and fade in new background
-          newBg.style.filter = "blur(0)";
-          newBg.style.opacity = "1";
-          newBg.classList.add("active-bg");
-
-          // If there was a previous background, fade it out and remove
-          if (currentBg) {
-            currentBg.style.opacity = "0";
-            currentBg.classList.remove("active-bg");
-
-            // Remove old background after transition completes
-            setTimeout(() => {
-              if (bgContainer.contains(currentBg)) {
-                bgContainer.removeChild(currentBg);
-              }
-            }, 500); // Match this with the CSS transition duration
+          // Remove any loading indicator
+          const loadingIndicator =
+            bgContainer.querySelector(".loading-indicator");
+          if (loadingIndicator) {
+            bgContainer.removeChild(loadingIndicator);
           }
-        }, 50);
+
+          // Force browser to process the new element before transition
+          setTimeout(() => {
+            // Remove blur and fade in background
+            bgElement.style.filter = "blur(0)";
+            bgElement.style.opacity = "1";
+            isFirstLoad = false;
+          }, 50);
+        } else {
+          // Just update the existing background - no need to recreate it
+          // This is what makes the scaling smooth
+          if (!isTransitioning) {
+            // Apply a subtle transform during resize for a smoother effect
+            bgElement.style.transform = "scale(1.02)";
+            bgElement.style.filter = "blur(2px)";
+
+            // Reset transform after a short delay
+            setTimeout(() => {
+              bgElement.style.transform = "scale(1)";
+              bgElement.style.filter = "blur(0)";
+            }, 300);
+          }
+        }
       },
       // Error callback - use a solid color fallback if image fails to load
       () => {
-        // Create fallback background
-        const fallbackBg = document.createElement("div");
-        fallbackBg.classList.add("bg-image", "fallback-bg");
+        if (isFirstLoad) {
+          // Create fallback background
+          bgElement = document.createElement("div");
+          bgElement.classList.add("bg-image", "fallback-bg", "active-bg");
 
-        // Set initial opacity to 0 for smooth transition
-        fallbackBg.style.opacity = "0";
+          // Set initial opacity to 0 for smooth transition
+          bgElement.style.opacity = "0";
 
-        // Apply a gradient background as fallback
-        fallbackBg.style.background =
-          "linear-gradient(to bottom, #1a1a1a, #2c2c2c)";
+          // Apply a gradient background as fallback
+          bgElement.style.background =
+            "linear-gradient(to bottom, #1a1a1a, #2c2c2c)";
 
-        // Add to container
-        bgContainer.appendChild(fallbackBg);
+          // Add to container
+          bgContainer.appendChild(bgElement);
 
-        // Remove any loading indicator
-        const loadingIndicator =
-          bgContainer.querySelector(".loading-indicator");
-        if (loadingIndicator) {
-          bgContainer.removeChild(loadingIndicator);
-        }
-
-        // Force browser to process the new element before transition
-        setTimeout(() => {
-          fallbackBg.style.opacity = "1";
-          fallbackBg.classList.add("active-bg");
-
-          // If there was a previous background, fade it out and remove
-          if (currentBg) {
-            currentBg.style.opacity = "0";
-            currentBg.classList.remove("active-bg");
-
-            // Remove old background after transition completes
-            setTimeout(() => {
-              if (bgContainer.contains(currentBg)) {
-                bgContainer.removeChild(currentBg);
-              }
-            }, 500);
+          // Remove any loading indicator
+          const loadingIndicator =
+            bgContainer.querySelector(".loading-indicator");
+          if (loadingIndicator) {
+            bgContainer.removeChild(loadingIndicator);
           }
-        }, 50);
+
+          // Force browser to process the new element before transition
+          setTimeout(() => {
+            bgElement.style.opacity = "1";
+            isFirstLoad = false;
+          }, 50);
+        }
       }
     );
   }
 
   // Initial background setup
-  updateBackgroundImage();
+  setupBackgroundImage();
 
-  // Handler function for resize events
+  // Use requestAnimationFrame for smoother resize handling
+  let ticking = false;
+  let lastWidth = window.innerWidth;
+  let lastHeight = window.innerHeight;
+
+  // Handler function for resize events using requestAnimationFrame
   const handleResize = function () {
+    // Only update if dimensions actually changed
+    if (lastWidth !== window.innerWidth || lastHeight !== window.innerHeight) {
+      lastWidth = window.innerWidth;
+      lastHeight = window.innerHeight;
+
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          // Don't recreate the background, just update its transform
+          if (bgElement) {
+            setupBackgroundImage();
+          }
+          ticking = false;
+        });
+        ticking = true;
+      }
+    }
+  };
+
+  // Debounced complete refresh for major size changes
+  let resizeTimer;
+  const debouncedResize = function () {
     clearTimeout(resizeTimer);
-    resizeTimer = setTimeout(updateBackgroundImage, 200);
+    resizeTimer = setTimeout(() => {
+      // For major size changes, we might want to fully refresh
+      // but we'll keep the same element for continuity
+      if (bgElement) {
+        isTransitioning = true;
+        // Apply a subtle transform during resize for a smoother effect
+        bgElement.style.transform = "scale(1)";
+        bgElement.style.filter = "blur(0)";
+        isTransitioning = false;
+      }
+    }, 300);
   };
 
   // Handler for orientation change
   const handleOrientationChange = function () {
-    updateBackgroundImage();
+    if (bgElement) {
+      // Apply a more dramatic effect for orientation changes
+      isTransitioning = true;
+      bgElement.style.opacity = "0.8";
+      bgElement.style.filter = "blur(5px)";
+
+      setTimeout(() => {
+        bgElement.style.opacity = "1";
+        bgElement.style.filter = "blur(0)";
+        isTransitioning = false;
+      }, 500);
+    }
   };
 
-  // Update background on resize, but use debounce to prevent too many updates
-  let resizeTimer;
-  window.addEventListener("resize", handleResize);
+  // Update background on resize using both methods for optimal smoothness
+  window.addEventListener("resize", handleResize, { passive: true });
+  window.addEventListener("resize", debouncedResize, { passive: true });
 
   // Update background when device orientation changes
   window.addEventListener("orientationchange", handleOrientationChange);
@@ -445,6 +483,7 @@ function initSmoothBackgroundScaling() {
   // This prevents memory leaks
   const cleanup = function () {
     window.removeEventListener("resize", handleResize);
+    window.removeEventListener("resize", debouncedResize);
     window.removeEventListener("orientationchange", handleOrientationChange);
   };
 
