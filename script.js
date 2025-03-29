@@ -200,14 +200,20 @@ function initPageTransitions() {
             (window.matchMedia &&
               window.matchMedia("(max-width: 768px)").matches);
 
-          // Add glitch effects immediately - no delay
-          if (isMobile) {
+          // Check if reduced effects mode is enabled
+          const reducedEffects = window.reducedEffects === true;
+
+          // Add glitch effects immediately - no delay, but respect reduced effects setting
+          if (reducedEffects) {
+            // Minimal effects for reduced mode
+            document.body.style.filter = "contrast(1.1)";
+          } else if (isMobile) {
             // Simpler effect for mobile
             document.body.style.filter = "contrast(1.2)";
           } else {
             document.body.style.filter = "hue-rotate(90deg) contrast(1.5)";
 
-            // Add random screen shake for desktop
+            // Add random screen shake for desktop (only if not in reduced mode)
             const shakeIntensity = 5; // pixels
             const shakeInterval = setInterval(() => {
               const randomX =
@@ -217,7 +223,7 @@ function initPageTransitions() {
               document.body.style.transform = `translate(${randomX}px, ${randomY}px)`;
             }, 50);
 
-            // Add random flicker effect
+            // Add random flicker effect (only if not in reduced mode)
             const flickerInterval = setInterval(() => {
               if (Math.random() > 0.8) {
                 transition.style.opacity = Math.random() * 0.4 + 0.6;
@@ -227,8 +233,8 @@ function initPageTransitions() {
             }, 100);
           }
 
-          // Navigate after a delay - shorter on mobile for better UX
-          const navigationDelay = isMobile ? 600 : 800;
+          // Navigate after a delay - adjust based on device and effects mode
+          const navigationDelay = reducedEffects ? 500 : isMobile ? 600 : 800;
 
           // Clear intervals when navigation happens (if they exist)
           if (

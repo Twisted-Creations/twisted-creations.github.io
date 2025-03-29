@@ -36,7 +36,7 @@
   -webkit-animation: none !important;
 }
 
-/* Add noise texture for more horror feel */
+/* Add noise texture for transition effect */
 .page-transition::before {
   content: "";
   position: absolute;
