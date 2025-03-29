@@ -48,15 +48,48 @@ function initPageTransitions() {
       transitionContainer.appendChild(slice);
     }
 
-    // Create glitch text
+    // Create a container for the glitch text to ensure proper centering
+    // Using flexbox for perfect centering
+    const textContainer = document.createElement("div");
+    textContainer.className = "glitch-text-container";
+
+    // Create a wrapper for the glitch text to ensure it stays centered
+    const textWrapper = document.createElement("div");
+    textWrapper.style.textAlign = "center";
+    textWrapper.style.width = "100%";
+
+    // Create glitch text with enhanced effect
     const glitchText = document.createElement("div");
     glitchText.className = "glitch-text";
     glitchText.textContent = "LOADING";
-    transitionContainer.appendChild(glitchText);
+    // Set data-text attribute for pseudo-element content
+    glitchText.setAttribute("data-text", "LOADING");
+
+    // Add text to wrapper, wrapper to container, then container to transition
+    textWrapper.appendChild(glitchText);
+    textContainer.appendChild(textWrapper);
+    transitionContainer.appendChild(textContainer);
+
+    // Force an update of the transition size
+    setTimeout(() => {
+      updateTransitionSize();
+    }, 0);
 
     // Add to document
     document.body.appendChild(transitionContainer);
   }
+
+  // Ensure the transition container is properly sized for the viewport
+  function updateTransitionSize() {
+    const transition = document.querySelector(".page-transition");
+    if (transition) {
+      transition.style.width = window.innerWidth + "px";
+      transition.style.height = window.innerHeight + "px";
+    }
+  }
+
+  // Update on resize
+  window.addEventListener("resize", updateTransitionSize);
 
   // Get all internal links - more comprehensive selector for mobile compatibility
   const internalLinks = document.querySelectorAll(
@@ -104,40 +137,109 @@ function initPageTransitions() {
           const glitchTexts = [
             "LOADING",
             "ERROR",
-            "CORRUPTED",
+            "BETRAYED",
             "FEAR",
             "DARKNESS",
             "TWISTED",
-            "NIGHTMARE",
-            "GLITCH",
+            "HELP US",
+            "ABANDONED",
             "VOID",
             "UNKNOWN",
+            "HAUNTED",
+            "CURSED",
+            "DEMONIC",
+            "TERROR",
+            "INFECTED",
+            "DOOMED",
+            "MALICE",
+            "TORMENT",
+            "RUN",
+            "TRAPPED",
+            "WATCHING",
           ];
           const randomText =
             glitchTexts[Math.floor(Math.random() * glitchTexts.length)];
-          document.querySelector(".glitch-text").textContent = randomText;
+          const glitchTextElement = document.querySelector(".glitch-text");
+          if (glitchTextElement) {
+            glitchTextElement.textContent = randomText;
+            glitchTextElement.setAttribute("data-text", randomText);
+          }
 
           // Prevent scrolling during transition
           document.body.style.overflow = "hidden";
 
+          // Force a browser reflow to ensure all styles are applied immediately
+          void transition.offsetWidth;
+
           // Show the transition
           transition.classList.add("active");
 
-          // Determine if we're on mobile
-          const isMobile = window.innerWidth <= 768;
+          // Force immediate update of glitch text styles - reuse the existing element
+          if (glitchTextElement) {
+            // Force a style recalculation
+            void glitchTextElement.offsetHeight;
 
-          // Add some extra glitchy behavior - simplified on mobile
-          setTimeout(() => {
-            if (isMobile) {
-              // Simpler effect for mobile
-              document.body.style.filter = "contrast(1.2)";
-            } else {
-              document.body.style.filter = "hue-rotate(90deg) contrast(1.5)";
+            // Apply a tiny transform to trigger hardware acceleration
+            // But don't override any important transform properties
+            if (!glitchTextElement.style.transform.includes("!important")) {
+              glitchTextElement.style.transform = "translateZ(0)";
             }
-          }, 300);
+
+            // Force animation to restart
+            glitchTextElement.style.animationName = "none";
+            void glitchTextElement.offsetHeight;
+            glitchTextElement.style.animationName = "";
+          }
+
+          // Determine if we're on mobile - more comprehensive check
+          const isMobile =
+            window.innerWidth <= 768 ||
+            /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+              navigator.userAgent
+            ) ||
+            (window.matchMedia &&
+              window.matchMedia("(max-width: 768px)").matches);
+
+          // Add glitch effects immediately - no delay
+          if (isMobile) {
+            // Simpler effect for mobile
+            document.body.style.filter = "contrast(1.2)";
+          } else {
+            document.body.style.filter = "hue-rotate(90deg) contrast(1.5)";
+
+            // Add random screen shake for desktop
+            const shakeIntensity = 5; // pixels
+            const shakeInterval = setInterval(() => {
+              const randomX =
+                Math.floor(Math.random() * shakeIntensity) - shakeIntensity / 2;
+              const randomY =
+                Math.floor(Math.random() * shakeIntensity) - shakeIntensity / 2;
+              document.body.style.transform = `translate(${randomX}px, ${randomY}px)`;
+            }, 50);
+
+            // Add random flicker effect
+            const flickerInterval = setInterval(() => {
+              if (Math.random() > 0.8) {
+                transition.style.opacity = Math.random() * 0.4 + 0.6;
+              } else {
+                transition.style.opacity = 1;
+              }
+            }, 100);
+          }
 
           // Navigate after a delay - shorter on mobile for better UX
           const navigationDelay = isMobile ? 600 : 800;
+
+          // Clear intervals when navigation happens (if they exist)
+          if (
+            typeof shakeInterval !== "undefined" &&
+            typeof flickerInterval !== "undefined"
+          ) {
+            setTimeout(() => {
+              clearInterval(shakeInterval);
+              clearInterval(flickerInterval);
+            }, navigationDelay - 100);
+          }
           setTimeout(() => {
             window.location.href = href;
           }, navigationDelay);
@@ -439,9 +541,9 @@ function initSmoothBackgroundScaling() {
           bgElement.style.backgroundSize = "cover";
           bgElement.style.backgroundPosition = "center center";
 
-          // Use a very slow transition for transform to make it imperceptible
+          // Use an extremely slow transition for transform to make it imperceptible
           bgElement.style.transition =
-            "opacity 0.5s ease-in-out, transform 1.5s cubic-bezier(0.1, 0.9, 0.2, 1)";
+            "opacity 0.5s ease-in-out, transform 8s cubic-bezier(0.1, 0.1, 0.25, 1)";
 
           // Add to container
           bgContainer.appendChild(bgElement);
@@ -528,9 +630,12 @@ function initSmoothBackgroundScaling() {
     };
   }
 
-  // Ultra-smooth resize handler with minimal visual changes
+  // Ultra-smooth resize handler with imperceptible visual changes
   const handleResize = throttle(function () {
     if (!bgElement || isFirstLoad) return;
+
+    // Don't start a new resize operation if one is already in progress
+    if (isResizing) return;
 
     // Mark that we're in a resize operation
     isResizing = true;
@@ -538,15 +643,20 @@ function initSmoothBackgroundScaling() {
     // Calculate the optimal scale to cover the viewport
     const scale = calculateOptimalScale();
 
-    // Apply the scale transformation very subtly
-    bgElement.style.transform = `scale(${scale})`;
+    // Only apply significant changes to avoid tiny adjustments
+    // This prevents constant micro-animations
+    if (Math.abs(scale - 1) > 0.02) {
+      // Apply the scale transformation extremely subtly
+      bgElement.style.transform = `scale(${scale})`;
+    }
 
     // Clear any existing timeout
     if (resizeTimeout) {
       clearTimeout(resizeTimeout);
     }
 
-    // Set a timeout to mark the end of resizing
+    // Set a much longer timeout to mark the end of resizing
+    // This ensures we don't reset too quickly, allowing for a very gradual transition
     resizeTimeout = setTimeout(() => {
       isResizing = false;
 
@@ -556,10 +666,10 @@ function initSmoothBackgroundScaling() {
       initialHeight = window.innerHeight;
 
       // Reset the transform to identity after we've updated our reference dimensions
-      // The transition will make this imperceptible
+      // The very slow transition will make this completely imperceptible
       bgElement.style.transform = "scale(1)";
-    }, 200);
-  }, 16); // Throttle to roughly 60fps
+    }, 1000); // Wait a full second after resize stops before resetting
+  }, 100); // Throttle more aggressively to reduce update frequency
 
   // Handle orientation changes specially
   const handleOrientationChange = function () {
