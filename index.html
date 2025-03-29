@@ -3,9 +3,10 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#1a1a1a" />
-    <meta http-equiv="refresh" content="0;url=Pages/index.html" />
-    <title>Redirecting to Twisted Creations Homepage</title>
+    <meta name="theme-color" content="#0a0a0f" />
+    <!-- Increased delay to 6 seconds to allow users to see the animations -->
+    <meta http-equiv="refresh" content="6;url=Pages/index.html" />
+    <title>Twisted Creations | Enter the Nightmare</title>
     <link rel="stylesheet" href="style.css" />
     <!-- Preload critical assets -->
     <link
@@ -14,18 +15,65 @@
       as="image"
       type="image/png"
     />
-    <link rel="preload" href="script.js" as="script" />
+    <style>
+      /* Splash page specific body styles */
+      body {
+        margin: 0;
+        padding: 0;
+        background-color: var(--color-dark);
+        color: var(--color-text);
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        overflow: hidden;
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+    </style>
   </head>
   <body>
-    <div class="content-container">
-      <div class="content-box">
-        <h1>Redirecting to Twisted Creations Homepage</h1>
-        <p>
-          If you are not redirected automatically,
-          <a href="Pages/index.html">click here</a>.
-        </p>
+    <div class="splash-container">
+      <div class="splash-background"></div>
+      <div class="vignette"></div>
+      <div class="glitch-effect"></div>
+
+      <div class="splash-logo">
+        <h1>TWISTED CREATIONS</h1>
+      </div>
+
+      <div class="splash-tagline">Enter the Nightmare</div>
+
+      <div class="loading-bar-container">
+        <div class="loading-bar"></div>
+      </div>
+
+      <div class="redirect-message">
+        Redirecting to main site...
+        <a href="Pages/index.html" class="redirect-link">Enter Now</a>
       </div>
     </div>
-    <script src="script.js"></script>
+
+    <script>
+      // Add subtle glitch effect randomly
+      function randomGlitch() {
+        const logo = document.querySelector(".splash-logo h1");
+        const glitchDuration = Math.random() * 100 + 50;
+        const glitchDelay = Math.random() * 5000 + 2000;
+
+        setTimeout(() => {
+          logo.style.textShadow = "2px 0 #ff00ea, -2px 0 #00eaff";
+          logo.style.transform = "skew(1deg)";
+
+          setTimeout(() => {
+            logo.style.textShadow = "0 0 15px rgba(26, 39, 179, 0.7)";
+            logo.style.transform = "skew(0)";
+            randomGlitch();
+          }, glitchDuration);
+        }, glitchDelay);
+      }
+
+      // Start the glitch effect after initial animation
+      setTimeout(randomGlitch, 2000);
+    </script>
   </body>
 </html>

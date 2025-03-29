@@ -7,12 +7,146 @@ document.addEventListener("DOMContentLoaded", function () {
   initDevlogFilter();
   addCurrentYearToFooter();
   initSmoothBackgroundScaling();
+  initPageTransitions();
 
   // Show content after a short delay to ensure background is loaded
   setTimeout(() => {
     document.body.classList.add("content-loaded");
   }, 100);
 });
+
+/**
+ * Page Transition Glitch Effect
+ * Creates a horror-themed glitch effect when navigating between pages
+ */
+function initPageTransitions() {
+  // Create the transition elements if they don't exist
+  if (!document.querySelector(".page-transition")) {
+    // Create main container
+    const transitionContainer = document.createElement("div");
+    transitionContainer.className = "page-transition";
+
+    // Create overlay
+    const overlay = document.createElement("div");
+    overlay.className = "glitch-overlay";
+    transitionContainer.appendChild(overlay);
+
+    // Create scanlines
+    const scanlines = document.createElement("div");
+    scanlines.className = "glitch-scanlines";
+    transitionContainer.appendChild(scanlines);
+
+    // Create RGB shift layer
+    const rgbLayer = document.createElement("div");
+    rgbLayer.className = "glitch-rgb";
+    transitionContainer.appendChild(rgbLayer);
+
+    // Create horizontal glitch slices
+    for (let i = 0; i < 3; i++) {
+      const slice = document.createElement("div");
+      slice.className = "glitch-slice";
+      transitionContainer.appendChild(slice);
+    }
+
+    // Create glitch text
+    const glitchText = document.createElement("div");
+    glitchText.className = "glitch-text";
+    glitchText.textContent = "LOADING";
+    transitionContainer.appendChild(glitchText);
+
+    // Add to document
+    document.body.appendChild(transitionContainer);
+  }
+
+  // Get all internal links - more comprehensive selector for mobile compatibility
+  const internalLinks = document.querySelectorAll(
+    'a[href^="./"], a[href^="/"], a[href^="../"], a[href^="Pages/"], a[href^="index.html"], a:not([href^="http"]):not([href^="mailto"]):not([href^="tel"]):not([href^="javascript"]):not([href^="#"])'
+  );
+
+  // Add click event listeners to all internal links
+  internalLinks.forEach((link) => {
+    // Skip links that open in new tabs or have already been processed
+    if (
+      link.getAttribute("target") === "_blank" ||
+      link.hasAttribute("data-transition-processed")
+    ) {
+      return;
+    }
+
+    // Mark as processed to avoid duplicate listeners
+    link.setAttribute("data-transition-processed", "true");
+
+    // Use both click and touchend events for better mobile support
+    ["click", "touchend"].forEach((eventType) => {
+      link.addEventListener(
+        eventType,
+        function (e) {
+          // Don't handle if modifier keys are pressed (user might want to open in new tab)
+          if (e.ctrlKey || e.metaKey || e.shiftKey) {
+            return;
+          }
+
+          const href = this.getAttribute("href");
+
+          // Don't handle if href is missing or hash links (same-page navigation)
+          if (!href || href.startsWith("#")) {
+            return;
+          }
+
+          // Prevent default navigation and stop propagation
+          e.preventDefault();
+          e.stopPropagation();
+
+          // Get the transition element
+          const transition = document.querySelector(".page-transition");
+
+          // Generate random glitch text from a horror-themed array
+          const glitchTexts = [
+            "LOADING",
+            "ERROR",
+            "CORRUPTED",
+            "FEAR",
+            "DARKNESS",
+            "TWISTED",
+            "NIGHTMARE",
+            "GLITCH",
+            "VOID",
+            "UNKNOWN",
+          ];
+          const randomText =
+            glitchTexts[Math.floor(Math.random() * glitchTexts.length)];
+          document.querySelector(".glitch-text").textContent = randomText;
+
+          // Prevent scrolling during transition
+          document.body.style.overflow = "hidden";
+
+          // Show the transition
+          transition.classList.add("active");
+
+          // Determine if we're on mobile
+          const isMobile = window.innerWidth <= 768;
+
+          // Add some extra glitchy behavior - simplified on mobile
+          setTimeout(() => {
+            if (isMobile) {
+              // Simpler effect for mobile
+              document.body.style.filter = "contrast(1.2)";
+            } else {
+              document.body.style.filter = "hue-rotate(90deg) contrast(1.5)";
+            }
+          }, 300);
+
+          // Navigate after a delay - shorter on mobile for better UX
+          const navigationDelay = isMobile ? 600 : 800;
+          setTimeout(() => {
+            window.location.href = href;
+          }, navigationDelay);
+        },
+        { passive: false }
+      ); // Important for mobile touch events
+    });
+  });
+}
 
 /**
  * Mobile Navigation Menu Toggle
@@ -199,8 +333,8 @@ function initDevlogFilter() {
 }
 
 /**
- * Smooth Background Image Scaling
- * Provides a smoother experience when resizing the background image
+ * Ultra-Smooth Background Image Scaling
+ * Provides an almost imperceptible background resizing experience
  */
 function initSmoothBackgroundScaling() {
   // Determine the correct background image path based on current page location
@@ -244,45 +378,6 @@ function initSmoothBackgroundScaling() {
   // Insert the background container as the first child of the body
   document.body.insertBefore(bgContainer, document.body.firstChild);
 
-  // Function to determine optimal image size based on screen dimensions and device capabilities
-  function getOptimalImageSize() {
-    const width = window.innerWidth;
-    const height = window.innerHeight;
-    const pixelRatio = window.devicePixelRatio || 1;
-
-    // Check if the device is likely a low-power device
-    const isLowPowerDevice = () => {
-      // Check for low-end device indicators
-      const isLowEnd =
-        // Low memory (if available in browser)
-        (navigator.deviceMemory && navigator.deviceMemory < 4) ||
-        // Low number of logical processors
-        (navigator.hardwareConcurrency && navigator.hardwareConcurrency < 4) ||
-        // Mobile device
-        /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
-          navigator.userAgent
-        );
-
-      return isLowEnd;
-    };
-
-    // Scaling factor based on device capabilities
-    let scaleFactor = 1.2; // Default scaling factor
-
-    // Reduce quality for low-power devices
-    if (isLowPowerDevice()) {
-      scaleFactor = 1.0; // Lower scaling factor for low-power devices
-    }
-
-    // Calculate optimal size based on device capabilities
-    // We'll use a slightly larger image than needed to prevent pixelation
-    // but not too large to avoid performance issues
-    const optimalWidth = Math.ceil(width * pixelRatio * scaleFactor);
-    const optimalHeight = Math.ceil(height * pixelRatio * scaleFactor);
-
-    return { width: optimalWidth, height: optimalHeight };
-  }
-
   // Preload the background image with error handling
   function preloadImage(src, onSuccess, onError) {
     const img = new Image();
@@ -312,7 +407,12 @@ function initSmoothBackgroundScaling() {
   // Create a single persistent background element that we'll transform
   let bgElement = null;
   let isFirstLoad = true;
-  let isTransitioning = false;
+
+  // Track resize state
+  let resizeTimeout = null;
+  let isResizing = false;
+  let initialWidth = window.innerWidth;
+  let initialHeight = window.innerHeight;
 
   // Function to create or update the background image
   function setupBackgroundImage() {
@@ -338,11 +438,10 @@ function initSmoothBackgroundScaling() {
           bgElement.style.backgroundImage = `url(${bgImagePath})`;
           bgElement.style.backgroundSize = "cover";
           bgElement.style.backgroundPosition = "center center";
-          bgElement.style.transition =
-            "opacity 0.5s ease-in-out, transform 0.3s ease-out, filter 0.5s ease-in-out";
 
-          // Add blur filter initially for smoother appearance
-          bgElement.style.filter = "blur(5px)";
+          // Use a very slow transition for transform to make it imperceptible
+          bgElement.style.transition =
+            "opacity 0.5s ease-in-out, transform 1.5s cubic-bezier(0.1, 0.9, 0.2, 1)";
 
           // Add to container
           bgContainer.appendChild(bgElement);
@@ -356,25 +455,9 @@ function initSmoothBackgroundScaling() {
 
           // Force browser to process the new element before transition
           setTimeout(() => {
-            // Remove blur and fade in background
-            bgElement.style.filter = "blur(0)";
             bgElement.style.opacity = "1";
             isFirstLoad = false;
           }, 50);
-        } else {
-          // Just update the existing background - no need to recreate it
-          // This is what makes the scaling smooth
-          if (!isTransitioning) {
-            // Apply a subtle transform during resize for a smoother effect
-            bgElement.style.transform = "scale(1.02)";
-            bgElement.style.filter = "blur(2px)";
-
-            // Reset transform after a short delay
-            setTimeout(() => {
-              bgElement.style.transform = "scale(1)";
-              bgElement.style.filter = "blur(0)";
-            }, 300);
-          }
         }
       },
       // Error callback - use a solid color fallback if image fails to load
@@ -414,76 +497,94 @@ function initSmoothBackgroundScaling() {
   // Initial background setup
   setupBackgroundImage();
 
-  // Use requestAnimationFrame for smoother resize handling
-  let ticking = false;
-  let lastWidth = window.innerWidth;
-  let lastHeight = window.innerHeight;
+  // Calculate the scale factor needed to ensure the background covers the viewport
+  function calculateOptimalScale() {
+    if (!bgElement) return 1;
 
-  // Handler function for resize events using requestAnimationFrame
-  const handleResize = function () {
-    // Only update if dimensions actually changed
-    if (lastWidth !== window.innerWidth || lastHeight !== window.innerHeight) {
-      lastWidth = window.innerWidth;
-      lastHeight = window.innerHeight;
+    // Get current viewport dimensions
+    const viewportWidth = window.innerWidth;
+    const viewportHeight = window.innerHeight;
 
-      if (!ticking) {
-        window.requestAnimationFrame(() => {
-          // Don't recreate the background, just update its transform
-          if (bgElement) {
-            setupBackgroundImage();
-          }
-          ticking = false;
-        });
-        ticking = true;
+    // Calculate the ratio of current size to initial size
+    const widthRatio = viewportWidth / initialWidth;
+    const heightRatio = viewportHeight / initialHeight;
+
+    // Use the larger ratio to ensure the image always covers the viewport
+    // Add a small buffer (1.01) to prevent any potential gaps
+    return Math.max(widthRatio, heightRatio) * 1.01;
+  }
+
+  // Throttle function to limit how often a function can be called
+  function throttle(callback, limit) {
+    let waiting = false;
+    return function () {
+      if (!waiting) {
+        callback.apply(this, arguments);
+        waiting = true;
+        setTimeout(function () {
+          waiting = false;
+        }, limit);
       }
+    };
+  }
+
+  // Ultra-smooth resize handler with minimal visual changes
+  const handleResize = throttle(function () {
+    if (!bgElement || isFirstLoad) return;
+
+    // Mark that we're in a resize operation
+    isResizing = true;
+
+    // Calculate the optimal scale to cover the viewport
+    const scale = calculateOptimalScale();
+
+    // Apply the scale transformation very subtly
+    bgElement.style.transform = `scale(${scale})`;
+
+    // Clear any existing timeout
+    if (resizeTimeout) {
+      clearTimeout(resizeTimeout);
     }
-  };
 
-  // Debounced complete refresh for major size changes
-  let resizeTimer;
-  const debouncedResize = function () {
-    clearTimeout(resizeTimer);
-    resizeTimer = setTimeout(() => {
-      // For major size changes, we might want to fully refresh
-      // but we'll keep the same element for continuity
-      if (bgElement) {
-        isTransitioning = true;
-        // Apply a subtle transform during resize for a smoother effect
-        bgElement.style.transform = "scale(1)";
-        bgElement.style.filter = "blur(0)";
-        isTransitioning = false;
-      }
+    // Set a timeout to mark the end of resizing
+    resizeTimeout = setTimeout(() => {
+      isResizing = false;
+
+      // Update the initial dimensions to the new viewport size
+      // This helps prevent cumulative scaling issues
+      initialWidth = window.innerWidth;
+      initialHeight = window.innerHeight;
+
+      // Reset the transform to identity after we've updated our reference dimensions
+      // The transition will make this imperceptible
+      bgElement.style.transform = "scale(1)";
+    }, 200);
+  }, 16); // Throttle to roughly 60fps
+
+  // Handle orientation changes specially
+  const handleOrientationChange = function () {
+    if (!bgElement) return;
+
+    // For orientation changes, we want to reset our reference dimensions immediately
+    initialWidth = window.innerWidth;
+    initialHeight = window.innerHeight;
+
+    // Apply a very subtle fade effect
+    bgElement.style.opacity = "0.95";
+
+    // Restore full opacity after the orientation change is complete
+    setTimeout(() => {
+      bgElement.style.opacity = "1";
     }, 300);
   };
 
-  // Handler for orientation change
-  const handleOrientationChange = function () {
-    if (bgElement) {
-      // Apply a more dramatic effect for orientation changes
-      isTransitioning = true;
-      bgElement.style.opacity = "0.8";
-      bgElement.style.filter = "blur(5px)";
-
-      setTimeout(() => {
-        bgElement.style.opacity = "1";
-        bgElement.style.filter = "blur(0)";
-        isTransitioning = false;
-      }, 500);
-    }
-  };
-
-  // Update background on resize using both methods for optimal smoothness
+  // Add event listeners
   window.addEventListener("resize", handleResize, { passive: true });
-  window.addEventListener("resize", debouncedResize, { passive: true });
-
-  // Update background when device orientation changes
   window.addEventListener("orientationchange", handleOrientationChange);
 
   // Clean up function to remove event listeners when page unloads
-  // This prevents memory leaks
   const cleanup = function () {
     window.removeEventListener("resize", handleResize);
-    window.removeEventListener("resize", debouncedResize);
     window.removeEventListener("orientationchange", handleOrientationChange);
   };
 
