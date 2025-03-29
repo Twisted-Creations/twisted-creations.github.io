@@ -14,33 +14,18 @@
     const reducedEffectsStyle = document.createElement("style");
     reducedEffectsStyle.textContent = `
       /* Reduced effects mode - applied site-wide */
-      .reduced-effects .glitch-effect,
-      .reduced-effects .tracking-lines {
-        opacity: 0.15 !important; /* Reduce scanline intensity */
-      }
-      
       .reduced-effects .page-transition {
         transition: opacity 0.5s ease !important; /* Smoother transitions */
       }
-      
+
       /* Reduce animation intensities */
-      .reduced-effects .glitch-text {
-        animation-duration: 0.8s !important; /* Slower glitch animations */
+      .reduced-effects img {
+        transition: transform 0.3s ease !important;
       }
-      
-      /* Disable screen shake */
-      .reduced-effects .glitch-slice {
-        animation: none !important;
-      }
-      
-      /* Reduce flashing effects */
-      .reduced-effects .flicker-overlay {
-        opacity: 0.05 !important;
-      }
-      
-      /* Reduce color intensity */
-      .reduced-effects .glitch-rgb {
-        opacity: 0.5 !important;
+
+      /* Reduce hover effects */
+      .reduced-effects .content-box:hover {
+        transform: translateY(-3px) !important;
       }
     `;
     document.head.appendChild(reducedEffectsStyle);
@@ -53,25 +38,33 @@
   toggleContainer.style.bottom = "10px";
   toggleContainer.style.right = "10px";
   toggleContainer.style.zIndex = "9999";
-  toggleContainer.style.backgroundColor = "rgba(0, 0, 0, 0.7)";
-  toggleContainer.style.padding = "5px 10px";
+  toggleContainer.style.backgroundColor = "rgba(26, 39, 179, 0.8)";
+  toggleContainer.style.padding = "8px 12px";
   toggleContainer.style.borderRadius = "4px";
-  toggleContainer.style.fontSize = "12px";
+  toggleContainer.style.fontSize = "14px";
   toggleContainer.style.color = "#fff";
   toggleContainer.style.cursor = "pointer";
-  toggleContainer.style.transition = "opacity 0.3s ease";
-  toggleContainer.style.opacity = "0.5";
+  toggleContainer.style.transition = "all 0.3s ease";
+  toggleContainer.style.opacity = "0.7";
+  toggleContainer.style.boxShadow = "0 2px 8px rgba(0, 0, 0, 0.3)";
+  toggleContainer.style.border = "1px solid rgba(255, 255, 255, 0.2)";
   toggleContainer.textContent = reducedEffects
     ? "Enable Full Effects"
     : "Enable Reduced Effects";
 
-  // Show fully on hover
+  // Show fully on hover with enhanced effects
   toggleContainer.addEventListener("mouseenter", () => {
     toggleContainer.style.opacity = "1";
+    toggleContainer.style.transform = "translateY(-2px)";
+    toggleContainer.style.boxShadow = "0 4px 12px rgba(0, 0, 0, 0.4)";
+    toggleContainer.style.backgroundColor = "rgba(26, 39, 179, 0.9)";
   });
 
   toggleContainer.addEventListener("mouseleave", () => {
-    toggleContainer.style.opacity = "0.5";
+    toggleContainer.style.opacity = "0.7";
+    toggleContainer.style.transform = "translateY(0)";
+    toggleContainer.style.boxShadow = "0 2px 8px rgba(0, 0, 0, 0.3)";
+    toggleContainer.style.backgroundColor = "rgba(26, 39, 179, 0.8)";
   });
 
   // Toggle effects when clicked

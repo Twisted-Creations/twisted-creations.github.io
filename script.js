@@ -16,8 +16,8 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 /**
- * Page Transition Glitch Effect
- * Creates a horror-themed glitch effect when navigating between pages
+ * Page Transition Effect
+ * Creates a smooth transition effect when navigating between pages
  */
 function initPageTransitions() {
   // Create the transition elements if they don't exist
@@ -133,29 +133,18 @@ function initPageTransitions() {
           // Get the transition element
           const transition = document.querySelector(".page-transition");
 
-          // Generate random glitch text from a horror-themed array
+          // Generate random loading text
           const glitchTexts = [
             "LOADING",
-            "ERROR",
-            "BETRAYED",
-            "FEAR",
-            "DARKNESS",
-            "TWISTED",
-            "HELP US",
-            "ABANDONED",
-            "VOID",
-            "UNKNOWN",
-            "HAUNTED",
-            "CURSED",
-            "DEMONIC",
-            "TERROR",
-            "INFECTED",
-            "DOOMED",
-            "MALICE",
-            "TORMENT",
-            "RUN",
-            "TRAPPED",
-            "WATCHING",
+            "PLEASE WAIT",
+            "REDIRECTING",
+            "NAVIGATING",
+            "PROCESSING",
+            "CONNECTING",
+            "PREPARING",
+            "LOADING PAGE",
+            "ALMOST THERE",
+            "ONE MOMENT",
           ];
           const randomText =
             glitchTexts[Math.floor(Math.random() * glitchTexts.length)];
@@ -203,49 +192,21 @@ function initPageTransitions() {
           // Check if reduced effects mode is enabled
           const reducedEffects = window.reducedEffects === true;
 
-          // Add glitch effects immediately - no delay, but respect reduced effects setting
+          // Add transition effects, respecting reduced effects setting
           if (reducedEffects) {
             // Minimal effects for reduced mode
-            document.body.style.filter = "contrast(1.1)";
+            document.body.style.filter = "brightness(0.95)";
           } else if (isMobile) {
             // Simpler effect for mobile
-            document.body.style.filter = "contrast(1.2)";
+            document.body.style.filter = "brightness(0.9)";
           } else {
-            document.body.style.filter = "hue-rotate(90deg) contrast(1.5)";
-
-            // Add random screen shake for desktop (only if not in reduced mode)
-            const shakeIntensity = 5; // pixels
-            const shakeInterval = setInterval(() => {
-              const randomX =
-                Math.floor(Math.random() * shakeIntensity) - shakeIntensity / 2;
-              const randomY =
-                Math.floor(Math.random() * shakeIntensity) - shakeIntensity / 2;
-              document.body.style.transform = `translate(${randomX}px, ${randomY}px)`;
-            }, 50);
-
-            // Add random flicker effect (only if not in reduced mode)
-            const flickerInterval = setInterval(() => {
-              if (Math.random() > 0.8) {
-                transition.style.opacity = Math.random() * 0.4 + 0.6;
-              } else {
-                transition.style.opacity = 1;
-              }
-            }, 100);
+            // Desktop effect
+            document.body.style.filter = "brightness(0.85)";
           }
 
           // Navigate after a delay - adjust based on device and effects mode
           const navigationDelay = reducedEffects ? 500 : isMobile ? 600 : 800;
 
-          // Clear intervals when navigation happens (if they exist)
-          if (
-            typeof shakeInterval !== "undefined" &&
-            typeof flickerInterval !== "undefined"
-          ) {
-            setTimeout(() => {
-              clearInterval(shakeInterval);
-              clearInterval(flickerInterval);
-            }, navigationDelay - 100);
-          }
           setTimeout(() => {
             window.location.href = href;
           }, navigationDelay);

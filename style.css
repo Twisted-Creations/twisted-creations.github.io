@@ -3,8 +3,8 @@
   /* Main color palette */
   --color-dark: #121218;
   --color-dark-accent: #1a1a24;
-  --color-primary: #000d83;
-  --color-primary-light: #0011b3;
+  --color-primary: #1a27b3;
+  --color-primary-light: #3a47d3;
   --color-secondary: #4a0072;
   --color-secondary-light: #6c13a3;
   --color-accent: #0066cc;
@@ -15,18 +15,9 @@
 
   /* UI element colors */
   --color-ui-bg: rgba(18, 18, 24, 0.8);
-  --color-ui-border: rgba(0, 13, 131, 0.5);
-  --color-ui-hover: rgba(0, 13, 131, 0.3);
-  --color-ui-active: rgba(0, 13, 131, 0.5);
-
-  /* Special effects */
-  --color-glitch: rgba(0, 13, 131, 0.2);
-  --color-scanline: rgba(255, 255, 255, 0.03);
-  --color-vignette: radial-gradient(
-    circle,
-    transparent 50%,
-    rgba(0, 0, 0, 0.7) 150%
-  );
+  --color-ui-border: rgba(26, 39, 179, 0.5);
+  --color-ui-hover: rgba(26, 39, 179, 0.3);
+  --color-ui-active: rgba(26, 39, 179, 0.5);
 
   /* Blur effects */
   --blur-sm: blur(4px);
@@ -37,14 +28,13 @@
   --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.5);
   --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.6);
   --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.7);
-  --shadow-glow: 0 0 15px rgba(0, 13, 131, 0.3); /* Blue glow */
-  --shadow-text: 0 0 5px rgba(0, 0, 0, 0.9); /* Text shadow */
+  --shadow-glow: 0 0 15px rgba(26, 39, 179, 0.3);
+  --shadow-text: 0 0 5px rgba(0, 0, 0, 0.9);
 
   /* Transitions */
   --transition-fast: 0.2s ease;
   --transition-normal: 0.3s ease;
   --transition-slow: 0.5s ease;
-  --transition-glitch: 0.1s linear; /* For glitch effects */
 
   /* Border radius */
   --radius-sm: 4px;
@@ -66,7 +56,7 @@ body {
 
 body {
   min-height: 100vh;
-  font-family: "Courier New", monospace;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   color: var(--color-text);
   line-height: 1.6;
   display: flex;
@@ -78,7 +68,6 @@ body {
   /* Prevent FOUC (Flash of Unstyled Content) */
   opacity: 0;
   transition: opacity 0.3s ease-in;
-  letter-spacing: 0.5px; /* Slightly spaced letters for better readability */
 }
 
 /* When JS loads, this class will be added to show content */
@@ -120,7 +109,7 @@ body.content-loaded {
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center center;
-  filter: contrast(1.05) brightness(1) saturate(1); /* Standard image processing */
+  filter: brightness(0.9); /* Subtle image processing */
   transition: opacity 0.5s ease-in-out,
     transform 8s cubic-bezier(0.1, 0.1, 0.25, 1); /* Extremely slow, gentle transition */
   will-change: transform; /* Optimize for transform animations */
@@ -166,7 +155,7 @@ h3,
 h4,
 p {
   color: var(--color-text);
-  font-family: "Courier New", monospace;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
 h1 {
@@ -177,8 +166,7 @@ h1 {
   position: relative;
   display: inline-block;
   text-transform: uppercase;
-  font-family: "Courier New", monospace;
-  text-shadow: 0 0 8px rgba(0, 13, 131, 0.3);
+  text-shadow: 0 0 8px rgba(26, 39, 179, 0.3);
 }
 
 h1::after {
@@ -194,40 +182,8 @@ h1::after {
     var(--color-primary),
     var(--color-secondary)
   );
-  border-radius: 0;
-  box-shadow: 0 0 10px rgba(0, 13, 131, 0.4);
-}
-
-/* Add a glitch effect to h1 on hover */
-h1:hover {
-  animation: textDistortion 2s infinite alternate-reverse;
-}
-
-@keyframes textDistortion {
-  0% {
-    transform: skew(0deg);
-    text-shadow: 0 0 8px rgba(0, 13, 131, 0.3);
-  }
-  20% {
-    transform: skew(0.5deg);
-    text-shadow: 2px 0 0 rgba(0, 13, 131, 0.5), -2px 0 0 rgba(74, 0, 114, 0.5);
-  }
-  40% {
-    transform: skew(-0.5deg);
-    text-shadow: 2px 0 0 rgba(0, 13, 131, 0.5), -2px 0 0 rgba(74, 0, 114, 0.5);
-  }
-  60% {
-    transform: skew(0.5deg);
-    text-shadow: 2px 0 0 rgba(0, 13, 131, 0.5), -2px 0 0 rgba(74, 0, 114, 0.5);
-  }
-  80% {
-    transform: skew(-0.5deg);
-    text-shadow: 2px 0 0 rgba(0, 13, 131, 0.5), -2px 0 0 rgba(74, 0, 114, 0.5);
-  }
-  100% {
-    transform: skew(0deg);
-    text-shadow: 0 0 8px rgba(0, 13, 131, 0.3);
-  }
+  border-radius: var(--radius-sm);
+  box-shadow: 0 0 10px rgba(26, 39, 179, 0.4);
 }
 
 h2 {
@@ -238,9 +194,9 @@ h2 {
   color: var(--color-primary);
   letter-spacing: 1px;
   text-transform: uppercase;
-  border-bottom: 1px solid rgba(0, 13, 131, 0.3);
+  border-bottom: 1px solid rgba(26, 39, 179, 0.3);
   padding-bottom: 5px;
-  text-shadow: 0 0 5px rgba(0, 13, 131, 0.2);
+  text-shadow: 0 0 5px rgba(26, 39, 179, 0.2);
 }
 
 h3 {
@@ -268,40 +224,27 @@ p {
 }
 
 strong {
-  color: var(--color-primary);
+  color: var(--color-primary-light);
   font-weight: 600;
 }
 
 em {
-  color: var(--color-secondary);
+  color: var(--color-secondary-light);
   font-style: italic;
 }
 
 /* Layout components */
-/* Header container with consistent sizing */
+/* Header container */
 .header-container {
   background-color: var(--color-ui-bg);
   border-radius: var(--radius-md);
   border: 1px solid var(--color-ui-border);
-  padding: 20px;
+  padding: 15px;
   margin: 10px auto;
-  width: 95% !important; /* Force consistent width with !important */
-  max-width: 1400px !important; /* Force consistent max-width with !important */
+  width: 90%;
+  max-width: 1200px;
   text-align: center;
   box-shadow: var(--shadow-md);
-  position: relative;
-  overflow: hidden;
-  box-sizing: border-box; /* Ensure padding is included in width calculation */
-  /* Prevent size changes during transitions */
-  transition: none !important;
-  /* Force GPU acceleration for smoother rendering */
-  transform: translateZ(0);
-  -webkit-transform: translateZ(0);
-  /* Ensure consistent rendering */
-  backface-visibility: hidden;
-  -webkit-backface-visibility: hidden;
-  /* Prevent any inherited size changes */
-  min-width: 95% !important;
 }
 
 .site-title {
@@ -318,39 +261,11 @@ em {
   color: transparent; /* Standard alternative to text-fill-color */
   letter-spacing: 2px;
   font-weight: 700;
-  text-shadow: 0 0 15px rgba(0, 13, 131, 0.5);
+  text-shadow: 0 0 15px rgba(26, 39, 179, 0.5);
   text-transform: uppercase;
-  font-family: "Courier New", monospace;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   position: relative;
   z-index: 2;
-}
-
-/* Add glitch effect to site title on hover */
-.site-title:hover {
-  animation: titleGlitch 3s infinite;
-}
-
-@keyframes titleGlitch {
-  0% {
-    transform: skew(0deg);
-    text-shadow: 0 0 15px rgba(0, 13, 131, 0.5);
-  }
-  1% {
-    transform: skew(0.5deg);
-    text-shadow: 2px 0 0 rgba(0, 13, 131, 0.7), -2px 0 0 rgba(74, 0, 114, 0.7);
-  }
-  2% {
-    transform: skew(-0.5deg);
-    text-shadow: -2px 0 0 rgba(0, 13, 131, 0.7), 2px 0 0 rgba(74, 0, 114, 0.7);
-  }
-  3% {
-    transform: skew(0deg);
-    text-shadow: 0 0 15px rgba(0, 13, 131, 0.5);
-  }
-  100% {
-    transform: skew(0deg);
-    text-shadow: 0 0 15px rgba(0, 13, 131, 0.5);
-  }
 }
 
 .nav-links {
@@ -413,24 +328,22 @@ em {
 }
 
 .nav-links a:hover {
-  background-color: rgba(0, 13, 131, 0.25);
+  background-color: rgba(26, 39, 179, 0.25);
   transform: translateY(-2px);
-  box-shadow: 0 0 10px rgba(0, 13, 131, 0.3);
-  text-shadow: 0 0 5px rgba(0, 13, 131, 0.5);
-  border-color: rgba(0, 13, 131, 0.5);
+  box-shadow: 0 0 10px rgba(26, 39, 179, 0.3);
+  text-shadow: 0 0 5px rgba(26, 39, 179, 0.5);
+  border-color: rgba(26, 39, 179, 0.5);
   backdrop-filter: var(--blur-sm);
   -webkit-backdrop-filter: var(--blur-sm);
-  /* Keep the glitch animation */
-  animation: navGlitch 2s infinite;
 }
 
 .nav-links a.active {
-  background-color: rgba(0, 13, 131, 0.4);
+  background-color: rgba(26, 39, 179, 0.4);
   font-weight: 600;
-  box-shadow: 0 0 10px rgba(0, 13, 131, 0.3),
-    inset 0 0 5px rgba(0, 13, 131, 0.2);
-  text-shadow: 0 0 5px rgba(0, 13, 131, 0.5);
-  border-color: rgba(0, 13, 131, 0.7);
+  box-shadow: 0 0 10px rgba(26, 39, 179, 0.3),
+    inset 0 0 5px rgba(26, 39, 179, 0.2);
+  text-shadow: 0 0 5px rgba(26, 39, 179, 0.5);
+  border-color: rgba(26, 39, 179, 0.7);
   backdrop-filter: var(--blur-sm);
   -webkit-backdrop-filter: var(--blur-sm);
 }
@@ -438,34 +351,6 @@ em {
 .nav-links a.active:before {
   width: 70%;
   background-color: var(--color-primary);
-}
-
-/* Add subtle glitch effect on hover */
-@keyframes navGlitch {
-  0% {
-    transform: translateY(-2px);
-    text-shadow: 0 0 5px rgba(0, 13, 131, 0.5);
-  }
-  1% {
-    transform: translateY(-2px) translateX(1px);
-    text-shadow: 1px 0 0 rgba(0, 13, 131, 0.7), -1px 0 0 rgba(26, 0, 51, 0.7);
-  }
-  2% {
-    transform: translateY(-2px) translateX(0);
-    text-shadow: 0 0 5px rgba(0, 13, 131, 0.5);
-  }
-  3% {
-    transform: translateY(-2px) translateX(-1px);
-    text-shadow: -1px 0 0 rgba(0, 13, 131, 0.7), 1px 0 0 rgba(26, 0, 51, 0.7);
-  }
-  4% {
-    transform: translateY(-2px);
-    text-shadow: 0 0 5px rgba(0, 13, 131, 0.5);
-  }
-  100% {
-    transform: translateY(-2px);
-    text-shadow: 0 0 5px rgba(0, 13, 131, 0.5);
-  }
 }
 
 .content-container {
@@ -510,42 +395,13 @@ em {
   transform: translateY(-5px);
   box-shadow: var(--shadow-lg);
   border-color: var(--color-primary-light);
-  background-color: rgba(0, 13, 131, 0.25);
+  background-color: rgba(26, 39, 179, 0.25);
   backdrop-filter: var(--blur-sm);
   -webkit-backdrop-filter: var(--blur-sm);
-  /* Add glitch animation on hover */
-  animation: contentGlitch 5s infinite;
 }
 
 .content-box:hover::before {
   opacity: 1;
-}
-
-/* Keep the subtle glitch effect on hover */
-@keyframes contentGlitch {
-  0% {
-    transform: translateY(-5px);
-    border-color: var(--color-primary-light);
-  }
-  0.5% {
-    transform: translateY(-5px) skew(0.3deg, 0deg);
-    border-color: var(--color-primary-light);
-    box-shadow: var(--shadow-lg), 0 0 15px rgba(0, 13, 131, 0.3);
-  }
-  1% {
-    transform: translateY(-5px) skew(-0.3deg, 0deg);
-    border-color: var(--color-primary-light);
-    box-shadow: var(--shadow-lg), 0 0 15px rgba(0, 0, 0, 0.4);
-  }
-  1.5% {
-    transform: translateY(-5px) skew(0deg, 0deg);
-    border-color: var(--color-primary-light);
-    box-shadow: var(--shadow-lg), 0 0 15px rgba(0, 13, 131, 0.3);
-  }
-  100% {
-    transform: translateY(-5px);
-    border-color: var(--color-primary-light);
-  }
 }
 
 .footer-container {
@@ -622,9 +478,7 @@ em {
 
 .team-list li:hover {
   transform: translateX(5px);
-  background-color: rgba(26, 39, 179, 0.35);
-  backdrop-filter: var(--blur-sm);
-  -webkit-backdrop-filter: var(--blur-sm);
+  background-color: rgba(26, 39, 179, 0.25);
   padding-left: 30px;
   padding-right: 5px;
 }
@@ -806,14 +660,73 @@ em {
 }
 
 /* Media queries for responsive design */
+/* Mobile menu button styles */
+.mobile-menu-btn {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 10px;
+  margin: 0;
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  z-index: 100;
+}
+
+.mobile-menu-btn span {
+  display: block;
+  width: 25px;
+  height: 3px;
+  margin-bottom: 5px;
+  position: relative;
+  background-color: var(--color-text);
+  border-radius: var(--radius-sm);
+  transform-origin: center;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.mobile-menu-btn span:last-child {
+  margin-bottom: 0;
+}
+
+.mobile-menu-btn.active span:nth-child(1) {
+  transform: translateY(8px) rotate(45deg);
+}
+
+.mobile-menu-btn.active span:nth-child(2) {
+  opacity: 0;
+}
+
+.mobile-menu-btn.active span:nth-child(3) {
+  transform: translateY(-8px) rotate(-45deg);
+}
+
 @media screen and (max-width: 768px) {
   .site-title {
     font-size: 1.8rem;
   }
 
+  .mobile-menu-btn {
+    display: block;
+  }
+
   .nav-links {
     flex-direction: column;
     gap: 10px;
+    display: none;
+    width: 100%;
+    padding: 10px;
+  }
+
+  .nav-links.show {
+    display: flex;
+  }
+
+  .nav-links a {
+    width: 100%;
+    text-align: center;
+    padding: 12px;
   }
 
   .content-box {
