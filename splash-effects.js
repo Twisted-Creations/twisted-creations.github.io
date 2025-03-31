@@ -6,6 +6,9 @@ document.addEventListener("DOMContentLoaded", function () {
     // Create transition container if it doesn't exist
     createTransitionContainer();
 
+    // Immediately pause any automatic redirect until user selects preferences
+    pauseRedirect();
+
     // Show warning first, then start effects after user acknowledgment
     showEffectsWarning();
 
@@ -491,9 +494,6 @@ function triggerTransition(href) {
 
 // Show warning about intense visual effects
 function showEffectsWarning() {
-    // Immediately pause any automatic redirect
-    pauseRedirect();
-
     // Check if user has already acknowledged the warning
     const warningAcknowledged = localStorage.getItem(
         "effectsWarningAcknowledged"
@@ -520,6 +520,8 @@ function showEffectsWarning() {
     warningOverlay.style.justifyContent = "center";
     warningOverlay.style.padding = "20px";
     warningOverlay.style.textAlign = "center";
+    warningOverlay.style.backgroundColor = "rgba(10, 10, 15, 0.95)";
+    warningOverlay.style.zIndex = "9999";
 
     // Add scanlines to the warning overlay
     const scanlines = document.createElement("div");
@@ -541,11 +543,22 @@ function showEffectsWarning() {
     warningContent.style.position = "relative";
     warningContent.style.zIndex = "2";
 
+    // Style the warning content
+    warningContent.style.backgroundColor = "rgba(0, 0, 0, 0.7)";
+    warningContent.style.padding = "30px";
+    warningContent.style.borderRadius = "8px";
+    warningContent.style.maxWidth = "600px";
+    warningContent.style.border = "1px solid rgba(255, 255, 255, 0.1)";
+    warningContent.style.boxShadow = "0 0 20px rgba(0, 0, 0, 0.5)";
+
     // Warning title with glitch effect
     const warningTitle = document.createElement("h2");
     warningTitle.className = "warning-title";
     warningTitle.innerHTML =
         "WARNING: <span style='color:#ff3333;'>INTENSE</span> VISUAL EFFECTS";
+    warningTitle.style.fontSize = "28px";
+    warningTitle.style.marginBottom = "20px";
+    warningTitle.style.letterSpacing = "1px";
     warningContent.appendChild(warningTitle);
 
     // Add a subtle glitch animation to the title
@@ -584,26 +597,47 @@ function showEffectsWarning() {
     warningText.className = "warning-text";
     warningText.innerHTML =
         "This site contains <span style='color:#ff3333;'>flashing lights</span>, <span style='color:#ff3333;'>screen shake effects</span>, and <span style='color:#ff3333;'>rapid color changes</span> that may potentially trigger seizures for people with photosensitive epilepsy.<br><br>These effects are part of the horror experience but can be adjusted to your comfort level.<br><br><span style='color:#aaaaaa;font-style:italic;'>Viewer discretion is advised.</span>";
+    warningText.style.fontSize = "16px";
+    warningText.style.lineHeight = "1.6";
+    warningText.style.marginBottom = "20px";
     warningContent.appendChild(warningText);
 
     // Buttons container
     const buttonsContainer = document.createElement("div");
     buttonsContainer.className = "warning-buttons";
 
+    // Style the buttons container
+    buttonsContainer.style.display = "flex";
+    buttonsContainer.style.gap = "20px";
+    buttonsContainer.style.marginTop = "30px";
+
     // Continue button
     const continueButton = document.createElement("button");
     continueButton.className = "continue-button";
     continueButton.textContent = "ENTER THE NIGHTMARE";
+
+    // Style the continue button
+    continueButton.style.padding = "12px 24px";
+    continueButton.style.backgroundColor = "rgba(26, 39, 179, 0.8)";
+    continueButton.style.color = "#ffffff";
+    continueButton.style.border = "1px solid rgba(108, 19, 163, 0.7)";
+    continueButton.style.borderRadius = "4px";
+    continueButton.style.fontSize = "16px";
+    continueButton.style.fontWeight = "bold";
+    continueButton.style.cursor = "pointer";
+    continueButton.style.transition = "all 0.3s ease";
 
     // Add a subtle hover effect
     continueButton.onmouseover = function () {
         this.style.transform = "translateY(-2px)";
         this.style.boxShadow =
             "0 0 15px rgba(108, 19, 163, 0.7), 0 0 30px rgba(26, 39, 179, 0.5)";
+        this.style.backgroundColor = "rgba(26, 39, 179, 1)";
     };
     continueButton.onmouseout = function () {
         this.style.transform = "";
         this.style.boxShadow = "";
+        this.style.backgroundColor = "rgba(26, 39, 179, 0.8)";
     };
 
     // Reduced effects button
@@ -611,14 +645,27 @@ function showEffectsWarning() {
     reducedButton.className = "reduced-button";
     reducedButton.textContent = "REDUCED EFFECTS";
 
+    // Style the reduced effects button
+    reducedButton.style.padding = "12px 24px";
+    reducedButton.style.backgroundColor = "rgba(60, 60, 70, 0.8)";
+    reducedButton.style.color = "#ffffff";
+    reducedButton.style.border = "1px solid rgba(255, 255, 255, 0.2)";
+    reducedButton.style.borderRadius = "4px";
+    reducedButton.style.fontSize = "16px";
+    reducedButton.style.fontWeight = "bold";
+    reducedButton.style.cursor = "pointer";
+    reducedButton.style.transition = "all 0.3s ease";
+
     // Add a subtle hover effect
     reducedButton.onmouseover = function () {
         this.style.transform = "translateY(-2px)";
         this.style.boxShadow = "0 0 10px rgba(255, 255, 255, 0.2)";
+        this.style.backgroundColor = "rgba(80, 80, 90, 0.9)";
     };
     reducedButton.onmouseout = function () {
         this.style.transform = "";
         this.style.boxShadow = "";
+        this.style.backgroundColor = "rgba(60, 60, 70, 0.8)";
     };
 
     // Add event listeners
@@ -681,10 +728,17 @@ function pauseRedirect() {
     // Pause any animations
     document.body.classList.add("effects-paused");
 
-    // Hide the loading bar
+    // Hide the loading bar animation
     const loadingBar = document.querySelector(".loading-bar");
     if (loadingBar) {
         loadingBar.style.animationPlayState = "paused";
+        loadingBar.style.width = "0%"; // Reset to beginning
+    }
+
+    // Hide the redirect message
+    const redirectMessage = document.querySelector(".redirect-message");
+    if (redirectMessage) {
+        redirectMessage.style.opacity = "0";
     }
 }
 
@@ -693,10 +747,31 @@ function resumeRedirect() {
     // Remove the paused class
     document.body.classList.remove("effects-paused");
 
-    // Resume the loading bar animation
+    // Get the loading bar element
     const loadingBar = document.querySelector(".loading-bar");
+
+    // Reset and restart the loading bar animation
     if (loadingBar) {
+        // Reset the loading bar to 0%
+        loadingBar.style.width = "0%";
+
+        // Set a fixed duration for the animation (9 seconds)
+        loadingBar.style.animationDuration = "9s";
+
+        // Force a reflow to restart the animation
+        void loadingBar.offsetWidth;
+
+        // Start the animation
         loadingBar.style.animationPlayState = "running";
+    }
+
+    // Make the redirect message visible
+    const redirectMessage = document.querySelector(".redirect-message");
+    if (redirectMessage) {
+        redirectMessage.style.opacity = "0";
+        setTimeout(() => {
+            redirectMessage.style.opacity = "1";
+        }, 6000); // Show message after 6 seconds (matches CSS animation timing)
     }
 
     // Set up a manual redirect with our transition effect
@@ -714,18 +789,9 @@ function resumeRedirect() {
             console.log("Redirecting to main page");
         }
 
-        // Start a new timer for the redirect (5 seconds)
-        setTimeout(() => {
-            // Trigger our transition effect with the URL
-            triggerTransition(url);
-        }, 5000);
-
-        // Update the loading bar duration to match our new timing
-        if (loadingBar) {
-            loadingBar.style.animationDuration = "5s";
-            // Force a reflow to restart the animation
-            void loadingBar.offsetWidth;
-        }
+        // We won't set an automatic redirect timer here
+        // Instead, we'll rely on the user clicking the "Enter Now" button
+        // or the manual transition setup in setupManualTransition()
     }
 }
 
@@ -737,12 +803,13 @@ function startEffects(reducedIntensity = false) {
     // Remove the paused class
     document.body.classList.remove("effects-paused");
 
-    // Start effects with a slight delay
+    // Start visual effects with a slight delay
     setTimeout(() => {
         randomGlitch();
         addTrackingLines();
         addScreenFlicker();
-        setupAutoTransition();
+
+        // Only set up transitions after preferences are selected
         setupManualTransition();
     }, 1000);
 }

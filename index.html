@@ -257,6 +257,16 @@
             }
         }
 
+        /* Pause animations when effects-paused class is applied */
+        .effects-paused .loading-bar {
+            animation-play-state: paused !important;
+            width: 0% !important;
+        }
+
+        .effects-paused .redirect-message {
+            opacity: 0 !important;
+        }
+
         /* Media Queries */
         @media (max-width: 768px) {
             .splash-logo h1 {
