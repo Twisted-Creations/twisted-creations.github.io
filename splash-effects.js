@@ -765,13 +765,19 @@ function resumeRedirect() {
         loadingBar.style.animationPlayState = "running";
     }
 
-    // Make the redirect message visible
+    // Make the redirect message visible only after loading bar animation completes
     const redirectMessage = document.querySelector(".redirect-message");
-    if (redirectMessage) {
+    const loadingBar = document.querySelector(".loading-bar");
+
+    if (redirectMessage && loadingBar) {
+        // Hide the redirect message initially
         redirectMessage.style.opacity = "0";
-        setTimeout(() => {
+
+        // Add an event listener for the end of the loading bar animation
+        loadingBar.addEventListener("animationend", () => {
+            // Show the redirect message when loading animation completes
             redirectMessage.style.opacity = "1";
-        }, 6000); // Show message after 6 seconds (matches CSS animation timing)
+        });
     }
 
     // Set up a manual redirect with our transition effect

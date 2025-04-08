@@ -1,7 +1,9 @@
 /* Page Transition Styles - Completely separate from main styles */
 
 /* Page Transition Glitch Effect */
-.page-transition {
+@media screen and (prefers-reduced-motion: reduce) {
+
+  .page-transition {
     position: fixed;
     top: 0;
     left: 0;
@@ -11,7 +13,7 @@
     pointer-events: none;
     opacity: 0;
     visibility: hidden;
-    transition: visibility 0s 0.5s, opacity 0.5s;
+    transition: none;
     -webkit-transform: translateZ(0);
     transform: translateZ(0);
     will-change: opacity, visibility;
@@ -25,47 +27,90 @@
     bottom: 0;
     -webkit-overflow-scrolling: touch;
     touch-action: none;
+  }
 }
 
-.page-transition.active {
+.page-transition {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 9999;
+  pointer-events: none;
+  opacity: 0;
+  visibility: hidden;
+  transition: visibility 0s 0.5s, opacity 0.5s;
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
+  will-change: opacity, visibility;
+  overflow: hidden;
+  max-width: 100%;
+  max-height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  -webkit-overflow-scrolling: touch;
+  touch-action: none;
+}
+
+@media screen and (prefers-reduced-motion: reduce) {
+
+  .page-transition.active {
     opacity: 1;
     visibility: visible;
-    transition: visibility 0s, opacity 0.05s;
+    transition: none;
     overflow: hidden;
     animation: none !important;
     -webkit-animation: none !important;
+  }
+}
+
+.page-transition.active {
+  opacity: 1;
+  visibility: visible;
+  transition: visibility 0s, opacity 0.05s;
+  overflow: hidden;
+  animation: none !important;
+  -webkit-animation: none !important;
 }
 
 /* Add noise texture for transition effect */
+
 .page-transition::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAACXBIWXMAAAsTAAALEwEAmpwYAAAFEmlUWHRYTUw6Y29tLmFkb2JlLnhtcAAAAAAAPD94cGFja2V0IGJlZ2luPSLvu78iIGlkPSJXNU0wTXBDZWhpSHpyZVN6TlRjemtjOWQiPz4gPHg6eG1wbWV0YSB4bWxuczp4PSJhZG9iZTpuczptZXRhLyIgeDp4bXB0az0iQWRvYmUgWE1QIENvcmUgNS42LWMxNDAgNzkuMTYwNDUxLCAyMDE3LzA1LzA2LTAxOjA4OjIxICAgICAgICAiPiA8cmRmOlJERiB4bWxuczpyZGY9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkvMDIvMjItcmRmLXN5bnRheC1ucyMiPiA8cmRmOkRlc2NyaXB0aW9uIHJkZjphYm91dD0iIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtbG5zOmRjPSJodHRwOi8vcHVybC5vcmcvZGMvZWxlbWVudHMvMS4xLyIgeG1sbnM6cGhvdG9zaG9wPSJodHRwOi8vbnMuYWRvYmUuY29tL3Bob3Rvc2hvcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RFdnQ9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZUV2ZW50IyIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ0MgMjAxOCAoTWFjaW50b3NoKSIgeG1wOkNyZWF0ZURhdGU9IjIwMTgtMDctMjlUMTc6Mzk6NDkrMDM6MDAiIHhtcDpNb2RpZnlEYXRlPSIyMDE4LTA3LTI5VDE3OjQwOjIwKzAzOjAwIiB4bXA6TWV0YWRhdGFEYXRlPSIyMDE4LTA3LTI5VDE3OjQwOjIwKzAzOjAwIiBkYzpmb3JtYXQ9ImltYWdlL3BuZyIgcGhvdG9zaG9wOkNvbG9yTW9kZT0iMyIgcGhvdG9zaG9wOklDQ1Byb2ZpbGU9InNSR0IgSUVDNjE5NjYtMi4xIiB4bXBNTTpJbnN0YW5jZUlEPSJ4bXAuaWlkOmIzMzBlMWI0LTk5ZDctNGU2NS05MGQ2LTNmYjFiYmE2ZTE0MCIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDpiMzMwZTFiNC05OWQ3LTRlNjUtOTBkNi0zZmIxYmJhNmUxNDAiIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDpiMzMwZTFiNC05OWQ3LTRlNjUtOTBkNi0zZmIxYmJhNmUxNDAiPiA8eG1wTU06SGlzdG9yeT4gPHJkZjpTZXE+IDxyZGY6bGkgc3RFdnQ6YWN0aW9uPSJjcmVhdGVkIiBzdEV2dDppbnN0YW5jZUlEPSJ4bXAuaWlkOmIzMzBlMWI0LTk5ZDctNGU2NS05MGQ2LTNmYjFiYmE2ZTE0MCIgc3RFdnQ6d2hlbj0iMjAxOC0wNy0yOVQxNzozOTo0OSswMzowMCIgc3RFdnQ6c29mdHdhcmVBZ2VudD0iQWRvYmUgUGhvdG9zaG9wIENDIDIwMTggKE1hY2ludG9zaCkiLz4gPC9yZGY6U2VxPiA8L3htcE1NOkhpc3Rvcnk+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+Afx/ZwAAAX9JREFUaIHtmcFxhDAMRZ9vbsm2QEqgBEqgBDpICaSElEAJKSEdZFMCJVDCXpgbyyKWbGRkbM17M4xnxvIXRj5Zkoi0lakP3x8/F8DNfQl4uIcxiojM3K2Ou7tPddR5+j455y6SnuRRLzLz/QrpSZ7kUV9kHoEzN3uQyqhHPxK9yQOf0U3kxs0epjLq0Z8XJPJOfQcD4ibUIK2J3LjZ01RCPSGRWxJ5p76LAXETapDWRG7c7GkqoZ6QyC2JvFPfxYC4CTVIayI3bvY0lVBPSOSWRN6p72JA3IQapDWRGzd7mkqoJyRySyLv1HcxIG5CDdKayI2bPU0l1BMSuSWRd+q7GBA3oQZpTeTGzZ6mEuoJidySyDv1XQyIm1CDtCZy42ZPUwn1hERuSeSd+i4GxE2oQVoTuXGzp6mEekIityTyTn0XA+Im1CCtiWxm9jSVUI9IJLKUvHO3p6mEekQkEYnkZk9TCfVIpLfRzZ6mJpGSRGRJIiWJyJJEShKRJYmUJCJLEilJRJYkUpKILEmkJBFZkkhJIrIkkf/jB1z++hNwcO0MAAAAAElFTkSuQmCC");
-    opacity: 0.5;
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAACXBIWXMAAAsTAAALEwEAmpwYAAAFEmlUWHRYTUw6Y29tLmFkb2JlLnhtcAAAAAAAPD94cGFja2V0IGJlZ2luPSLvu78iIGlkPSJXNU0wTXBDZWhpSHpyZVN6TlRjemtjOWQiPz4gPHg6eG1wbWV0YSB4bWxuczp4PSJhZG9iZTpuczptZXRhLyIgeDp4bXB0az0iQWRvYmUgWE1QIENvcmUgNS42LWMxNDAgNzkuMTYwNDUxLCAyMDE3LzA1LzA2LTAxOjA4OjIxICAgICAgICAiPiA8cmRmOlJERiB4bWxuczpyZGY9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkvMDIvMjItcmRmLXN5bnRheC1ucyMiPiA8cmRmOkRlc2NyaXB0aW9uIHJkZjphYm91dD0iIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtbG5zOmRjPSJodHRwOi8vcHVybC5vcmcvZGMvZWxlbWVudHMvMS4xLyIgeG1sbnM6cGhvdG9zaG9wPSJodHRwOi8vbnMuYWRvYmUuY29tL3Bob3Rvc2hvcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RFdnQ9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZUV2ZW50IyIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ0MgMjAxOCAoTWFjaW50b3NoKSIgeG1wOkNyZWF0ZURhdGU9IjIwMTgtMDctMjlUMTc6Mzk6NDkrMDM6MDAiIHhtcDpNb2RpZnlEYXRlPSIyMDE4LTA3LTI5VDE3OjQwOjIwKzAzOjAwIiB4bXA6TWV0YWRhdGFEYXRlPSIyMDE4LTA3LTI5VDE3OjQwOjIwKzAzOjAwIiBkYzpmb3JtYXQ9ImltYWdlL3BuZyIgcGhvdG9zaG9wOkNvbG9yTW9kZT0iMyIgcGhvdG9zaG9wOklDQ1Byb2ZpbGU9InNSR0IgSUVDNjE5NjYtMi4xIiB4bXBNTTpJbnN0YW5jZUlEPSJ4bXAuaWlkOmIzMzBlMWI0LTk5ZDctNGU2NS05MGQ2LTNmYjFiYmE2ZTE0MCIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDpiMzMwZTFiNC05OWQ3LTRlNjUtOTBkNi0zZmIxYmJhNmUxNDAiIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDpiMzMwZTFiNC05OWQ3LTRlNjUtOTBkNi0zZmIxYmJhNmUxNDAiPiA8eG1wTU06SGlzdG9yeT4gPHJkZjpTZXE+IDxyZGY6bGkgc3RFdnQ6YWN0aW9uPSJjcmVhdGVkIiBzdEV2dDppbnN0YW5jZUlEPSJ4bXAuaWlkOmIzMzBlMWI0LTk5ZDctNGU2NS05MGQ2LTNmYjFiYmE2ZTE0MCIgc3RFdnQ6d2hlbj0iMjAxOC0wNy0yOVQxNzozOTo0OSswMzowMCIgc3RFdnQ6c29mdHdhcmVBZ2VudD0iQWRvYmUgUGhvdG9zaG9wIENDIDIwMTggKE1hY2ludG9zaCkiLz4gPC9yZGY6U2VxPiA8L3htcE1NOkhpc3Rvcnk+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+Afx/ZwAAAX9JREFUaIHtmcFxhDAMRZ9vbsm2QEqgBEqgBDpICaSElEAJKSEdZFMCJVDCXpgbyyKWbGRkbM17M4xnxvIXRj5Zkoi0lakP3x8/F8DNfQl4uIcxiojM3K2Ou7tPddR5+j455y6SnuRRLzLz/QrpSZ7kUV9kHoEzN3uQyqhHPxK9yQOf0U3kxs0epjLq0Z8XJPJOfQcD4ibUIK2J3LjZ01RCPSGRWxJ5p76LAXETapDWRG7c7GkqoZ6QyC2JvFPfxYC4CTVIayI3bvY0lVBPSOSWRN6p72JA3IQapDWRGzd7mkqoJyRySyLv1HcxIG5CDdKayI2bPU0l1BMSuSWRd+q7GBA3oQZpTeTGzZ6mEuoJidySyDv1XQyIm1CDtCZy42ZPUwn1hERuSeSd+i4GxE2oQVoTuXGzp6mEekIityTyTn0XA+Im1CCtiWxm9jSVUI9IJLKUvHO3p6mEekQkEYnkZk9TCfVIpLfRzZ6mJpGSRGRJIiWJyJJEShKRJYmUJCJLEilJRJYkUpKILEmkJBFZkkhJIrIkkf/jB1z++hNwcO0MAAAAAElFTkSuQmCC');
+  opacity: 0.5;
 }
 
 /* Glitch text container */
+
 .glitch-text-container {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100vw;
-    height: 100vh;
-    z-index: 10;
-    pointer-events: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100vw;
+  height: 100vh;
+  z-index: 10;
+  pointer-events: none;
 }
 
 /* Glitch text */
-.glitch-text {
+@media screen and (prefers-reduced-motion: reduce) {
+
+  .glitch-text {
     display: inline-block;
     position: relative;
     font-size: 3rem;
@@ -74,7 +119,7 @@
     letter-spacing: 0.2em;
     color: #f0f0f5;
     text-shadow: 2px 2px #000d83, -2px -2px #4a0072;
-    animation: glitchText 0.4s infinite alternate-reverse;
+    animation: none;
     animation-delay: 0s !important;
     white-space: nowrap;
     text-align: center;
@@ -83,156 +128,252 @@
     margin: 0 auto;
     left: 0 !important;
     transform: none !important;
+  }
+}
+
+.glitch-text {
+  display: inline-block;
+  position: relative;
+  font-size: 3rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: #f0f0f5;
+  text-shadow: 2px 2px #000d83, -2px -2px #4a0072;
+  animation: glitchText 0.4s infinite alternate-reverse;
+  animation-delay: 0s !important;
+  white-space: nowrap;
+  text-align: center;
+  max-width: 90vw;
+  overflow: hidden;
+  margin: 0 auto;
+  left: 0 !important;
+  transform: none !important;
 }
 
 /* Create pseudo-elements for enhanced text glitch */
+
 .glitch-text::before,
 .glitch-text::after {
-    content: attr(data-text);
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: #0a0a0f;
-    text-align: center;
-    white-space: nowrap;
-    display: block;
-    transform: none !important;
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #0a0a0f;
+  text-align: center;
+  white-space: nowrap;
+  display: block;
+  transform: none !important;
 }
 
-.glitch-text::before {
+@media screen and (prefers-reduced-motion: reduce) {
+
+  .glitch-text::before {
     left: 2px !important;
     text-shadow: -1px 0 #000d83;
-    animation: glitch-anim-1 2s infinite linear alternate-reverse;
+    animation: none;
     animation-delay: 0s !important;
     clip-path: polygon(0 0, 100% 0, 100% 45%, 0 45%);
     -webkit-clip-path: polygon(0 0, 100% 0, 100% 45%, 0 45%);
+  }
 }
 
-.glitch-text::after {
+.glitch-text::before {
+  left: 2px !important;
+  text-shadow: -1px 0 #000d83;
+  animation: glitch-anim-1 2s infinite linear alternate-reverse;
+  animation-delay: 0s !important;
+  clip-path: polygon(0 0, 100% 0, 100% 45%, 0 45%);
+  -webkit-clip-path: polygon(0 0, 100% 0, 100% 45%, 0 45%);
+}
+
+@media screen and (prefers-reduced-motion: reduce) {
+
+  .glitch-text::after {
     left: -2px !important;
     text-shadow: 1px 0 #4a0072;
-    animation: glitch-anim-2 3s infinite linear alternate-reverse;
+    animation: none;
     animation-delay: 0s !important;
     clip-path: polygon(0 55%, 100% 55%, 100% 100%, 0 100%);
     -webkit-clip-path: polygon(0 55%, 100% 55%, 100% 100%, 0 100%);
+  }
+}
+
+.glitch-text::after {
+  left: -2px !important;
+  text-shadow: 1px 0 #4a0072;
+  animation: glitch-anim-2 3s infinite linear alternate-reverse;
+  animation-delay: 0s !important;
+  clip-path: polygon(0 55%, 100% 55%, 100% 100%, 0 100%);
+  -webkit-clip-path: polygon(0 55%, 100% 55%, 100% 100%, 0 100%);
 }
 
 /* Glitch slices */
-.glitch-slice {
+@media screen and (prefers-reduced-motion: reduce) {
+
+  .glitch-slice {
     position: absolute;
     width: 100%;
     height: 0.5vh;
     background-color: #0a0a0f;
     z-index: 5;
     transform: translateY(-50%);
-    animation: glitchSlice 3s ease-in-out infinite;
+    animation: none;
+  }
+}
+
+.glitch-slice {
+  position: absolute;
+  width: 100%;
+  height: 0.5vh;
+  background-color: #0a0a0f;
+  z-index: 5;
+  transform: translateY(-50%);
+  animation: glitchSlice 3s ease-in-out infinite;
 }
 
 /* Scanlines */
-.glitch-scanlines {
+@media screen and (prefers-reduced-motion: reduce) {
+
+  .glitch-scanlines {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
     background: repeating-linear-gradient(
-            to bottom,
-            transparent 0%,
-            rgba(255, 255, 255, 0.05) 0.5%,
-            transparent 1%
+      to bottom,
+      transparent 0%,
+      rgba(255, 255, 255, 0.05) 0.5%,
+      transparent 1%
     );
-    animation: scanlines 1s steps(30) infinite;
+    animation: none;
     opacity: 0.3;
     z-index: 4;
+  }
+}
+
+.glitch-scanlines {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: repeating-linear-gradient(
+    to bottom,
+    transparent 0%,
+    rgba(255, 255, 255, 0.05) 0.5%,
+    transparent 1%
+  );
+  animation: scanlines 1s steps(30) infinite;
+  opacity: 0.3;
+  z-index: 4;
 }
 
 /* Animations */
 @keyframes glitchText {
-    0% {
-        text-shadow: 2px 0 #000d83, -2px 0 #4a0072;
-        transform: translate(-2px, 0);
-    }
-    25% {
-        text-shadow: -2px 0 #000d83, 2px 0 #4a0072;
-        transform: translate(2px, 0);
-    }
-    50% {
-        text-shadow: 2px 0 #000d83, -2px 0 #4a0072;
-        transform: translate(-1px, 0);
-    }
-    75% {
-        text-shadow: -2px 0 #000d83, 2px 0 #4a0072;
-        transform: translate(1px, 0);
-    }
-    100% {
-        text-shadow: 2px 0 #000d83, -2px 0 #4a0072;
-        transform: translate(2px, 0);
-    }
+
+  0% {
+    text-shadow: 2px 0 #000d83, -2px 0 #4a0072;
+    transform: translate(-2px, 0);
+  }
+
+  25% {
+    text-shadow: -2px 0 #000d83, 2px 0 #4a0072;
+    transform: translate(2px, 0);
+  }
+
+  50% {
+    text-shadow: 2px 0 #000d83, -2px 0 #4a0072;
+    transform: translate(-1px, 0);
+  }
+
+  75% {
+    text-shadow: -2px 0 #000d83, 2px 0 #4a0072;
+    transform: translate(1px, 0);
+  }
+
+  100% {
+    text-shadow: 2px 0 #000d83, -2px 0 #4a0072;
+    transform: translate(2px, 0);
+  }
 }
 
 @keyframes glitch-anim-1 {
-    0% {
-        clip-path: polygon(0 0, 100% 0, 100% 25%, 0 25%);
-        transform: translate(0);
-    }
-    50% {
-        clip-path: polygon(0 0, 100% 0, 100% 45%, 0 45%);
-        transform: translate(-2px, 0);
-    }
-    100% {
-        clip-path: polygon(0 0, 100% 0, 100% 35%, 0 35%);
-        transform: translate(0);
-    }
+
+  0% {
+    clip-path: polygon(0 0, 100% 0, 100% 25%, 0 25%);
+    transform: translate(0);
+  }
+
+  50% {
+    clip-path: polygon(0 0, 100% 0, 100% 45%, 0 45%);
+    transform: translate(-2px, 0);
+  }
+
+  100% {
+    clip-path: polygon(0 0, 100% 0, 100% 35%, 0 35%);
+    transform: translate(0);
+  }
 }
 
 @keyframes glitch-anim-2 {
-    0% {
-        clip-path: polygon(0 65%, 100% 65%, 100% 100%, 0 100%);
-        transform: translate(0);
-    }
-    50% {
-        clip-path: polygon(0 55%, 100% 55%, 100% 100%, 0 100%);
-        transform: translate(2px, 0);
-    }
-    100% {
-        clip-path: polygon(0 75%, 100% 75%, 100% 100%, 0 100%);
-        transform: translate(0);
-    }
+
+  0% {
+    clip-path: polygon(0 65%, 100% 65%, 100% 100%, 0 100%);
+    transform: translate(0);
+  }
+
+  50% {
+    clip-path: polygon(0 55%, 100% 55%, 100% 100%, 0 100%);
+    transform: translate(2px, 0);
+  }
+
+  100% {
+    clip-path: polygon(0 75%, 100% 75%, 100% 100%, 0 100%);
+    transform: translate(0);
+  }
 }
 
 @keyframes scanlines {
-    0% {
-        background-position: 0 0;
-    }
-    100% {
-        background-position: 0 30px;
-    }
+
+  0% {
+    background-position: 0 0;
+  }
+
+  100% {
+    background-position: 0 30px;
+  }
 }
 
 @keyframes glitchSlice {
-    0% {
-        opacity: 1;
-        transform: translateY(-50%) translateX(0);
-    }
-    10%,
-    100% {
-        opacity: 0;
-    }
+
+  0% {
+    opacity: 1;
+    transform: translateY(-50%) translateX(0);
+  }
+
+  10%,
+  100% {
+    opacity: 0;
+  }
 }
 
 /* Mobile-specific adjustments */
 @media (max-width: 768px) {
-    .glitch-text {
-        font-size: 2.5rem;
-        letter-spacing: 0.15em;
-    }
+
+  .glitch-text {
+    font-size: 2.5rem;
+    letter-spacing: 0.15em;
+  }
 }
 
 @media (max-width: 480px) {
-    .glitch-text {
-        font-size: 2rem;
-        letter-spacing: 0.1em;
-    }
+
+  .glitch-text {
+    font-size: 2rem;
+    letter-spacing: 0.1em;
+  }
 }
