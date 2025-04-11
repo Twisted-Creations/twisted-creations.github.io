@@ -62,13 +62,3 @@ updates:
           - "stylelint*"
           - "html-validate"
     versioning-strategy: increase
-    # Ignore specific packages that need to maintain compatibility
-    ignore:
-      - dependency-name: "stylelint"
-        versions: [">=14.0.0"]
-      - dependency-name: "stylelint-config-standard"
-        versions: [">=23.0.0"]
-      - dependency-name: "stylelint-a11y"
-        update-types: ["version-update:semver-major"]
-      - dependency-name: "postcss"
-        update-types: ["version-update:semver-patch"]
