@@ -1,8 +1,6 @@
 {
   "extends": "stylelint-config-standard",
-  "plugins": [
-    "stylelint-a11y"
-  ],
+  "plugins": ["stylelint-a11y"],
   "rules": {
     "indentation": 2,
     "string-quotes": "single",

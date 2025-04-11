@@ -1,7 +1,6 @@
 /* Base styles for rounded images */
 
 @media screen and (prefers-reduced-motion: reduce) {
-
   .rounded-image {
     border-radius: 30px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);

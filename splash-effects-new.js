@@ -477,30 +477,16 @@ function triggerTransition(href) {
     // Clear interval after transition
     setTimeout(() => {
       clearInterval(shakeInterval);
-    }, 700);
+    }, 1000);
   }
 
-  // Navigate after a longer delay to ensure transition completes
-  if (href) {
-    // Use a longer transition time to ensure effects complete
-    const transitionTime = reduced ? 1500 : 2000;
+  // Set transition time based on device and reduced effects
+  const transitionTime = reduced ? 1500 : isMobileDevice() ? 2000 : 2500;
 
-    // Show a message that we're about to redirect
-    setTimeout(() => {
-      if (glitchTextElement) {
-        glitchTextElement.textContent = "REDIRECTING";
-        glitchTextElement.setAttribute("data-text", "REDIRECTING");
-      }
-    }, transitionTime - 800);
-
-    // Navigate after the full transition completes
-    setTimeout(() => {
-      // Reset transition flag right before redirecting
-      window.transitionActive = false;
-
-      // Ensure the URL is correct before redirecting
-      console.log("Redirecting to:", href);
-
+  // Redirect after transition completes
+  setTimeout(() => {
+    // Redirect to the specified URL
+    if (href) {
       // If the URL is relative, make sure it's correct
       if (href && !href.startsWith("http")) {
         // Make sure we're using the correct path
@@ -512,261 +498,11 @@ function triggerTransition(href) {
       } else {
         window.location.href = href;
       }
-    }, transitionTime);
-  }
+    }
+  }, transitionTime);
 }
 
-// Show warning about intense visual effects
-function showEffectsWarning() {
-  console.log("Showing effects warning");
-
-  // Clear any previous acknowledgment for testing
-  localStorage.removeItem("effectsWarningAcknowledged");
-
-  // Check if user has already acknowledged the warning
-  const warningAcknowledged = localStorage.getItem(
-    "effectsWarningAcknowledged"
-  );
-
-  console.log("Warning acknowledged:", warningAcknowledged);
-
-  // If already acknowledged, start effects immediately
-  if (warningAcknowledged === "true") {
-    console.log("Warning already acknowledged, starting effects");
-    startEffects();
-    resumeRedirect();
-    return;
-  }
-
-  // Create warning overlay
-  const warningOverlay = document.createElement("div");
-  warningOverlay.className = "effects-warning-overlay";
-
-  // Apply styles directly to ensure visibility
-  warningOverlay.style.position = "fixed";
-  warningOverlay.style.top = "0";
-  warningOverlay.style.left = "0";
-  warningOverlay.style.width = "100%";
-  warningOverlay.style.height = "100%";
-  warningOverlay.style.display = "flex";
-  warningOverlay.style.flexDirection = "column";
-  warningOverlay.style.alignItems = "center";
-  warningOverlay.style.justifyContent = "center";
-  warningOverlay.style.padding = "20px";
-  warningOverlay.style.textAlign = "center";
-  warningOverlay.style.backgroundColor = "rgba(10, 10, 15, 0.95)";
-  warningOverlay.style.zIndex = "100000"; // Increased z-index to ensure visibility
-  warningOverlay.style.visibility = "visible"; // Explicitly set visibility
-  warningOverlay.style.opacity = "1"; // Explicitly set opacity
-
-  // Add scanlines to the warning overlay
-  const scanlines = document.createElement("div");
-  scanlines.style.position = "absolute";
-  scanlines.style.top = "0";
-  scanlines.style.left = "0";
-  scanlines.style.width = "100%";
-  scanlines.style.height = "100%";
-  scanlines.style.backgroundImage =
-    "linear-gradient(to bottom, transparent, rgba(255, 255, 255, 0.05) 50%, transparent 50%)";
-  scanlines.style.backgroundSize = "100% 2px";
-  scanlines.style.pointerEvents = "none";
-  scanlines.style.zIndex = "1";
-  warningOverlay.appendChild(scanlines);
-
-  // Create warning content
-  const warningContent = document.createElement("div");
-  warningContent.className = "warning-content";
-
-  // Style the warning content with explicit styles
-  warningContent.style.position = "relative";
-  warningContent.style.zIndex = "2";
-  warningContent.style.backgroundColor = "rgba(20, 20, 25, 0.8)";
-  warningContent.style.padding = "30px";
-  warningContent.style.borderRadius = "2px";
-  warningContent.style.maxWidth = "600px";
-  warningContent.style.border = "1px solid rgba(100, 0, 0, 0.5)";
-  warningContent.style.boxShadow =
-    "0 0 20px rgba(0, 0, 0, 0.8), 0 0 30px rgba(255, 0, 0, 0.1)";
-
-  // Warning title with glitch effect
-  const warningTitle = document.createElement("h2");
-  warningTitle.className = "warning-title";
-  warningTitle.innerHTML =
-    "WARNING: <span style='color:#ff3333;'>INTENSE</span> VISUAL EFFECTS";
-  warningTitle.style.fontSize = "28px";
-  warningTitle.style.marginBottom = "20px";
-  warningTitle.style.letterSpacing = "1px";
-  warningContent.appendChild(warningTitle);
-
-  // Add a subtle glitch animation to the title
-  const glitchAnimation = document.createElement("style");
-  glitchAnimation.textContent = `
-    @keyframes textGlitch {
-      0% { text-shadow: 1px 0 0 red, -1px 0 0 blue; }
-      1% { text-shadow: 1px 0 0 red, -1px 0 0 blue; }
-      2% { text-shadow: 2px 0 0 red, -1px 0 0 blue; }
-      3% { text-shadow: -1px 0 0 red, 1px 0 0 blue; }
-      4% { text-shadow: -1px 0 0 red, 1px 0 0 blue; }
-      5% { text-shadow: 0.5px 0 0 red, -0.5px 0 0 blue; }
-      6% { text-shadow: -1px 0 0 red, 1px 0 0 blue; }
-      7% { text-shadow: 1px 0 0 red, -1px 0 0 blue; }
-      8% { text-shadow: 1px 0 0 red, -1px 0 0 blue; }
-      9% { text-shadow: 1px 0 0 red, -1px 0 0 blue; }
-      10% { text-shadow: 1px 0 0 red, -1px 0 0 blue; }
-      11% { text-shadow: 0.5px 0 0 red, -0.5px 0 0 blue; }
-      12% { text-shadow: 0.5px 0 0 red, -0.5px 0 0 blue; }
-      20% { text-shadow: 0.5px 0 0 red, -0.5px 0 0 blue; }
-      40% { text-shadow: 0.5px 0 0 red, -0.5px 0 0 blue; }
-      60% { text-shadow: 0.5px 0 0 red, -0.5px 0 0 blue; }
-      70% { text-shadow: 0.5px 0 0 red, -0.5px 0 0 blue; }
-      80% { text-shadow: 0.5px 0 0 red, -0.5px 0 0 blue; }
-      90% { text-shadow: 1px 0 0 red, -1px 0 0 blue; }
-      100% { text-shadow: 1px 0 0 red, -1px 0 0 blue; }
-    }
-    .warning-title {
-      animation: textGlitch 3s infinite linear alternate-reverse;
-    }
-  `;
-  document.head.appendChild(glitchAnimation);
-
-  // Warning text
-  const warningText = document.createElement("p");
-  warningText.className = "warning-text";
-  warningText.innerHTML =
-    "This site contains <span style='color:#ff3333;'>flashing lights</span>, <span style='color:#ff3333;'>screen shake effects</span>, and <span style='color:#ff3333;'>rapid color changes</span> that may potentially trigger seizures for people with photosensitive epilepsy.<br><br>These effects are part of the horror experience but can be adjusted to your comfort level.<br><br><span style='color:#aaaaaa;font-style:italic;'>Viewer discretion is advised.</span>";
-  warningText.style.fontSize = "16px";
-  warningText.style.lineHeight = "1.6";
-  warningText.style.marginBottom = "20px";
-  warningContent.appendChild(warningText);
-
-  // Buttons container
-  const buttonsContainer = document.createElement("div");
-  buttonsContainer.className = "warning-buttons";
-
-  // Style the buttons container
-  buttonsContainer.style.display = "flex";
-  buttonsContainer.style.gap = "20px";
-  buttonsContainer.style.marginTop = "30px";
-
-  // Continue button
-  const continueButton = document.createElement("button");
-  continueButton.className = "continue-button";
-  continueButton.textContent = "ENTER THE NIGHTMARE";
-
-  // Style the continue button with explicit styles
-  continueButton.style.padding = "12px 25px";
-  continueButton.style.background =
-    "linear-gradient(to bottom, #6c13a3, #1a27b3)";
-  continueButton.style.color = "#fff";
-  continueButton.style.border = "none";
-  continueButton.style.borderRadius = "0";
-  continueButton.style.fontSize = "16px";
-  continueButton.style.fontFamily = "'Courier New', monospace";
-  continueButton.style.textTransform = "uppercase";
-  continueButton.style.letterSpacing = "1px";
-  continueButton.style.fontWeight = "bold";
-  continueButton.style.cursor = "pointer";
-  continueButton.style.transition = "all 0.3s ease";
-  continueButton.style.position = "relative";
-  continueButton.style.overflow = "hidden";
-  continueButton.style.boxShadow =
-    "0 0 10px rgba(108, 19, 163, 0.5), 0 0 20px rgba(26, 39, 179, 0.3)";
-
-  // Add a subtle hover effect
-  continueButton.onmouseover = function () {
-    this.style.transform = "translateY(-2px)";
-    this.style.boxShadow =
-      "0 0 15px rgba(108, 19, 163, 0.7), 0 0 30px rgba(26, 39, 179, 0.5)";
-    this.style.backgroundColor = "rgba(26, 39, 179, 1)";
-  };
-  continueButton.onmouseout = function () {
-    this.style.transform = "";
-    this.style.boxShadow = "";
-    this.style.backgroundColor = "rgba(26, 39, 179, 0.8)";
-  };
-
-  // Reduced effects button
-  const reducedButton = document.createElement("button");
-  reducedButton.className = "reduced-button";
-  reducedButton.textContent = "REDUCED EFFECTS";
-
-  // Style the reduced effects button with explicit styles
-  reducedButton.style.padding = "12px 25px";
-  reducedButton.style.background = "linear-gradient(to bottom, #333, #222)";
-  reducedButton.style.color = "#ccc";
-  reducedButton.style.border = "1px solid #444";
-  reducedButton.style.borderRadius = "0";
-  reducedButton.style.fontSize = "16px";
-  reducedButton.style.fontFamily = "'Courier New', monospace";
-  reducedButton.style.textTransform = "uppercase";
-  reducedButton.style.letterSpacing = "1px";
-  reducedButton.style.fontWeight = "normal";
-  reducedButton.style.cursor = "pointer";
-  reducedButton.style.transition = "all 0.3s ease";
-  reducedButton.style.position = "relative";
-  reducedButton.style.overflow = "hidden";
-
-  // Add a subtle hover effect
-  reducedButton.onmouseover = function () {
-    this.style.transform = "translateY(-2px)";
-    this.style.boxShadow = "0 0 10px rgba(255, 255, 255, 0.2)";
-    this.style.backgroundColor = "rgba(80, 80, 90, 0.9)";
-  };
-  reducedButton.onmouseout = function () {
-    this.style.transform = "";
-    this.style.boxShadow = "";
-    this.style.backgroundColor = "rgba(60, 60, 70, 0.8)";
-  };
-
-  // Add event listeners
-  continueButton.addEventListener("click", function () {
-    // Save preference
-    localStorage.setItem("effectsWarningAcknowledged", "true");
-    localStorage.setItem("reducedEffects", "false");
-
-    // Remove warning
-    document.body.removeChild(warningOverlay);
-
-    // Start effects
-    startEffects();
-
-    // Resume the redirect
-    resumeRedirect();
-  });
-
-  reducedButton.addEventListener("click", function () {
-    // Save preference
-    localStorage.setItem("effectsWarningAcknowledged", "true");
-    localStorage.setItem("reducedEffects", "true");
-
-    // Remove warning
-    document.body.removeChild(warningOverlay);
-
-    // Start effects with reduced intensity
-    startEffects(true);
-
-    // Resume the redirect
-    resumeRedirect();
-  });
-
-  // Add buttons to container
-  buttonsContainer.appendChild(reducedButton);
-  buttonsContainer.appendChild(continueButton);
-  warningContent.appendChild(buttonsContainer);
-
-  // Add content to overlay
-  warningOverlay.appendChild(warningContent);
-
-  // Add to body with a slight delay to ensure DOM is ready
-  console.log("Adding warning overlay to body");
-  setTimeout(() => {
-    document.body.appendChild(warningOverlay);
-    console.log("Warning overlay added");
-
-    // Pause any animations or effects until user makes a choice
-    document.body.classList.add("effects-paused");
-  }, 100);
-}
+// Note: The effects warning has been moved to a separate page (effects-preferences.html)
 
 // Pause the automatic redirect
 function pauseRedirect() {
@@ -853,44 +589,9 @@ function resumeRedirect() {
     });
   }
 
-  // Restart all visual effects
-  // Only start these if they're not already running
-  if (!window.glitchTimeout) {
-    randomGlitch();
-  }
-
-  // Restart screen flicker if it's not already running
-  if (!window.flickerTimeout) {
-    const flickerOverlay = document.querySelector(".flicker-overlay");
-    if (flickerOverlay) {
-      // Find the flicker function and call it
-      const container = document.querySelector(".splash-container");
-      if (container) {
-        // This will restart the flicker effect
-        addScreenFlicker();
-      }
-    }
-  }
-
-  // Set up a manual redirect with our transition effect
-  if (window.originalMetaRefresh) {
-    // Extract the URL and ensure it's properly formatted
-    let url = window.originalMetaRefresh.split(";")[1].trim();
-
-    // Check if the URL starts with "url=" and remove it if present
-    if (url.startsWith("url=")) {
-      url = url.substring(4);
-    }
-
-    // Ensure we're using the correct path
-    if (url === "Pages/index.html") {
-      console.log("Redirecting to main page");
-    }
-
-    // We won't set an automatic redirect timer here
-    // Instead, we'll rely on the user clicking the "Enter Now" button
-    // or the manual transition setup in setupManualTransition()
-  }
+  // Start all visual effects
+  randomGlitch();
+  addScreenFlicker();
 }
 
 // Start all effects with optional reduced intensity

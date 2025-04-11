@@ -1,7 +1,6 @@
 /* Base styles */
 
 :root {
-
   /* Main color palette */
   --color-dark: #121218;
   --color-dark-accent: #1a1a24;
@@ -14,7 +13,12 @@
   --color-text: #f0f0f5;
   --color-text-muted: #a0a0a8;
   --color-shadow: #000;
-  --color-vignette: rgba(0, 0, 0, 0.7); /* Added missing vignette color variable */
+  --color-vignette: rgba(
+    0,
+    0,
+    0,
+    0.7
+  ); /* Added missing vignette color variable */
 
   /* UI element colors */
   --color-ui-bg: rgba(18, 18, 24, 0.8);
@@ -58,10 +62,9 @@ body {
 }
 
 @media screen and (prefers-reduced-motion: reduce) {
-
   body {
     min-height: 100vh;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
     color: var(--color-text);
     line-height: 1.6;
     display: flex;
@@ -80,7 +83,7 @@ body {
 
 body {
   min-height: 100vh;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   color: var(--color-text);
   line-height: 1.6;
   display: flex;
@@ -117,7 +120,7 @@ body.content-loaded {
 /* Add vignette effect */
 
 .background-container::after {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: 0;
@@ -130,7 +133,6 @@ body.content-loaded {
 
 /* Background image elements */
 @media screen and (prefers-reduced-motion: reduce) {
-
   .bg-image {
     position: absolute;
     top: -10%; /* Extend further beyond viewport to prevent any edge visibility */
@@ -184,7 +186,6 @@ body.content-loaded {
 
 /* Loading indicator */
 @media screen and (prefers-reduced-motion: reduce) {
-
   .loading-indicator {
     position: absolute;
     top: 50%;
@@ -215,7 +216,6 @@ body.content-loaded {
 }
 
 @keyframes spin {
-
   to {
     transform: rotate(360deg);
   }
@@ -229,7 +229,7 @@ h3,
 h4,
 p {
   color: var(--color-text);
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
 h1 {
@@ -244,7 +244,7 @@ h1 {
 }
 
 h1::after {
-  content: '';
+  content: "";
   position: absolute;
   bottom: -8px;
   left: 50%;
@@ -339,7 +339,7 @@ em {
   font-weight: 700;
   text-shadow: 0 0 15px rgba(26, 39, 179, 0.5);
   text-transform: uppercase;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   position: relative;
   z-index: 2;
 }
@@ -377,7 +377,6 @@ em {
 }
 
 @media screen and (prefers-reduced-motion: reduce) {
-
   .nav-links a {
     text-decoration: none;
     color: var(--color-text);
@@ -410,9 +409,8 @@ em {
 }
 
 @media screen and (prefers-reduced-motion: reduce) {
-
   .nav-links a::before {
-    content: '';
+    content: "";
     position: absolute;
     bottom: 0;
     left: 50%;
@@ -425,7 +423,7 @@ em {
 }
 
 .nav-links a::before {
-  content: '';
+  content: "";
   position: absolute;
   bottom: 0;
   left: 50%;
@@ -476,7 +474,6 @@ em {
 }
 
 @media screen and (prefers-reduced-motion: reduce) {
-
   .content-box {
     background-color: var(--color-ui-bg);
     border-radius: var(--radius-md);
@@ -501,17 +498,15 @@ em {
   max-width: 800px;
   width: 90%;
   transition: transform var(--transition-normal),
-    box-shadow var(--transition-normal),
-    border-color var(--transition-normal);
+    box-shadow var(--transition-normal), border-color var(--transition-normal);
   box-shadow: var(--shadow-sm);
   position: relative;
   overflow: hidden;
 }
 
 @media screen and (prefers-reduced-motion: reduce) {
-
   .content-box::before {
-    content: '';
+    content: "";
     position: absolute;
     top: 0;
     left: 0;
@@ -528,7 +523,7 @@ em {
 }
 
 .content-box::before {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: 0;
@@ -578,7 +573,6 @@ em {
 }
 
 @media screen and (prefers-reduced-motion: reduce) {
-
   .footer-container a {
     color: var(--color-primary);
     text-decoration: none;
@@ -633,7 +627,6 @@ em {
 }
 
 @media screen and (prefers-reduced-motion: reduce) {
-
   .team-list li {
     padding: 10px 0;
     position: relative;
@@ -660,7 +653,7 @@ em {
 }
 
 .team-list li::before {
-  content: '•';
+  content: "•";
   color: var(--color-accent-light);
   position: absolute;
   left: 5px;
@@ -670,7 +663,6 @@ em {
 
 /* Devlog specific styles */
 @media screen and (prefers-reduced-motion: reduce) {
-
   .devlog-entry {
     border-left: 4px solid var(--color-primary);
     text-align: left;
@@ -709,9 +701,8 @@ em {
 }
 
 @media screen and (prefers-reduced-motion: reduce) {
-
   .devlog-entry::before {
-    content: '';
+    content: "";
     position: absolute;
     top: 0;
     left: 0;
@@ -728,7 +719,7 @@ em {
 }
 
 .devlog-entry::before {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: 0;
@@ -749,9 +740,8 @@ em {
 }
 
 @media screen and (prefers-reduced-motion: reduce) {
-
   .devlog-entry::after {
-    content: '';
+    content: "";
     position: absolute;
     bottom: 0;
     right: 0;
@@ -768,7 +758,7 @@ em {
 }
 
 .devlog-entry::after {
-  content: '';
+  content: "";
   position: absolute;
   bottom: 0;
   right: 0;
@@ -803,7 +793,6 @@ em {
 }
 
 @media screen and (prefers-reduced-motion: reduce) {
-
   .filter-btn {
     background-color: var(--color-dark-accent);
     color: var(--color-text);
@@ -834,22 +823,25 @@ em {
 }
 
 @media screen and (prefers-reduced-motion: reduce) {
-
   .filter-btn::after {
-    content: '';
+    content: "";
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(to bottom, rgba(255, 255, 255, 0.1), transparent);
+    background: linear-gradient(
+      to bottom,
+      rgba(255, 255, 255, 0.1),
+      transparent
+    );
     opacity: 0;
     transition: none;
   }
 }
 
 .filter-btn::after {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: 0;
@@ -932,7 +924,6 @@ em {
 
 /* Mobile menu button styles */
 @media screen and (prefers-reduced-motion: reduce) {
-
   .mobile-menu-btn {
     display: none;
     background: rgba(26, 39, 179, 0.8);
@@ -997,7 +988,6 @@ em {
 }
 
 @media screen and (prefers-reduced-motion: reduce) {
-
   .mobile-menu-btn span {
     display: block;
     width: 25px;
@@ -1038,7 +1028,8 @@ em {
 .mobile-menu-btn.active {
   background: rgba(108, 19, 163, 0.8);
   border-color: rgba(26, 39, 179, 0.5);
-  box-shadow: 0 0 15px rgba(108, 19, 163, 0.5), inset 0 0 8px rgba(26, 39, 179, 0.3);
+  box-shadow: 0 0 15px rgba(108, 19, 163, 0.5),
+    inset 0 0 8px rgba(26, 39, 179, 0.3);
 }
 
 .mobile-menu-btn.active span:nth-child(1) {
@@ -1057,7 +1048,6 @@ em {
 }
 
 @media screen and (max-width: 768px) {
-
   .site-title {
     font-size: 1.8rem;
   }
@@ -1067,7 +1057,6 @@ em {
   }
 
   @media screen and (prefers-reduced-motion: reduce) {
-
     .nav-links {
       flex-direction: column;
       gap: 10px;
@@ -1102,7 +1091,6 @@ em {
   }
 
   @keyframes fadeInDown {
-
     from {
       opacity: 0;
       transform: translateY(-10px);
@@ -1119,7 +1107,6 @@ em {
   }
 
   @media screen and (prefers-reduced-motion: reduce) {
-
     .nav-links a {
       width: 100%;
       text-align: center;
@@ -1166,7 +1153,6 @@ em {
 
 /* Additional media queries for different screen sizes */
 @media screen and (max-width: 480px) {
-
   /* Smaller devices specific styles */
 
   .header-container {
@@ -1175,7 +1161,6 @@ em {
 }
 
 @media screen and (min-width: 1920px) {
-
   /* Large screen specific styles */
 
   .content-container {
@@ -1185,13 +1170,11 @@ em {
 
 /* High-DPI screens */
 @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
-
   /* High-DPI specific optimizations handled by JS */
 }
 
 /* Page Transition Glitch Effect */
 @media screen and (prefers-reduced-motion: reduce) {
-
   .page-transition {
     position: fixed;
     top: 0;
@@ -1262,7 +1245,6 @@ em {
 }
 
 @media screen and (prefers-reduced-motion: reduce) {
-
   .page-transition.active {
     opacity: 1;
     visibility: visible;
@@ -1292,15 +1274,14 @@ em {
 
 /* Add noise texture for transition effect */
 @media screen and (prefers-reduced-motion: reduce) {
-
   .page-transition::before {
-    content: '';
+    content: "";
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAACXBIWXMAAAsTAAALEwEAmpwYAAAFEmlUWHRYTUw6Y29tLmFkb2JlLnhtcAAAAAAAPD94cGFja2V0IGJlZ2luPSLvu78iIGlkPSJXNU0wTXBDZWhpSHpyZVN6TlRjemtjOWQiPz4gPHg6eG1wbWV0YSB4bWxuczp4PSJhZG9iZTpuczptZXRhLyIgeDp4bXB0az0iQWRvYmUgWE1QIENvcmUgNS42LWMxNDAgNzkuMTYwNDUxLCAyMDE3LzA1LzA2LTAxOjA4OjIxICAgICAgICAiPiA8cmRmOlJERiB4bWxuczpyZGY9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkvMDIvMjItcmRmLXN5bnRheC1ucyMiPiA8cmRmOkRlc2NyaXB0aW9uIHJkZjphYm91dD0iIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtbG5zOmRjPSJodHRwOi8vcHVybC5vcmcvZGMvZWxlbWVudHMvMS4xLyIgeG1sbnM6cGhvdG9zaG9wPSJodHRwOi8vbnMuYWRvYmUuY29tL3Bob3Rvc2hvcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RFdnQ9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZUV2ZW50IyIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ0MgMjAxOCAoTWFjaW50b3NoKSIgeG1wOkNyZWF0ZURhdGU9IjIwMTgtMDctMjlUMTc6Mzk6NDkrMDM6MDAiIHhtcDpNb2RpZnlEYXRlPSIyMDE4LTA3LTI5VDE3OjQwOjIwKzAzOjAwIiB4bXA6TWV0YWRhdGFEYXRlPSIyMDE4LTA3LTI5VDE3OjQwOjIwKzAzOjAwIiBkYzpmb3JtYXQ9ImltYWdlL3BuZyIgcGhvdG9zaG9wOkNvbG9yTW9kZT0iMyIgcGhvdG9zaG9wOklDQ1Byb2ZpbGU9InNSR0IgSUVDNjE5NjYtMi4xIiB4bXBNTTpJbnN0YW5jZUlEPSJ4bXAuaWlkOmIzMzBlMWI0LTk5ZDctNGU2NS05MGQ2LTNmYjFiYmE2ZTE0MCIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDpiMzMwZTFiNC05OWQ3LTRlNjUtOTBkNi0zZmIxYmJhNmUxNDAiIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDpiMzMwZTFiNC05OWQ3LTRlNjUtOTBkNi0zZmIxYmJhNmUxNDAiPiA8eG1wTU06SGlzdG9yeT4gPHJkZjpTZXE+IDxyZGY6bGkgc3RFdnQ6YWN0aW9uPSJjcmVhdGVkIiBzdEV2dDppbnN0YW5jZUlEPSJ4bXAuaWlkOmIzMzBlMWI0LTk5ZDctNGU2NS05MGQ2LTNmYjFiYmE2ZTE0MCIgc3RFdnQ6d2hlbj0iMjAxOC0wNy0yOVQxNzozOTo0OSswMzowMCIgc3RFdnQ6c29mdHdhcmVBZ2VudD0iQWRvYmUgUGhvdG9zaG9wIENDIDIwMTggKE1hY2ludG9zaCkiLz4gPC9yZGY6U2VxPiA8L3htcE1NOkhpc3Rvcnk+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+Afx/ZwAAAX9JREFUaIHtmcFxhDAMRZ9vbsm2QEqgBEqgBDpICaSElEAJKSEdZFMCJVDCXpgbyyKWbGRkbM17M4xnxvIXRj5Zkoi0lakP3x8/F8DNfQl4uIcxiojM3K2Ou7tPddR5+j455y6SnuRRLzLz/QrpSZ7kUV9kHoEzN3uQyqhHPxK9yQOf0U3kxs0epjLq0Z8XJPJOfQcD4ibUIK2J3LjZ01RCPSGRWxJ5p76LAXETapDWRG7c7GkqoZ6QyC2JvFPfxYC4CTVIayI3bvY0lVBPSOSWRN6p72JA3IQapDWRGzd7mkqoJyRySyLv1HcxIG5CDdKayI2bPU0l1BMSuSWRd+q7GBA3oQZpTeTGzZ6mEuoJidySyDv1XQyIm1CDtCZy42ZPUwn1hERuSeSd+i4GxE2oQVoTuXGzp6mEekIityTyTn0XA+Im1CCtiWxm9jSVUI9IJLKUvHO3p6mEekQkEYnkZk9TCfVIpLfRzZ6mJpGSRGRJIiWJyJJEShKRJYmUJCJLEilJRJYkUpKILEmkJBFZkkhJIrIkkf/jB1z++hNwcO0MAAAAAElFTkSuQmCC');
+    background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAACXBIWXMAAAsTAAALEwEAmpwYAAAFEmlUWHRYTUw6Y29tLmFkb2JlLnhtcAAAAAAAPD94cGFja2V0IGJlZ2luPSLvu78iIGlkPSJXNU0wTXBDZWhpSHpyZVN6TlRjemtjOWQiPz4gPHg6eG1wbWV0YSB4bWxuczp4PSJhZG9iZTpuczptZXRhLyIgeDp4bXB0az0iQWRvYmUgWE1QIENvcmUgNS42LWMxNDAgNzkuMTYwNDUxLCAyMDE3LzA1LzA2LTAxOjA4OjIxICAgICAgICAiPiA8cmRmOlJERiB4bWxuczpyZGY9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkvMDIvMjItcmRmLXN5bnRheC1ucyMiPiA8cmRmOkRlc2NyaXB0aW9uIHJkZjphYm91dD0iIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtbG5zOmRjPSJodHRwOi8vcHVybC5vcmcvZGMvZWxlbWVudHMvMS4xLyIgeG1sbnM6cGhvdG9zaG9wPSJodHRwOi8vbnMuYWRvYmUuY29tL3Bob3Rvc2hvcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RFdnQ9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZUV2ZW50IyIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ0MgMjAxOCAoTWFjaW50b3NoKSIgeG1wOkNyZWF0ZURhdGU9IjIwMTgtMDctMjlUMTc6Mzk6NDkrMDM6MDAiIHhtcDpNb2RpZnlEYXRlPSIyMDE4LTA3LTI5VDE3OjQwOjIwKzAzOjAwIiB4bXA6TWV0YWRhdGFEYXRlPSIyMDE4LTA3LTI5VDE3OjQwOjIwKzAzOjAwIiBkYzpmb3JtYXQ9ImltYWdlL3BuZyIgcGhvdG9zaG9wOkNvbG9yTW9kZT0iMyIgcGhvdG9zaG9wOklDQ1Byb2ZpbGU9InNSR0IgSUVDNjE5NjYtMi4xIiB4bXBNTTpJbnN0YW5jZUlEPSJ4bXAuaWlkOmIzMzBlMWI0LTk5ZDctNGU2NS05MGQ2LTNmYjFiYmE2ZTE0MCIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDpiMzMwZTFiNC05OWQ3LTRlNjUtOTBkNi0zZmIxYmJhNmUxNDAiIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDpiMzMwZTFiNC05OWQ3LTRlNjUtOTBkNi0zZmIxYmJhNmUxNDAiPiA8eG1wTU06SGlzdG9yeT4gPHJkZjpTZXE+IDxyZGY6bGkgc3RFdnQ6YWN0aW9uPSJjcmVhdGVkIiBzdEV2dDppbnN0YW5jZUlEPSJ4bXAuaWlkOmIzMzBlMWI0LTk5ZDctNGU2NS05MGQ2LTNmYjFiYmE2ZTE0MCIgc3RFdnQ6d2hlbj0iMjAxOC0wNy0yOVQxNzozOTo0OSswMzowMCIgc3RFdnQ6c29mdHdhcmVBZ2VudD0iQWRvYmUgUGhvdG9zaG9wIENDIDIwMTggKE1hY2ludG9zaCkiLz4gPC9yZGY6U2VxPiA8L3htcE1NOkhpc3Rvcnk+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+Afx/ZwAAAX9JREFUaIHtmcFxhDAMRZ9vbsm2QEqgBEqgBDpICaSElEAJKSEdZFMCJVDCXpgbyyKWbGRkbM17M4xnxvIXRj5Zkoi0lakP3x8/F8DNfQl4uIcxiojM3K2Ou7tPddR5+j455y6SnuRRLzLz/QrpSZ7kUV9kHoEzN3uQyqhHPxK9yQOf0U3kxs0epjLq0Z8XJPJOfQcD4ibUIK2J3LjZ01RCPSGRWxJ5p76LAXETapDWRG7c7GkqoZ6QyC2JvFPfxYC4CTVIayI3bvY0lVBPSOSWRN6p72JA3IQapDWRGzd7mkqoJyRySyLv1HcxIG5CDdKayI2bPU0l1BMSuSWRd+q7GBA3oQZpTeTGzZ6mEuoJidySyDv1XQyIm1CDtCZy42ZPUwn1hERuSeSd+i4GxE2oQVoTuXGzp6mEekIityTyTn0XA+Im1CCtiWxm9jSVUI9IJLKUvHO3p6mEekQkEYnkZk9TCfVIpLfRzZ6mJpGSRGRJIiWJyJJEShKRJYmUJCJLEilJRJYkUpKILEmkJBFZkkhJIrIkkf/jB1z++hNwcO0MAAAAAElFTkSuQmCC");
     background-size: 50px 50px;
     opacity: 0.03;
     animation: none;
@@ -1309,13 +1290,13 @@ em {
 }
 
 .page-transition::before {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAACXBIWXMAAAsTAAALEwEAmpwYAAAFEmlUWHRYTUw6Y29tLmFkb2JlLnhtcAAAAAAAPD94cGFja2V0IGJlZ2luPSLvu78iIGlkPSJXNU0wTXBDZWhpSHpyZVN6TlRjemtjOWQiPz4gPHg6eG1wbWV0YSB4bWxuczp4PSJhZG9iZTpuczptZXRhLyIgeDp4bXB0az0iQWRvYmUgWE1QIENvcmUgNS42LWMxNDAgNzkuMTYwNDUxLCAyMDE3LzA1LzA2LTAxOjA4OjIxICAgICAgICAiPiA8cmRmOlJERiB4bWxuczpyZGY9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkvMDIvMjItcmRmLXN5bnRheC1ucyMiPiA8cmRmOkRlc2NyaXB0aW9uIHJkZjphYm91dD0iIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtbG5zOmRjPSJodHRwOi8vcHVybC5vcmcvZGMvZWxlbWVudHMvMS4xLyIgeG1sbnM6cGhvdG9zaG9wPSJodHRwOi8vbnMuYWRvYmUuY29tL3Bob3Rvc2hvcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RFdnQ9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZUV2ZW50IyIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ0MgMjAxOCAoTWFjaW50b3NoKSIgeG1wOkNyZWF0ZURhdGU9IjIwMTgtMDctMjlUMTc6Mzk6NDkrMDM6MDAiIHhtcDpNb2RpZnlEYXRlPSIyMDE4LTA3LTI5VDE3OjQwOjIwKzAzOjAwIiB4bXA6TWV0YWRhdGFEYXRlPSIyMDE4LTA3LTI5VDE3OjQwOjIwKzAzOjAwIiBkYzpmb3JtYXQ9ImltYWdlL3BuZyIgcGhvdG9zaG9wOkNvbG9yTW9kZT0iMyIgcGhvdG9zaG9wOklDQ1Byb2ZpbGU9InNSR0IgSUVDNjE5NjYtMi4xIiB4bXBNTTpJbnN0YW5jZUlEPSJ4bXAuaWlkOmIzMzBlMWI0LTk5ZDctNGU2NS05MGQ2LTNmYjFiYmE2ZTE0MCIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDpiMzMwZTFiNC05OWQ3LTRlNjUtOTBkNi0zZmIxYmJhNmUxNDAiIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDpiMzMwZTFiNC05OWQ3LTRlNjUtOTBkNi0zZmIxYmJhNmUxNDAiPiA8eG1wTU06SGlzdG9yeT4gPHJkZjpTZXE+IDxyZGY6bGkgc3RFdnQ6YWN0aW9uPSJjcmVhdGVkIiBzdEV2dDppbnN0YW5jZUlEPSJ4bXAuaWlkOmIzMzBlMWI0LTk5ZDctNGU2NS05MGQ2LTNmYjFiYmE2ZTE0MCIgc3RFdnQ6d2hlbj0iMjAxOC0wNy0yOVQxNzozOTo0OSswMzowMCIgc3RFdnQ6c29mdHdhcmVBZ2VudD0iQWRvYmUgUGhvdG9zaG9wIENDIDIwMTggKE1hY2ludG9zaCkiLz4gPC9yZGY6U2VxPiA8L3htcE1NOkhpc3Rvcnk+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+Afx/ZwAAAX9JREFUaIHtmcFxhDAMRZ9vbsm2QEqgBEqgBDpICaSElEAJKSEdZFMCJVDCXpgbyyKWbGRkbM17M4xnxvIXRj5Zkoi0lakP3x8/F8DNfQl4uIcxiojM3K2Ou7tPddR5+j455y6SnuRRLzLz/QrpSZ7kUV9kHoEzN3uQyqhHPxK9yQOf0U3kxs0epjLq0Z8XJPJOfQcD4ibUIK2J3LjZ01RCPSGRWxJ5p76LAXETapDWRG7c7GkqoZ6QyC2JvFPfxYC4CTVIayI3bvY0lVBPSOSWRN6p72JA3IQapDWRGzd7mkqoJyRySyLv1HcxIG5CDdKayI2bPU0l1BMSuSWRd+q7GBA3oQZpTeTGzZ6mEuoJidySyDv1XQyIm1CDtCZy42ZPUwn1hERuSeSd+i4GxE2oQVoTuXGzp6mEekIityTyTn0XA+Im1CCtiWxm9jSVUI9IJLKUvHO3p6mEekQkEYnkZk9TCfVIpLfRzZ6mJpGSRGRJIiWJyJJEShKRJYmUJCJLEilJRJYkUpKILEmkJBFZkkhJIrIkkf/jB1z++hNwcO0MAAAAAElFTkSuQmCC');
+  background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAACXBIWXMAAAsTAAALEwEAmpwYAAAFEmlUWHRYTUw6Y29tLmFkb2JlLnhtcAAAAAAAPD94cGFja2V0IGJlZ2luPSLvu78iIGlkPSJXNU0wTXBDZWhpSHpyZVN6TlRjemtjOWQiPz4gPHg6eG1wbWV0YSB4bWxuczp4PSJhZG9iZTpuczptZXRhLyIgeDp4bXB0az0iQWRvYmUgWE1QIENvcmUgNS42LWMxNDAgNzkuMTYwNDUxLCAyMDE3LzA1LzA2LTAxOjA4OjIxICAgICAgICAiPiA8cmRmOlJERiB4bWxuczpyZGY9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkvMDIvMjItcmRmLXN5bnRheC1ucyMiPiA8cmRmOkRlc2NyaXB0aW9uIHJkZjphYm91dD0iIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtbG5zOmRjPSJodHRwOi8vcHVybC5vcmcvZGMvZWxlbWVudHMvMS4xLyIgeG1sbnM6cGhvdG9zaG9wPSJodHRwOi8vbnMuYWRvYmUuY29tL3Bob3Rvc2hvcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RFdnQ9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZUV2ZW50IyIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ0MgMjAxOCAoTWFjaW50b3NoKSIgeG1wOkNyZWF0ZURhdGU9IjIwMTgtMDctMjlUMTc6Mzk6NDkrMDM6MDAiIHhtcDpNb2RpZnlEYXRlPSIyMDE4LTA3LTI5VDE3OjQwOjIwKzAzOjAwIiB4bXA6TWV0YWRhdGFEYXRlPSIyMDE4LTA3LTI5VDE3OjQwOjIwKzAzOjAwIiBkYzpmb3JtYXQ9ImltYWdlL3BuZyIgcGhvdG9zaG9wOkNvbG9yTW9kZT0iMyIgcGhvdG9zaG9wOklDQ1Byb2ZpbGU9InNSR0IgSUVDNjE5NjYtMi4xIiB4bXBNTTpJbnN0YW5jZUlEPSJ4bXAuaWlkOmIzMzBlMWI0LTk5ZDctNGU2NS05MGQ2LTNmYjFiYmE2ZTE0MCIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDpiMzMwZTFiNC05OWQ3LTRlNjUtOTBkNi0zZmIxYmJhNmUxNDAiIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDpiMzMwZTFiNC05OWQ3LTRlNjUtOTBkNi0zZmIxYmJhNmUxNDAiPiA8eG1wTU06SGlzdG9yeT4gPHJkZjpTZXE+IDxyZGY6bGkgc3RFdnQ6YWN0aW9uPSJjcmVhdGVkIiBzdEV2dDppbnN0YW5jZUlEPSJ4bXAuaWlkOmIzMzBlMWI0LTk5ZDctNGU2NS05MGQ2LTNmYjFiYmE2ZTE0MCIgc3RFdnQ6d2hlbj0iMjAxOC0wNy0yOVQxNzozOTo0OSswMzowMCIgc3RFdnQ6c29mdHdhcmVBZ2VudD0iQWRvYmUgUGhvdG9zaG9wIENDIDIwMTggKE1hY2ludG9zaCkiLz4gPC9yZGY6U2VxPiA8L3htcE1NOkhpc3Rvcnk+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+Afx/ZwAAAX9JREFUaIHtmcFxhDAMRZ9vbsm2QEqgBEqgBDpICaSElEAJKSEdZFMCJVDCXpgbyyKWbGRkbM17M4xnxvIXRj5Zkoi0lakP3x8/F8DNfQl4uIcxiojM3K2Ou7tPddR5+j455y6SnuRRLzLz/QrpSZ7kUV9kHoEzN3uQyqhHPxK9yQOf0U3kxs0epjLq0Z8XJPJOfQcD4ibUIK2J3LjZ01RCPSGRWxJ5p76LAXETapDWRG7c7GkqoZ6QyC2JvFPfxYC4CTVIayI3bvY0lVBPSOSWRN6p72JA3IQapDWRGzd7mkqoJyRySyLv1HcxIG5CDdKayI2bPU0l1BMSuSWRd+q7GBA3oQZpTeTGzZ6mEuoJidySyDv1XQyIm1CDtCZy42ZPUwn1hERuSeSd+i4GxE2oQVoTuXGzp6mEekIityTyTn0XA+Im1CCtiWxm9jSVUI9IJLKUvHO3p6mEekQkEYnkZk9TCfVIpLfRzZ6mJpGSRGRJIiWJyJJEShKRJYmUJCJLEilJRJYkUpKILEmkJBFZkkhJIrIkkf/jB1z++hNwcO0MAAAAAElFTkSuQmCC");
   background-size: 50px 50px;
   opacity: 0.03;
   animation: noise 0.5s steps(10) infinite;
@@ -1324,9 +1305,8 @@ em {
 
 /* Add VHS tracking lines */
 @media screen and (prefers-reduced-motion: reduce) {
-
   .page-transition::after {
-    content: '';
+    content: "";
     position: absolute;
     top: 0;
     left: 0;
@@ -1347,7 +1327,7 @@ em {
 }
 
 .page-transition::after {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: 0;
@@ -1368,7 +1348,6 @@ em {
 
 /* Add flickering effect */
 @keyframes flicker {
-
   0%,
   100% {
     opacity: 1;
@@ -1412,7 +1391,6 @@ em {
 }
 
 @keyframes trackingLines {
-
   0% {
     background-position: 0 0;
   }
@@ -1448,7 +1426,6 @@ em {
 }
 
 @media screen and (prefers-reduced-motion: reduce) {
-
   .page-transition .glitch-text {
     display: inline-block; /* Changed to inline-block for better centering */
     position: relative;
@@ -1508,7 +1485,6 @@ em {
 
 /* Mobile-specific adjustments */
 @media (max-width: 768px) {
-
   .page-transition .glitch-text {
     font-size: 2.5rem;
     letter-spacing: 0.15em;
@@ -1516,7 +1492,6 @@ em {
 }
 
 @media (max-width: 480px) {
-
   .page-transition .glitch-text {
     font-size: 2rem;
     letter-spacing: 0.1em;
@@ -1543,9 +1518,7 @@ em {
 }
 
 @media screen and (prefers-reduced-motion: reduce) {
-
   .page-transition .glitch-text::before {
-
     /* Red offset */
     left: 2px !important; /* Force left position with !important */
     text-shadow: -1px 0 var(--color-primary);
@@ -1557,7 +1530,6 @@ em {
 }
 
 .page-transition .glitch-text::before {
-
   /* Red offset */
   left: 2px !important; /* Force left position with !important */
   text-shadow: -1px 0 var(--color-primary);
@@ -1568,9 +1540,7 @@ em {
 }
 
 @media screen and (prefers-reduced-motion: reduce) {
-
   .page-transition .glitch-text::after {
-
     /* Blue offset */
     left: -2px !important; /* Force left position with !important */
     text-shadow: 1px 0 var(--color-accent);
@@ -1582,7 +1552,6 @@ em {
 }
 
 .page-transition .glitch-text::after {
-
   /* Blue offset */
   left: -2px !important; /* Force left position with !important */
   text-shadow: 1px 0 var(--color-accent);
@@ -1594,7 +1563,6 @@ em {
 
 /* Mobile-specific adjustments for pseudo-elements */
 @media (max-width: 768px) {
-
   .page-transition .glitch-text::before,
   .page-transition .glitch-text::after {
     left: 0 !important; /* Reduce offset on mobile */
@@ -1602,7 +1570,6 @@ em {
 }
 
 @media screen and (prefers-reduced-motion: reduce) {
-
   .glitch-scanlines {
     position: absolute;
     top: 0;
@@ -1645,7 +1612,6 @@ em {
 }
 
 @media screen and (prefers-reduced-motion: reduce) {
-
   .glitch-slice {
     position: absolute;
     width: 100%;
@@ -1687,7 +1653,6 @@ em {
 }
 
 @media screen and (prefers-reduced-motion: reduce) {
-
   .glitch-rgb {
     position: absolute;
     top: 0;
@@ -1730,7 +1695,6 @@ em {
 }
 
 @keyframes glitchText {
-
   0% {
     transform: translate(-50%, -50%) skew(0deg, 0deg);
     text-shadow: 2px 2px var(--color-primary), -2px -2px var(--color-accent);
@@ -1758,7 +1722,6 @@ em {
 }
 
 @keyframes scanlines {
-
   0% {
     background-position: 0 0;
   }
@@ -1769,7 +1732,6 @@ em {
 }
 
 @keyframes glitchSlice {
-
   0% {
     height: 0;
   }
@@ -1820,7 +1782,6 @@ em {
 }
 
 @keyframes rgbShift {
-
   0% {
     opacity: 0.2;
     background-position: 0% 0%;
@@ -1847,7 +1808,6 @@ em {
 
 /* New animations for enhanced text glitch */
 @keyframes glitch-anim-1 {
-
   0%,
   100% {
     transform: translate(0);
@@ -1876,7 +1836,6 @@ em {
 }
 
 @keyframes glitch-anim-2 {
-
   0%,
   100% {
     transform: translate(0);
@@ -1901,7 +1860,6 @@ em {
 
 /* Noise animation for more texture */
 @keyframes noise {
-
   0%,
   100% {
     background-position: 0 0;
@@ -1946,7 +1904,6 @@ em {
 
 /* Mobile-specific adjustments for the glitch effect */
 @media (max-width: 768px) {
-
   .glitch-text {
     font-size: 2rem;
     letter-spacing: 0.1em;
@@ -1960,7 +1917,6 @@ em {
 }
 
 @media (max-width: 480px) {
-
   .glitch-text {
     font-size: 1.5rem;
     letter-spacing: 0.05em;
@@ -2034,7 +1990,6 @@ em {
 
 /* Back to top button */
 @media screen and (prefers-reduced-motion: reduce) {
-
   .back-to-top {
     position: fixed;
     bottom: 25px;
@@ -2087,9 +2042,8 @@ em {
 }
 
 @media screen and (prefers-reduced-motion: reduce) {
-
   .back-to-top::before {
-    content: '';
+    content: "";
     position: absolute;
     top: 0;
     left: 0;
@@ -2106,7 +2060,7 @@ em {
 }
 
 .back-to-top::before {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: 0;
@@ -2142,7 +2096,6 @@ em {
 
 /* Lightbox for images */
 @media screen and (prefers-reduced-motion: reduce) {
-
   .lightbox {
     position: fixed;
     top: 0;
@@ -2181,7 +2134,7 @@ em {
 }
 
 .lightbox::before {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: 0;
@@ -2201,7 +2154,6 @@ em {
 }
 
 @media screen and (prefers-reduced-motion: reduce) {
-
   .lightbox img {
     max-width: 90%;
     max-height: 90%;
@@ -2233,7 +2185,6 @@ em {
 }
 
 @media screen and (prefers-reduced-motion: reduce) {
-
   .lightbox-close {
     position: absolute;
     top: 25px;
@@ -2276,9 +2227,8 @@ em {
 }
 
 @media screen and (prefers-reduced-motion: reduce) {
-
   .lightbox-close::before {
-    content: '';
+    content: "";
     position: absolute;
     top: 0;
     left: 0;
@@ -2295,7 +2245,7 @@ em {
 }
 
 .lightbox-close::before {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: 0;
@@ -2325,7 +2275,6 @@ em {
 
 /* Enhanced media queries for responsive design */
 @media screen and (max-width: 768px) {
-
   .mobile-menu-btn {
     display: flex;
     justify-content: center;
@@ -2334,7 +2283,6 @@ em {
   }
 
   @media screen and (prefers-reduced-motion: reduce) {
-
     .nav-links {
       position: fixed;
       top: 0;
@@ -2377,7 +2325,6 @@ em {
   }
 
   @media screen and (prefers-reduced-motion: reduce) {
-
     .nav-links a {
       margin: 8px 20px;
       width: calc(100% - 40px);
@@ -2447,14 +2394,13 @@ em {
 }
 
 @media screen and (prefers-reduced-motion: reduce) {
-
   .splash-background {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background-image: url('Images/Base-Image.png');
+    background-image: url("Images/Base-Image.png");
     background-size: cover;
     background-position: center;
     filter: blur(3px) brightness(0.4);
@@ -2469,7 +2415,7 @@ em {
   left: 0;
   width: 100%;
   height: 100%;
-  background-image: url('Images/Base-Image.png');
+  background-image: url("Images/Base-Image.png");
   background-size: cover;
   background-position: center;
   filter: blur(3px) brightness(0.4);
@@ -2478,7 +2424,6 @@ em {
 }
 
 @media screen and (prefers-reduced-motion: reduce) {
-
   .splash-logo {
     margin-bottom: 2rem;
     transform: scale(0);
@@ -2511,7 +2456,6 @@ em {
 }
 
 @media screen and (prefers-reduced-motion: reduce) {
-
   .splash-tagline {
     font-size: 1.2rem;
     font-weight: 300;
@@ -2548,11 +2492,14 @@ em {
 }
 
 @media screen and (prefers-reduced-motion: reduce) {
-
   .loading-bar {
     height: 100%;
     width: 0%;
-    background: linear-gradient(90deg, var(--color-primary), var(--color-accent));
+    background: linear-gradient(
+      90deg,
+      var(--color-primary),
+      var(--color-accent)
+    );
     border-radius: 2px;
     animation: none;
   }
@@ -2567,7 +2514,6 @@ em {
 }
 
 @media screen and (prefers-reduced-motion: reduce) {
-
   .redirect-message {
     font-size: 0.9rem;
     opacity: 0;
@@ -2576,7 +2522,6 @@ em {
 }
 
 @media screen and (prefers-reduced-motion: reduce) {
-
   .redirect-message {
     font-size: 0.9rem;
     opacity: 0;
@@ -2591,7 +2536,6 @@ em {
 }
 
 @media screen and (prefers-reduced-motion: reduce) {
-
   .redirect-link {
     color: var(--color-primary-light);
     text-decoration: none;
@@ -2615,9 +2559,8 @@ em {
 }
 
 @media screen and (prefers-reduced-motion: reduce) {
-
   .redirect-link::after {
-    content: '';
+    content: "";
     position: absolute;
     bottom: -2px;
     left: 0;
@@ -2635,7 +2578,7 @@ em {
 }
 
 .redirect-link::after {
-  content: '';
+  content: "";
   position: absolute;
   bottom: -2px;
   left: 0;
@@ -2692,7 +2635,6 @@ em {
 
 /* Splash page animations */
 @keyframes pulse {
-
   0% {
     transform: scale(1.02);
   }
@@ -2703,7 +2645,6 @@ em {
 }
 
 @keyframes logoReveal {
-
   0% {
     transform: scale(0);
     filter: blur(10px);
@@ -2716,7 +2657,6 @@ em {
 }
 
 @keyframes loading {
-
   0% {
     width: 0%;
   }
@@ -2753,7 +2693,6 @@ em {
 
 /* Media queries for responsive design */
 @media (max-width: 768px) {
-
   .content-container {
     margin-top: 30px;
   }
@@ -2799,7 +2738,6 @@ em {
 
 /* Extra small devices */
 @media (max-width: 480px) {
-
   .header-container {
     width: 100% !important; /* Full width on very small screens with !important */
     min-width: 100% !important;

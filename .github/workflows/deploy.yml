@@ -6,7 +6,7 @@ name: Deploy Website to GitHub Pages
 on:
   # Runs on pushes targeting the default branch
   push:
-    branches: [ "master" ]
+    branches: ["master"]
     paths-ignore:
       - "README.md"
       - ".github/**/*.md"
@@ -14,7 +14,7 @@ on:
 
   # Runs on pull requests to preview changes
   pull_request:
-    branches: [ "master" ]
+    branches: ["master"]
     paths-ignore:
       - "README.md"
       - ".github/**/*.md"
