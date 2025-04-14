@@ -8,9 +8,6 @@
     "value-no-vendor-prefix": null,
     "at-rule-no-vendor-prefix": null,
     "no-descending-specificity": null,
-    "a11y/media-prefers-reduced-motion": true,
-    "a11y/no-outline-none": true,
-    "a11y/selector-pseudo-class-focus": true,
     "declaration-block-no-redundant-longhand-properties": true,
     "shorthand-property-no-redundant-values": true
   }
