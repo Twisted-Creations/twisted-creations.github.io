@@ -25,7 +25,7 @@
     "html-validate": "^9.5.3",
     "imagemin-cli": "^8.0.0",
     "postcss": "^8.5.3",
-    "postcss-cli": "^11.0.0",
+    "postcss-cli": "^11.0.1",
     "stylelint": "^16.18.0",
     "stylelint-config-standard": "^38.0.0",
     "terser": "^5.39.0"
