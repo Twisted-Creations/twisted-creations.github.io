@@ -1,0 +1,296 @@
+/* Modern CSS enhancements for Twisted Creations website */
+
+/* CSS Custom Properties for modern features */
+:root {
+  /* Additional colors */
+  --color-success: #28a745;
+  --color-warning: #ffc107;
+  --color-danger: #dc3545;
+  --color-info: #17a2b8;
+
+  /* Modern gradients */
+  --gradient-primary: linear-gradient(
+    135deg,
+    var(--color-primary),
+    var(--color-secondary)
+  );
+  --gradient-dark: linear-gradient(
+    135deg,
+    var(--color-dark),
+    var(--color-dark-accent)
+  );
+
+  /* Modern shadows with layered effects */
+  --shadow-elevation-low: 0 1px 2px rgba(0, 0, 0, 0.1),
+    0 2px 4px rgba(0, 0, 0, 0.1);
+  --shadow-elevation-medium: 0 2px 4px rgba(0, 0, 0, 0.1),
+    0 4px 8px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.1);
+  --shadow-elevation-high: 0 2px 4px rgba(0, 0, 0, 0.1),
+    0 4px 8px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.1),
+    0 16px 32px rgba(0, 0, 0, 0.1);
+
+  /* Modern spacing system */
+  --space-xs: 0.25rem;
+  --space-sm: 0.5rem;
+  --space-md: 1rem;
+  --space-lg: 1.5rem;
+  --space-xl: 2rem;
+  --space-xxl: 3rem;
+}
+
+/* Modern button styles */
+.primary-button,
+.secondary-button {
+  display: inline-block;
+  padding: 0.75rem 1.5rem;
+  border-radius: var(--radius-md);
+  font-weight: 600;
+  text-decoration: none;
+  text-align: center;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+  cursor: pointer;
+  box-shadow: var(--shadow-elevation-low);
+  border: none;
+  font-size: 1rem;
+  letter-spacing: 0.5px;
+}
+
+.primary-button {
+  background: var(--gradient-primary);
+  color: var(--color-text);
+}
+
+.secondary-button {
+  background-color: transparent;
+  color: var(--color-primary);
+  border: 2px solid var(--color-primary);
+}
+
+.primary-button:hover,
+.primary-button:focus {
+  box-shadow: var(--shadow-elevation-medium);
+  transform: translateY(-2px);
+}
+
+.secondary-button:hover,
+.secondary-button:focus {
+  background-color: rgba(26, 39, 179, 0.1);
+  box-shadow: var(--shadow-elevation-low);
+  transform: translateY(-2px);
+}
+
+/* Modern card styles */
+.card {
+  background-color: var(--color-ui-bg);
+  border-radius: var(--radius-md);
+  padding: var(--space-lg);
+  box-shadow: var(--shadow-elevation-medium);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  overflow: hidden;
+  position: relative;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-elevation-high);
+}
+
+/* Modern grid layout */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: var(--space-lg);
+  width: 100%;
+}
+
+/* Update grid for specific sections */
+.update-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: var(--space-lg);
+  margin-top: var(--space-lg);
+}
+
+.update-card {
+  background-color: rgba(18, 18, 24, 0.6);
+  border-radius: var(--radius-md);
+  padding: var(--space-lg);
+  border: 1px solid var(--color-ui-border);
+  transition: all 0.3s ease;
+}
+
+.update-card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-elevation-medium);
+  border-color: var(--color-primary-light);
+}
+
+.update-card h3 {
+  margin-top: 0;
+  color: var(--color-primary-light);
+}
+
+.read-more {
+  display: inline-block;
+  margin-top: var(--space-md);
+  color: var(--color-primary);
+  text-decoration: none;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.read-more:hover {
+  color: var(--color-accent);
+  transform: translateX(5px);
+}
+
+/* Modern CTA section */
+.cta-buttons {
+  display: flex;
+  gap: var(--space-md);
+  margin-top: var(--space-lg);
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+/* Modern footer layout */
+.footer-content {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--space-lg);
+  margin-bottom: var(--space-lg);
+}
+
+.footer-section {
+  flex: 1;
+  min-width: 200px;
+}
+
+.footer-section h3 {
+  color: var(--color-primary-light);
+  margin-top: 0;
+  margin-bottom: var(--space-sm);
+  font-size: 1.1rem;
+}
+
+.social-links {
+  display: flex;
+  gap: var(--space-md);
+}
+
+.social-links a {
+  color: var(--color-text-muted);
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.social-links a:hover {
+  color: var(--color-primary-light);
+  transform: translateY(-2px);
+}
+
+.copyright {
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  padding-top: var(--space-md);
+  margin-top: var(--space-md);
+  font-size: 0.9rem;
+}
+
+/* Status badges */
+.status-badge {
+  display: inline-block;
+  padding: 0.25rem 0.5rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.8rem;
+  font-weight: 600;
+  margin-left: 0.5rem;
+  background-color: var(--color-primary);
+  color: var(--color-text);
+}
+
+/* Feature list styling */
+.feature-list {
+  list-style-type: none;
+  padding: 0;
+  margin: var(--space-md) 0;
+}
+
+.feature-list li {
+  padding: var(--space-sm) 0;
+  padding-left: 1.5rem;
+  position: relative;
+}
+
+.feature-list li::before {
+  content: "✓";
+  position: absolute;
+  left: 0;
+  color: var(--color-primary-light);
+  font-weight: bold;
+}
+
+/* Team contact section */
+.team-contact {
+  margin-top: var(--space-lg);
+  text-align: center;
+}
+
+.contact-button {
+  display: inline-block;
+  padding: 0.75rem 1.5rem;
+  background: var(--gradient-primary);
+  color: var(--color-text);
+  text-decoration: none;
+  border-radius: var(--radius-md);
+  font-weight: 600;
+  transition: all 0.3s ease;
+  box-shadow: var(--shadow-elevation-low);
+}
+
+.contact-button:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-elevation-medium);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .cta-buttons {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .footer-content {
+    flex-direction: column;
+  }
+
+  .update-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Accessibility improvements */
+@media (prefers-reduced-motion: reduce) {
+  .primary-button:hover,
+  .secondary-button:hover,
+  .card:hover,
+  .update-card:hover,
+  .read-more:hover,
+  .social-links a:hover,
+  .contact-button:hover {
+    transform: none;
+    transition: none;
+  }
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  :root {
+    /* Colors already dark-mode friendly, but we can adjust if needed */
+    --color-text: #f0f0f5;
+    --color-text-muted: #a0a0a8;
+  }
+}

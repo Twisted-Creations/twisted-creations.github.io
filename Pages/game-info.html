@@ -8,8 +8,10 @@
       name="description"
       content="Discover Abandoned: The Asylum of Madness, the first installment in the Twisted Childhood Memories series by Twisted Creations. Learn about our upcoming horror game."
     />
+    <meta name="robots" content="index, follow" />
     <link rel="stylesheet" href="../style.css" />
     <link rel="stylesheet" href="../transition.css" />
+    <link rel="stylesheet" href="../modern-styles.css" />
     <!-- Preload critical assets -->
     <link
       rel="preload"
@@ -19,34 +21,58 @@
     />
     <link rel="preload" href="../script.js" as="script" />
     <link rel="preload" href="../transition.css" as="style" />
-    <title>Twisted Creations Homepage: Game Info</title>
+    <script src="../effects-preference.js"></script>
+    <title>Twisted Creations - Game Info</title>
   </head>
   <body>
     <header class="header-container">
       <h1 class="site-title">Game Info</h1>
-      <nav class="nav-links">
+      <nav class="nav-links" aria-label="Main navigation">
         <a href="index.html">Homepage</a>
-        <a href="About us.html">About us</a>
-        <a href="Our Team.html">Our Team</a>
-        <a href="Game Info.html" class="active">Game Info</a>
+        <a href="about-us.html">About Us</a>
+        <a href="our-team.html">Our Team</a>
+        <a href="game-info.html" class="active" aria-current="page"
+          >Game Info</a
+        >
         <a href="Devlog.html">Devlog</a>
       </nav>
     </header>
 
     <main class="content-container">
       <div class="content-box">
+        <h2>Abandoned: The Asylum of Madness</h2>
         <p>
           Abandoned: The Asylum of Madness is the first installment for the
           "Twisted Childhood Memories" series developed by the Twisted Creations
           team.
         </p>
+        <p>
+          In this psychological horror game, players must navigate through a
+          decrepit asylum, solving puzzles and uncovering the dark history that
+          haunts its halls. With immersive gameplay and a chilling atmosphere,
+          ATAM delivers a unique horror experience.
+        </p>
       </div>
 
       <div class="content-box">
-        <h2>Twisted Childhood Memories Franchise titles (as of now)</h2>
+        <h2>Twisted Childhood Memories Franchise</h2>
         <ul class="team-list">
-          <li>Abandoned: The Asylum of Madness</li>
-          <li>???</li>
+          <li>
+            Abandoned: The Asylum of Madness
+            <span class="status-badge">In Development</span>
+          </li>
+          <li>Future titles to be announced</li>
+        </ul>
+      </div>
+
+      <div class="content-box">
+        <h2>Game Features</h2>
+        <ul class="feature-list">
+          <li>Immersive horror experience with atmospheric gameplay</li>
+          <li>Challenging puzzles that test your problem-solving skills</li>
+          <li>Rich narrative with multiple endings based on your choices</li>
+          <li>Detailed environments created with Godot 4.4</li>
+          <li>Original soundtrack that enhances the horror atmosphere</li>
         </ul>
       </div>
     </main>

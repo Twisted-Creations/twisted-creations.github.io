@@ -8,8 +8,10 @@
       name="description"
       content="Learn about Twisted Creations, a passionate game development studio creating high-quality games with Unreal Engine 5, including our current project Abandoned: The Asylum of Madness."
     />
+    <meta name="robots" content="index, follow" />
     <link rel="stylesheet" href="../style.css" />
     <link rel="stylesheet" href="../transition.css" />
+    <link rel="stylesheet" href="../modern-styles.css" />
     <!-- Preload critical assets -->
     <link
       rel="preload"
@@ -19,16 +21,17 @@
     />
     <link rel="preload" href="../script.js" as="script" />
     <link rel="preload" href="../transition.css" as="style" />
-    <title>Twisted Creations Homepage: About us</title>
+    <script src="../effects-preference.js"></script>
+    <title>Twisted Creations - About Us</title>
   </head>
   <body>
     <header class="header-container">
-      <h1 class="site-title">About us</h1>
-      <nav class="nav-links">
+      <h1 class="site-title">About Us</h1>
+      <nav class="nav-links" aria-label="Main navigation">
         <a href="index.html">Homepage</a>
-        <a href="About us.html" class="active">About us</a>
-        <a href="Our Team.html">Our Team</a>
-        <a href="Game Info.html">Game Info</a>
+        <a href="about-us.html" class="active" aria-current="page">About Us</a>
+        <a href="our-team.html">Our Team</a>
+        <a href="game-info.html">Game Info</a>
         <a href="Devlog.html">Devlog</a>
       </nav>
     </header>
@@ -38,13 +41,17 @@
         <h2>About Twisted Creations</h2>
         <p>
           We are a group of Game Developers who are passionate about making high
-          quality Games. our games are developed using Godot 4.4, and we are the
-          studio behind the upcoming game;
+          quality Games. Our games are developed using Godot 4.4, and we are the
+          studio behind the upcoming game:
         </p>
       </div>
       <div class="content-box">
         <h2>Our Current Project</h2>
-        <p>Abandoned: The Asylum of Madness (ATAM)</p>
+        <p>
+          <strong>Abandoned: The Asylum of Madness (ATAM)</strong> - A thrilling
+          horror adventure game that challenges players to escape a haunted
+          asylum while uncovering its dark secrets.
+        </p>
       </div>
     </main>
     <footer class="footer-container">

@@ -1,0 +1,6 @@
+# robots.txt for Twisted Creations website
+User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: https://twisted-creations.github.io/sitemap.xml

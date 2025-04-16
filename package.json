@@ -7,12 +7,32 @@
     "test": "echo \"No tests configured\"",
     "validate:html": "html-validate \"**/*.html\"",
     "validate:css": "stylelint \"**/*.css\" --allow-empty-input",
-    "validate:all": "npm run validate:html && npm run validate:css"
+    "validate:js": "eslint \"**/*.js\"",
+    "validate:all": "npm run validate:html && npm run validate:css && npm run validate:js",
+    "optimize:images": "imagemin \"Images/**/*\" --out-dir=\"Images/optimized\"",
+    "build:css": "postcss style.css modern-styles.css -o dist/styles.min.css",
+    "build:js": "terser script.js -o dist/script.min.js",
+    "build": "npm run build:css && npm run build:js",
+    "dev": "browser-sync start --server --files \"**/*.html, **/*.css, **/*.js\""
   },
   "devDependencies": {
-    "html-validate": "9.5.3",
-    "stylelint": "16.18.0",
-    "stylelint-config-standard": "38.0.0",
-    "postcss": "^8.5.3"
-  }
+    "@eslint/js": "9.24.0",
+    "autoprefixer": "^10.4.21",
+    "browser-sync": "^3.0.4",
+    "cssnano": "^7.0.6",
+    "eslint": "9.24.0",
+    "globals": "16.0.0",
+    "html-validate": "^9.5.3",
+    "imagemin-cli": "^8.0.0",
+    "postcss": "^8.5.3",
+    "postcss-cli": "^11.0.0",
+    "stylelint": "^16.18.0",
+    "stylelint-config-standard": "^38.0.0",
+    "terser": "^5.39.0"
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not dead"
+  ]
 }

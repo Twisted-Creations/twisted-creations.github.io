@@ -8,8 +8,10 @@
       name="description"
       content="Follow the development progress of Abandoned: The Asylum of Madness and other projects by Twisted Creations. Regular updates on features, challenges, and milestones."
     />
+    <meta name="robots" content="index, follow" />
     <link rel="stylesheet" href="../style.css" />
     <link rel="stylesheet" href="../transition.css" />
+    <link rel="stylesheet" href="../modern-styles.css" />
     <!-- Preload critical assets -->
     <link
       rel="preload"
@@ -19,17 +21,18 @@
     />
     <link rel="preload" href="../script.js" as="script" />
     <link rel="preload" href="../transition.css" as="style" />
-    <title>Twisted Creations: Development Log</title>
+    <script src="../effects-preference.js"></script>
+    <title>Twisted Creations - Development Log</title>
   </head>
   <body>
     <header class="header-container">
       <h1 class="site-title">Development Log</h1>
-      <nav class="nav-links">
+      <nav class="nav-links" aria-label="Main navigation">
         <a href="index.html">Homepage</a>
-        <a href="About us.html">About us</a>
-        <a href="Our Team.html">Our Team</a>
-        <a href="Game Info.html">Game Info</a>
-        <a href="Devlog.html" class="active">Devlog</a>
+        <a href="about-us.html">About Us</a>
+        <a href="our-team.html">Our Team</a>
+        <a href="game-info.html">Game Info</a>
+        <a href="Devlog.html" class="active" aria-current="page">Devlog</a>
       </nav>
     </header>
 

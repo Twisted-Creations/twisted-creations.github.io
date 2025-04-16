@@ -4,6 +4,14 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#1a27b3" />
+    <meta
+      name="description"
+      content="Twisted Creations is an indie game development studio creating immersive horror experiences. Explore our projects and development updates."
+    />
+    <meta name="robots" content="index, follow" />
+    <!-- PWA Support -->
+    <link rel="manifest" href="manifest.json" />
+    <link rel="apple-touch-icon" href="Images/icon-192.png" />
     <!-- Redirect handled by JavaScript for better control and timing -->
     <title>Twisted Creations | Game Development Studio</title>
     <!-- Preload critical assets -->
@@ -17,6 +25,7 @@
     <link rel="preload" href="transition.css" as="style" />
     <link rel="stylesheet" href="splash-transition.css" />
     <link rel="preload" href="splash-transition.css" as="style" />
+    <link rel="stylesheet" href="modern-styles.css" />
     <script>
       // Check if user has already set their effects preferences
       document.addEventListener("DOMContentLoaded", function () {
@@ -27,10 +36,33 @@
         // If preferences haven't been set, redirect to the preferences page
         if (warningAcknowledged !== "true") {
           window.location.href = "effects-preferences.html";
+        } else {
+          // If preferences are set, prepare for redirect to main site
+          setTimeout(() => {
+            document.querySelector(".redirect-message").style.opacity = "1";
+          }, 8000);
         }
       });
     </script>
     <script src="splash-effects-new.js" defer></script>
+    <script>
+      // Register Service Worker for PWA support
+      if ("serviceWorker" in navigator) {
+        window.addEventListener("load", () => {
+          navigator.serviceWorker
+            .register("/service-worker.js")
+            .then((registration) => {
+              console.log(
+                "Service Worker registered with scope:",
+                registration.scope
+              );
+            })
+            .catch((error) => {
+              console.log("Service Worker registration failed:", error);
+            });
+        });
+      }
+    </script>
     <style>
       /* Define essential CSS variables for the splash page */
       :root {

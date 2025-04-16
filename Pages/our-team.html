@@ -8,8 +8,10 @@
       name="description"
       content="Meet the talented team behind Twisted Creations, including our director, coders, level designers, and play testers who are bringing Abandoned: The Asylum of Madness to life."
     />
+    <meta name="robots" content="index, follow" />
     <link rel="stylesheet" href="../style.css" />
     <link rel="stylesheet" href="../transition.css" />
+    <link rel="stylesheet" href="../modern-styles.css" />
     <!-- Preload critical assets -->
     <link
       rel="preload"
@@ -19,16 +21,17 @@
     />
     <link rel="preload" href="../script.js" as="script" />
     <link rel="preload" href="../transition.css" as="style" />
-    <title>Twisted Creations Homepage: Our Team</title>
+    <script src="../effects-preference.js"></script>
+    <title>Twisted Creations - Our Team</title>
   </head>
   <body>
     <header class="header-container">
       <h1 class="site-title">Our Team</h1>
-      <nav class="nav-links">
+      <nav class="nav-links" aria-label="Main navigation">
         <a href="index.html">Homepage</a>
-        <a href="About us.html">About us</a>
-        <a href="Our Team.html" class="active">Our Team</a>
-        <a href="Game Info.html">Game Info</a>
+        <a href="about-us.html">About Us</a>
+        <a href="our-team.html" class="active" aria-current="page">Our Team</a>
+        <a href="game-info.html">Game Info</a>
         <a href="Devlog.html">Devlog</a>
       </nav>
     </header>
@@ -40,21 +43,36 @@
         <strong>Director</strong>
         <ul>
           <li>
-            <a href="https://youtube.com/@Venage5603">Venage5603</a>
+            <a
+              href="https://youtube.com/@Venage5603"
+              rel="noopener"
+              aria-label="Venage5603's YouTube channel"
+              >Venage5603</a
+            >
           </li>
         </ul>
 
         <strong>Coders</strong>
         <ul>
           <li>
-            <a href="https://youtube.com/@Venage5603">Venage5603</a>
+            <a
+              href="https://youtube.com/@Venage5603"
+              rel="noopener"
+              aria-label="Venage5603's YouTube channel"
+              >Venage5603</a
+            >
           </li>
         </ul>
 
         <strong>Level Designers</strong>
         <ul>
           <li>
-            <a href="https://youtube.com/@Venage5603">Venage5603</a>
+            <a
+              href="https://youtube.com/@Venage5603"
+              rel="noopener"
+              aria-label="Venage5603's YouTube channel"
+              >Venage5603</a
+            >
           </li>
         </ul>
 
@@ -63,6 +81,21 @@
           <li>Chrxz</li>
           <!--add hyperlink to preferred social media profile-->
         </ul>
+      </div>
+
+      <div class="content-box">
+        <h2>Join Our Team</h2>
+        <p>
+          Twisted Creations is always looking for passionate individuals to join
+          our team. If you're interested in game development and want to
+          contribute to our projects, please reach out to us through our social
+          media channels.
+        </p>
+        <div class="team-contact">
+          <a href="mailto:contact@twistedcreations.com" class="contact-button"
+            >Contact Us</a
+          >
+        </div>
       </div>
     </main>
     <footer class="footer-container">
