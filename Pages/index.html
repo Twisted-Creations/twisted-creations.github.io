@@ -39,30 +39,43 @@
     <main class="content-container">
       <div class="content-box welcome-message">
         <h2>Welcome to Twisted Creations</h2>
-        <p>We're an indie game development studio focused on creating immersive horror experiences. Our current project, <strong>Abandoned: The Asylum of Madness</strong>, is currently in development.</p>
+        <p>
+          We're an indie game development studio focused on creating immersive
+          horror experiences. Our current project,
+          <strong>Abandoned: The Asylum of Madness</strong>, is currently in
+          development.
+        </p>
         <div class="cta-buttons">
-          <a href="game-info.html" class="primary-button">Learn About Our Game</a>
+          <a href="game-info.html" class="primary-button"
+            >Learn About Our Game</a
+          >
           <a href="about-us.html" class="secondary-button">About Our Studio</a>
         </div>
       </div>
-      
+
       <div class="content-box featured-content">
         <h2>Latest Updates</h2>
         <div class="update-grid">
           <div class="update-card">
             <h3>Development Progress</h3>
-            <p>We're making steady progress on Abandoned: The Asylum of Madness. Check out our devlog for the latest updates.</p>
-            <a href="Devlog.html" class="read-more">Read Devlog →</a>
+            <p>
+              We're making steady progress on Abandoned: The Asylum of Madness.
+              Check out our devlog for the latest updates.
+            </p>
+            <a href="devlog.html" class="read-more">Read Devlog →</a>
           </div>
           <div class="update-card">
             <h3>Meet Our Team</h3>
-            <p>Learn about the talented individuals behind Twisted Creations who are bringing our vision to life.</p>
+            <p>
+              Learn about the talented individuals behind Twisted Creations who
+              are bringing our vision to life.
+            </p>
             <a href="our-team.html" class="read-more">Meet the Team →</a>
           </div>
         </div>
       </div>
     </main>
-    
+
     <footer class="footer-container">
       <div class="footer-content">
         <div class="footer-section">
@@ -72,7 +85,12 @@
         <div class="footer-section">
           <h3>Connect With Us</h3>
           <div class="social-links">
-            <a href="https://youtube.com/@Venage5603" rel="noopener" aria-label="YouTube">YouTube</a>
+            <a
+              href="https://youtube.com/@Venage5603"
+              rel="noopener"
+              aria-label="YouTube"
+              >YouTube</a
+            >
             <a href="#" rel="noopener" aria-label="Twitter">Twitter</a>
           </div>
         </div>
@@ -85,14 +103,18 @@
     <script src="../script.js"></script>
     <script>
       // Register Service Worker for PWA support
-      if ('serviceWorker' in navigator) {
-        window.addEventListener('load', () => {
-          navigator.serviceWorker.register('/service-worker.js')
-            .then(registration => {
-              console.log('Service Worker registered with scope:', registration.scope);
+      if ("serviceWorker" in navigator) {
+        window.addEventListener("load", () => {
+          navigator.serviceWorker
+            .register("/service-worker.js")
+            .then((registration) => {
+              console.log(
+                "Service Worker registered with scope:",
+                registration.scope
+              );
             })
-            .catch(error => {
-              console.log('Service Worker registration failed:', error);
+            .catch((error) => {
+              console.log("Service Worker registration failed:", error);
             });
         });
       }

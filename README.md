@@ -27,7 +27,14 @@ This repository contains the source code for the official Twisted Creations webs
 - `index.html` - Root redirect page
 - `Pages/*.html` - Main website pages
 - `style.css` - Global styles for the website
+- `modern-styles.css` - Enhanced modern styling with CSS Grid and Flexbox
+- `transition.css` - Styles for page transitions and effects
 - `script.js` - JavaScript functionality including the dynamic background system
+- `effects-preference.js` - Handles user preferences for visual effects
+- `service-worker.js` - Provides offline capabilities and caching
+- `manifest.json` - PWA configuration for app installation
+- `robots.txt` - Instructions for search engine crawlers
+- `sitemap.xml` - Site structure information for search engines
 
 ### Automated Validation
 
@@ -35,6 +42,17 @@ This project uses GitHub Actions for automated validation:
 
 - HTML validation using html-validate
 - CSS validation using stylelint
+- JavaScript validation using ESLint
+
+### Development Commands
+
+- `npm run dev` - Start a local development server with live reload
+- `npm run validate:all` - Run all validation checks
+- `npm run validate:html` - Validate HTML files
+- `npm run validate:css` - Validate CSS files
+- `npm run validate:js` - Validate JavaScript files
+- `npm run build` - Build optimized CSS and JS files
+- `npm run optimize:images` - Optimize images for web
 
 ## 🎮 About Twisted Creations
 
@@ -43,7 +61,12 @@ We are a passionate group of game developers focused on creating high-quality ga
 ## 🚀 Website Features
 
 - Responsive design that works on all devices (desktop, tablet, mobile)
+- Progressive Web App (PWA) capabilities for offline access
+- Service worker for improved performance and caching
 - Dynamic background image scaling with smooth transitions
+- Modern CSS with variables, Grid, and Flexbox layouts
+- Accessibility features including reduced motion support
+- SEO optimizations with proper meta tags, sitemap, and robots.txt
 - Information about our studio and development philosophy
 - Details about our team members and their roles
 - Updates on our current and upcoming game projects
@@ -54,7 +77,14 @@ This website is currently a work in progress and is being actively developed. Fe
 
 ## 📱 Mobile Support
 
-Our website is fully responsive and optimized for mobile devices of all sizes.
+Our website is fully responsive and optimized for mobile devices of all sizes:
+
+- Touch-friendly navigation and interactive elements
+- Responsive layouts that adapt to any screen size
+- Performance optimizations for mobile devices
+- Improved loading times on slower connections
+- Better handling of touch events and gestures
+- PWA support for installation on mobile home screens
 
 ## 🖼️ Background Image System
 
@@ -65,6 +95,19 @@ The website features a dynamic background image scaling system that provides a s
 - **Performance Optimized**: Uses debouncing, preloading, and GPU acceleration for efficient rendering
 - **Fallback Handling**: Gracefully handles loading failures with attractive gradient backgrounds
 - **Accessibility Friendly**: Background elements are properly hidden from screen readers
+- **Reduced Motion Support**: Respects user preferences for reduced motion
+
+## ♿ Accessibility Features
+
+The website includes several accessibility features:
+
+- Reduced motion support for users who prefer minimal animations
+- Proper ARIA attributes for screen readers
+- Keyboard navigation support
+- Color contrast that meets WCAG guidelines
+- Warning screen for photosensitive content
+- Semantic HTML structure
+- Focus management for interactive elements
 
 ## 👥 Contributors
 
@@ -77,4 +120,4 @@ For more information about Twisted Creations, please visit our website or contac
 
 ---
 
-&copy; 2025 Twisted Creations. All rights reserved.
+&copy; 2024 Twisted Creations. All rights reserved.
