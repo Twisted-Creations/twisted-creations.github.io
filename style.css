@@ -905,7 +905,15 @@ em {
 /* Hide entries when filtered */
 
 .devlog-entry.hidden {
-  display: none;
+  display: none !important;
+}
+
+/* Ensure devlog entries are visible */
+#devlog-entries {
+  display: block;
+  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto;
 }
 
 .devlog-entry h3 {

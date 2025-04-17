@@ -4,7 +4,15 @@ document.addEventListener("DOMContentLoaded", function () {
   initMobileMenu();
   initBackToTop();
   initImageLightbox();
-  initDevlogFilter();
+
+  // Special handling for devlog page
+  if (document.getElementById("devlog-entries")) {
+    console.log("Devlog page detected, initializing filter");
+    setTimeout(() => {
+      initDevlogFilter();
+    }, 100); // Small delay to ensure DOM is fully processed
+  }
+
   addCurrentYearToFooter();
   initSmoothBackgroundScaling();
   initPageTransitions();
@@ -367,7 +375,40 @@ function initDevlogFilter() {
   const filterButtons = document.querySelectorAll(".filter-btn");
   const devlogEntries = document.querySelectorAll(".devlog-entry");
 
-  if (filterButtons.length === 0 || devlogEntries.length === 0) return;
+  console.log(
+    "Devlog Filter Init - Buttons:",
+    filterButtons.length,
+    "Entries:",
+    devlogEntries.length
+  );
+
+  // Log each entry for debugging
+  devlogEntries.forEach((entry, index) => {
+    console.log(
+      `Entry ${index}:`,
+      entry.querySelector("h3").textContent,
+      "Category:",
+      entry.getAttribute("data-category")
+    );
+  });
+
+  if (filterButtons.length === 0 || devlogEntries.length === 0) {
+    console.log("No filter buttons or entries found");
+    return;
+  }
+
+  // Make sure all entries are visible by default
+  devlogEntries.forEach((entry) => {
+    entry.classList.remove("hidden");
+    entry.style.opacity = "1";
+  });
+
+  // Force "All Updates" to be active by default
+  filterButtons.forEach((btn) => btn.classList.remove("active"));
+  const allButton = document.querySelector('.filter-btn[data-category="all"]');
+  if (allButton) {
+    allButton.classList.add("active");
+  }
 
   // Add click event to filter buttons
   filterButtons.forEach((button) => {
