@@ -168,6 +168,7 @@
 .footer-section {
   flex: 1;
   min-width: 200px;
+  text-align: left; /* Ensure consistent left alignment */
 }
 
 .footer-section h3 {
@@ -175,11 +176,14 @@
   margin-top: 0;
   margin-bottom: var(--space-sm);
   font-size: 1.1rem;
+  text-align: left; /* Ensure heading is left-aligned */
 }
 
 .social-links {
   display: flex;
   gap: var(--space-md);
+  justify-content: flex-start; /* Align with the heading */
+  padding-left: 0; /* Remove any potential padding */
 }
 
 .social-links a {
@@ -265,6 +269,18 @@
 
   .footer-content {
     flex-direction: column;
+  }
+
+  .footer-section {
+    text-align: center; /* Center align on mobile */
+  }
+
+  .footer-section h3 {
+    text-align: center; /* Center align headings on mobile */
+  }
+
+  .social-links {
+    justify-content: center; /* Center social links on mobile */
   }
 
   .update-grid {
