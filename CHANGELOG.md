@@ -1,6 +1,6 @@
 # Changelog
 
-## April 17, 2025 - Website Modernization
+## April 17, 2025—Website Modernization
 
 ### Added
 
@@ -37,7 +37,7 @@
 - Added support for CSS custom properties
 - Implemented responsive design patterns
 
-## April 5, 2025 - Website Improvements
+## April 5, 2025—Website Improvements
 
 ### Added
 

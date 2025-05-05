@@ -1,388 +1,383 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#1a27b3" />
-    <meta
-      name="description"
-      content="Twisted Creations is an indie game development studio creating immersive horror experiences. Explore our projects and development updates."
-    />
-    <meta name="robots" content="index, follow" />
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#1a27b3">
+    <meta name="description"
+          content="Twisted Creations is an indie game development studio creating immersive horror experiences. Explore our projects and development updates.">
+    <meta name="robots" content="index, follow">
     <!-- PWA Support -->
-    <link rel="manifest" href="manifest.json" />
-    <link rel="apple-touch-icon" href="Images/icon-192.png" />
+    <link rel="manifest" href="manifest.json">
+    <link rel="apple-touch-icon" href="Images/icon-192.png">
     <!-- Redirect handled by JavaScript for better control and timing -->
     <title>Twisted Creations | Game Development Studio</title>
     <!-- Preload critical assets -->
-    <link
-      rel="preload"
-      href="Images/Base-Image.png"
-      as="image"
-      type="image/png"
-    />
-    <link rel="stylesheet" href="transition.css" />
-    <link rel="preload" href="transition.css" as="style" />
-    <link rel="stylesheet" href="splash-transition.css" />
-    <link rel="preload" href="splash-transition.css" as="style" />
-    <link rel="stylesheet" href="modern-styles.css" />
+    <link rel="preload" href="Images/Base-Image.png" as="image" type="image/png">
+    <link rel="stylesheet" href="transition.css">
+    <link rel="preload" href="transition.css" as="style">
+    <link rel="stylesheet" href="splash-transition.css">
+    <link rel="preload" href="splash-transition.css" as="style">
+    <link rel="stylesheet" href="modern-styles.css">
+    <link rel="preload" href="script.js" as="script">
+    <script src="script.js" defer></script>
     <script>
-      // Check if user has already set their effects preferences
-      document.addEventListener("DOMContentLoaded", function () {
-        const warningAcknowledged = localStorage.getItem(
-          "effectsWarningAcknowledged"
-        );
+        // Check if a user has already set their effect preferences
+        document.addEventListener("DOMContentLoaded", function () {
+            const warningAcknowledged = localStorage.getItem(
+                "effectsWarningAcknowledged"
+            );
 
-        // If preferences haven't been set, redirect to the preferences page
-        if (warningAcknowledged !== "true") {
-          window.location.href = "effects-preferences.html";
-        } else {
-          // If preferences are set, prepare for redirect to main site
-          setTimeout(() => {
-            document.querySelector(".redirect-message").style.opacity = "1";
-          }, 8000);
-        }
-      });
+            // If preferences haven't been set, redirect to the preference page
+            if (warningAcknowledged !== "true") {
+                window.location.href = "effects-preferences.html";
+            } else {
+                // If preferences are set, prepare for redirect to the main site
+                setTimeout(() => {
+                    document.querySelector(".redirect-message").style.opacity = "1";
+                }, 8000);
+            }
+        });
     </script>
     <script src="splash-effects-new.js" defer></script>
     <script>
-      // Register Service Worker for PWA support
-      if ("serviceWorker" in navigator) {
-        window.addEventListener("load", () => {
-          navigator.serviceWorker
-            .register("/service-worker.js")
-            .then((registration) => {
-              console.log(
-                "Service Worker registered with scope:",
-                registration.scope
-              );
-            })
-            .catch((error) => {
-              console.log("Service Worker registration failed:", error);
+        // Register Service Worker for PWA support
+        if ("serviceWorker" in navigator) {
+            window.addEventListener("load", () => {
+                navigator.serviceWorker
+                    .register("/service-worker.js")
+                    .then((registration) => {
+                        console.log(
+                            "Service Worker registered with scope:",
+                            registration.scope
+                        );
+                    })
+                    .catch((error) => {
+                        console.log("Service Worker registration failed:", error);
+                    });
             });
-        });
-      }
+        }
     </script>
     <style>
-      /* Define essential CSS variables for the splash page */
-      :root {
-        --color-dark: #0a0a0f;
-        --color-text: #f0f0f5;
-        --color-primary: #1a27b3;
-        --color-accent: #6c13a3;
-        --color-primary-light: #3a47d3;
-      }
-
-      /* Reset and base styles */
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-      }
-
-      /* Splash page specific styles */
-      body {
-        margin: 0;
-        padding: 0;
-        background-color: var(--color-dark);
-        color: var(--color-text);
-        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-        overflow: hidden;
-        height: 100vh;
-        width: 100vw;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-      }
-
-      .splash-container {
-        position: relative;
-        width: 100%;
-        height: 100%;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        z-index: 1;
-      }
-
-      .splash-background {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-image: url("Images/Base-Image.png");
-        background-size: cover;
-        background-position: center;
-        filter: blur(3px) brightness(0.4);
-        z-index: -1;
-        animation: pulse 8s infinite alternate;
-      }
-
-      .splash-logo {
-        margin-bottom: 2rem;
-        transform: scale(0);
-        animation: logoReveal 1.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
-      }
-
-      .splash-logo h1 {
-        font-size: 3.5rem;
-        font-weight: 700;
-        letter-spacing: 2px;
-        margin: 0;
-        background: linear-gradient(
-          135deg,
-          var(--color-primary),
-          var(--color-accent)
-        );
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
-        color: transparent;
-        text-shadow: 0 0 15px rgba(26, 39, 179, 0.7);
-        text-align: center;
-      }
-
-      .splash-tagline {
-        font-size: 1.2rem;
-        font-weight: 300;
-        letter-spacing: 3px;
-        text-transform: uppercase;
-        color: rgba(240, 240, 245, 0.7);
-        margin-bottom: 3rem;
-        text-align: center;
-        opacity: 0;
-        animation: fadeIn 1s ease-in 0.8s forwards;
-      }
-
-      .loading-bar-container {
-        width: 280px;
-        height: 4px;
-        background-color: rgba(240, 240, 245, 0.1);
-        border-radius: 2px;
-        overflow: hidden;
-        position: relative;
-        margin-bottom: 1.5rem;
-      }
-
-      .loading-bar {
-        height: 100%;
-        width: 0%;
-        background: linear-gradient(
-          90deg,
-          var(--color-primary),
-          var(--color-accent)
-        );
-        border-radius: 2px;
-        animation: loading 9s ease-in-out forwards;
-      }
-
-      .redirect-message {
-        font-size: 0.9rem;
-        opacity: 0;
-        transition: opacity 0.5s ease-in;
-      }
-
-      .redirect-link {
-        color: var(--color-primary-light);
-        text-decoration: none;
-        position: relative;
-        padding: 0 2px;
-        transition: all 0.3s ease;
-      }
-
-      .redirect-link:hover {
-        color: var(--color-accent);
-      }
-
-      .redirect-link::after {
-        content: "";
-        position: absolute;
-        bottom: -2px;
-        left: 0;
-        width: 100%;
-        height: 1px;
-        background: linear-gradient(
-          90deg,
-          var(--color-primary),
-          var(--color-accent)
-        );
-        transform: scaleX(0);
-        transform-origin: right;
-        transition: transform 0.3s ease;
-      }
-
-      .redirect-link:hover::after {
-        transform: scaleX(1);
-        transform-origin: left;
-      }
-
-      .glitch-effect {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: repeating-linear-gradient(
-          0deg,
-          rgba(0, 0, 0, 0.15),
-          rgba(0, 0, 0, 0.15) 1px,
-          transparent 1px,
-          transparent 2px
-        );
-        pointer-events: none;
-        z-index: 2;
-        opacity: 0.3;
-      }
-
-      .vignette {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: radial-gradient(
-          circle,
-          transparent 40%,
-          rgba(10, 10, 15, 0.8) 100%
-        );
-        pointer-events: none;
-        z-index: 1;
-      }
-
-      /* Animations */
-      @keyframes pulse {
-        0% {
-          transform: scale(1.02);
-        }
-        100% {
-          transform: scale(1);
-        }
-      }
-
-      @keyframes logoReveal {
-        0% {
-          transform: scale(0);
-          filter: blur(10px);
-        }
-        100% {
-          transform: scale(1);
-          filter: blur(0);
-        }
-      }
-
-      @keyframes fadeIn {
-        0% {
-          opacity: 0;
-          transform: translateY(10px);
-        }
-        100% {
-          opacity: 1;
-          transform: translateY(0);
-        }
-      }
-
-      @keyframes loading {
-        0% {
-          width: 0%;
-        }
-        20% {
-          width: 20%;
-        }
-        50% {
-          width: 60%;
-        }
-        80% {
-          width: 85%;
-        }
-        100% {
-          width: 100%;
-        }
-      }
-
-      /* Pause animations when effects-paused class is applied */
-      .effects-paused .loading-bar {
-        animation-play-state: paused !important;
-        width: 0% !important;
-      }
-
-      .effects-paused .redirect-message {
-        opacity: 0 !important;
-      }
-
-      /* Media Queries */
-      @media (max-width: 768px) {
-        .splash-logo h1 {
-          font-size: 2.5rem;
+        /* Define essential CSS variables for the splash page */
+        :root {
+            --color-dark: #0a0a0f;
+            --color-text: #f0f0f5;
+            --color-primary: #1a27b3;
+            --color-accent: #6c13a3;
+            --color-primary-light: #3a47d3;
         }
 
-        .splash-tagline {
-          font-size: 1rem;
+        /* Reset and base styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
 
-        /* Ensure background image is visible on mobile */
-        .splash-background {
-          background-size: cover;
-          background-position: center center;
-          width: 100%;
-          height: 100%;
-        }
-
-        /* Fix for iOS Safari */
+        /* Splash page specific styles */
         body {
-          position: fixed;
-          width: 100%;
-          height: 100%;
-          overflow: hidden;
-          -webkit-overflow-scrolling: touch;
+            margin: 0;
+            padding: 0;
+            background-color: var(--color-dark);
+            color: var(--color-text);
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            overflow: hidden;
+            height: 100vh;
+            width: 100vw;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
-      }
 
-      @media (max-width: 480px) {
+        .splash-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 1;
+        }
+
+        .splash-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url("Images/Base-Image.png");
+            background-size: cover;
+            background-position: center;
+            filter: blur(3px) brightness(0.4);
+            z-index: -1;
+            animation: pulse 8s infinite alternate;
+        }
+
+        .splash-logo {
+            margin-bottom: 2rem;
+            transform: scale(0);
+            animation: logoReveal 1.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+        }
+
         .splash-logo h1 {
-          font-size: 2rem;
+            font-size: 3.5rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            margin: 0;
+            background: linear-gradient(
+                    135deg,
+                    var(--color-primary),
+                    var(--color-accent)
+            );
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 0 15px rgba(26, 39, 179, 0.7);
+            text-align: center;
         }
 
         .splash-tagline {
-          font-size: 0.9rem;
-          letter-spacing: 2px;
+            font-size: 1.2rem;
+            font-weight: 300;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: rgba(240, 240, 245, 0.7);
+            margin-bottom: 3rem;
+            text-align: center;
+            opacity: 0;
+            animation: fadeIn 1s ease-in 0.8s forwards;
         }
 
-        /* Smaller loading bar for very small screens */
         .loading-bar-container {
-          width: 220px;
+            width: 280px;
+            height: 4px;
+            background-color: rgba(240, 240, 245, 0.1);
+            border-radius: 2px;
+            overflow: hidden;
+            position: relative;
+            margin-bottom: 1.5rem;
         }
-      }
+
+        .loading-bar {
+            height: 100%;
+            width: 0;
+            background: linear-gradient(
+                    90deg,
+                    var(--color-primary),
+                    var(--color-accent)
+            );
+            border-radius: 2px;
+            animation: loading 9s ease-in-out forwards;
+        }
+
+        .redirect-message {
+            font-size: 0.9rem;
+            opacity: 0;
+            transition: opacity 0.5s ease-in;
+        }
+
+        .redirect-link {
+            color: var(--color-primary-light);
+            text-decoration: none;
+            position: relative;
+            padding: 0 2px;
+            transition: all 0.3s ease;
+        }
+
+        .redirect-link:hover {
+            color: var(--color-accent);
+        }
+
+        .redirect-link::after {
+            content: "";
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 100%;
+            height: 1px;
+            background: linear-gradient(
+                    90deg,
+                    var(--color-primary),
+                    var(--color-accent)
+            );
+            transform: scaleX(0);
+            transform-origin: right;
+            transition: transform 0.3s ease;
+        }
+
+        .redirect-link:hover::after {
+            transform: scaleX(1);
+            transform-origin: left;
+        }
+
+        .glitch-effect {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: repeating-linear-gradient(
+                    0deg,
+                    rgba(0, 0, 0, 0.15),
+                    rgba(0, 0, 0, 0.15) 1px,
+                    transparent 1px,
+                    transparent 2px
+            );
+            pointer-events: none;
+            z-index: 2;
+            opacity: 0.3;
+        }
+
+        .vignette {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(
+                    circle,
+                    transparent 40%,
+                    rgba(10, 10, 15, 0.8) 100%
+            );
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        /* Animations */
+        @keyframes pulse {
+            0% {
+                transform: scale(1.02);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        @keyframes logoReveal {
+            0% {
+                transform: scale(0);
+                filter: blur(10px);
+            }
+            100% {
+                transform: scale(1);
+                filter: blur(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes loading {
+            0% {
+                width: 0;
+            }
+            20% {
+                width: 20%;
+            }
+            50% {
+                width: 60%;
+            }
+            80% {
+                width: 85%;
+            }
+            100% {
+                width: 100%;
+            }
+        }
+
+        /* Pause animations when effects-paused class is applied */
+        .effects-paused .loading-bar {
+            animation-play-state: paused !important;
+            width: 0 !important;
+        }
+
+        .effects-paused .redirect-message {
+            opacity: 0 !important;
+        }
+
+        /* Media Queries */
+        @media (max-width: 768px) {
+            .splash-logo h1 {
+                font-size: 2.5rem;
+            }
+
+            .splash-tagline {
+                font-size: 1rem;
+            }
+
+            /* Ensure background image is visible on mobile */
+            .splash-background {
+                background-size: cover;
+                background-position: center center;
+                width: 100%;
+                height: 100%;
+            }
+
+            /* Fix for iOS Safari */
+            body {
+                position: fixed;
+                width: 100%;
+                height: 100%;
+                overflow: hidden;
+                -webkit-overflow-scrolling: touch;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .splash-logo h1 {
+                font-size: 2rem;
+            }
+
+            .splash-tagline {
+                font-size: 0.9rem;
+                letter-spacing: 2px;
+            }
+
+            /* Smaller loading bar for very small screens */
+            .loading-bar-container {
+                width: 220px;
+            }
+        }
     </style>
-  </head>
-  <body>
-    <div class="splash-container">
-      <div class="splash-background"></div>
-      <div class="vignette"></div>
-      <div class="glitch-effect"></div>
+</head>
+<body>
+<div class="splash-container">
+    <div class="splash-background"></div>
+    <div class="vignette"></div>
+    <div class="glitch-effect"></div>
 
-      <div class="splash-logo">
+    <div class="splash-logo">
         <h1>TWISTED CREATIONS</h1>
-      </div>
-
-      <div class="splash-tagline">Game Development Studio</div>
-
-      <div class="loading-bar-container">
-        <div class="loading-bar"></div>
-      </div>
-
-      <div class="redirect-message">
-        Redirecting to main site...
-        <a href="Pages/index.html" class="redirect-link" id="enter-button"
-          >Enter Now</a
-        >
-      </div>
     </div>
 
-    <script>
-      // Add more intense glitch effects to the splash page
-      function randomGlitch() {
+    <div class="splash-tagline">Game Development Studio</div>
+
+    <div class="loading-bar-container">
+        <div class="loading-bar"></div>
+    </div>
+
+    <div class="redirect-message">
+        Redirecting to the main site...
+        <a href="Pages/index.html" class="redirect-link" id="enter-button"
+        >Enter Now</a
+        >
+    </div>
+</div>
+
+<script>
+    // Add more intense glitch effects to the splash page
+    function randomGlitch() {
         const logo = document.querySelector(".splash-logo h1");
         if (!logo) return; // Safety check
 
@@ -391,55 +386,55 @@
 
         // Random glitch effects
         const glitchEffects = [
-          // Effect 1: Color shift
-          () => {
-            logo.style.textShadow = "2px 0 #ff00ea, -2px 0 #00eaff";
-            logo.style.transform = "skew(1deg)";
-          },
-          // Effect 2: Shake
-          () => {
-            const shakeX = Math.random() * 6 - 3;
-            const shakeY = Math.random() * 6 - 3;
-            logo.style.transform = `translate(${shakeX}px, ${shakeY}px)`;
-          },
-          // Effect 3: Split
-          () => {
-            logo.style.textShadow = "-3px 0 #ff00ea, 3px 0 #00eaff";
-            logo.style.letterSpacing = "3px";
-          },
+            // Effect 1: Color shift
+            () => {
+                logo.style.textShadow = "2px 0 #ff00ea, -2px 0 #00eaff";
+                logo.style.transform = "skew(1deg)";
+            },
+            // Effect 2: Shake
+            () => {
+                const shakeX = Math.random() * 6 - 3;
+                const shakeY = Math.random() * 6 - 3;
+                logo.style.transform = `translate(${shakeX}px, ${shakeY}px)`;
+            },
+            // Effect 3: Split
+            () => {
+                logo.style.textShadow = "-3px 0 #ff00ea, 3px 0 #00eaff";
+                logo.style.letterSpacing = "3px";
+            },
         ];
 
         // Choose a random effect
         const randomEffect =
-          glitchEffects[Math.floor(Math.random() * glitchEffects.length)];
+            glitchEffects[Math.floor(Math.random() * glitchEffects.length)];
 
         setTimeout(() => {
-          // Apply random effect
-          randomEffect();
+            // Apply random effect
+            randomEffect();
 
-          // Add scanlines occasionally
-          const glitchEffect = document.querySelector(".glitch-effect");
-          if (glitchEffect && Math.random() > 0.7) {
-            glitchEffect.style.opacity = "0.6";
-          }
-
-          setTimeout(() => {
-            // Reset to normal
-            logo.style.textShadow = "0 0 15px rgba(26, 39, 179, 0.7)";
-            logo.style.transform = "skew(0)";
-            logo.style.letterSpacing = "2px";
-            if (glitchEffect) {
-              glitchEffect.style.opacity = "0.3";
+            // Add scanlines occasionally
+            const glitchEffect = document.querySelector(".glitch-effect");
+            if (glitchEffect && Math.random() > 0.7) {
+                glitchEffect.style.opacity = "0.6";
             }
 
-            // Continue with random glitches
-            randomGlitch();
-          }, glitchDuration);
-        }, glitchDelay);
-      }
+            setTimeout(() => {
+                // Reset to normal
+                logo.style.textShadow = "0 0 15px rgba(26, 39, 179, 0.7)";
+                logo.style.transform = "skew(0)";
+                logo.style.letterSpacing = "2px";
+                if (glitchEffect) {
+                    glitchEffect.style.opacity = "0.3";
+                }
 
-      // Add VHS tracking lines effect
-      function addTrackingLines() {
+                // Continue with random glitches
+                randomGlitch();
+            }, glitchDuration);
+        }, glitchDelay);
+    }
+
+    // Add VHS tracking lines effect
+    function addTrackingLines() {
         const container = document.querySelector(".splash-container");
         if (!container) return; // Safety check
 
@@ -454,7 +449,7 @@
         trackingLines.style.width = "100%";
         trackingLines.style.height = "100%";
         trackingLines.style.background =
-          "linear-gradient(to bottom, transparent 0%, rgba(255, 255, 255, 0.05) 50%, transparent 51%, transparent 100%)";
+            "linear-gradient(to bottom, transparent 0%, rgba(255, 255, 255, 0.05) 50%, transparent 51%, transparent 100%)";
         trackingLines.style.backgroundSize = "100% 8px";
         trackingLines.style.animation = "trackingLines 10s linear infinite";
         trackingLines.style.zIndex = "3";
@@ -464,24 +459,24 @@
 
         // Add keyframes for tracking lines if they don't exist
         if (!document.getElementById("tracking-lines-keyframes")) {
-          const style = document.createElement("style");
-          style.id = "tracking-lines-keyframes";
-          style.textContent = `
+            const style = document.createElement("style");
+            style.id = "tracking-lines-keyframes";
+            style.textContent = `
             @keyframes trackingLines {
               0% { background-position: 0 0; }
               100% { background-position: 0 100%; }
             }
           `;
-          document.head.appendChild(style);
+            document.head.appendChild(style);
         }
-      }
+    }
 
-      // Random screen flicker effect
-      function addScreenFlicker() {
+    // Random screen flicker effect
+    function addScreenFlicker() {
         const container = document.querySelector(".splash-container");
         if (!container) return; // Safety check
 
-        // Check if flicker overlay already exists
+        // Check if a flicker overlay already exists
         if (document.querySelector(".flicker-overlay")) return;
 
         const flickerOverlay = document.createElement("div");
@@ -499,216 +494,214 @@
 
         // Random flicker function
         function flicker() {
-          if (Math.random() > 0.9) {
-            flickerOverlay.style.opacity = Math.random() * 0.2;
-            setTimeout(() => {
-              flickerOverlay.style.opacity = "0";
-            }, Math.random() * 100);
-          }
-          setTimeout(flicker, Math.random() * 1000);
+            if (Math.random() > 0.9) {
+                flickerOverlay.style.opacity = Math.random() * 0.2;
+                setTimeout(() => {
+                    flickerOverlay.style.opacity = "0";
+                }, Math.random() * 100);
+            }
+            setTimeout(flicker, Math.random() * 1000);
         }
 
         flicker();
-      }
+    }
 
-      // Add page transition effect for the Enter button
-      function initSplashPageTransition() {
+    // Add a page transition effect for the Enter button
+    function initSplashPageTransition() {
         // Create the transition elements if they don't exist
         if (!document.querySelector(".page-transition")) {
-          // Create main container
-          const transitionContainer = document.createElement("div");
-          transitionContainer.className = "page-transition";
-          transitionContainer.style.position = "fixed";
-          transitionContainer.style.top = "0";
-          transitionContainer.style.left = "0";
-          transitionContainer.style.width = "100vw";
-          transitionContainer.style.height = "100vh";
-          transitionContainer.style.backgroundColor = "rgba(0, 0, 0, 0.9)";
-          transitionContainer.style.zIndex = "9999";
-          transitionContainer.style.opacity = "0";
-          transitionContainer.style.visibility = "hidden";
-          transitionContainer.style.transition = "opacity 0.3s ease";
-          transitionContainer.style.display = "flex";
-          transitionContainer.style.alignItems = "center";
-          transitionContainer.style.justifyContent = "center";
+            // Create the main container
+            const transitionContainer = document.createElement("div");
+            transitionContainer.className = "page-transition";
+            transitionContainer.style.position = "fixed";
+            transitionContainer.style.top = "0";
+            transitionContainer.style.left = "0";
+            transitionContainer.style.width = "100vw";
+            transitionContainer.style.height = "100vh";
+            transitionContainer.style.backgroundColor = "rgba(0, 0, 0, 0.9)";
+            transitionContainer.style.zIndex = "9999";
+            transitionContainer.style.opacity = "0";
+            transitionContainer.style.visibility = "hidden";
+            transitionContainer.style.transition = "opacity 0.3s ease";
+            transitionContainer.style.display = "flex";
+            transitionContainer.style.alignItems = "center";
+            transitionContainer.style.justifyContent = "center";
 
-          // Create overlay
-          const overlay = document.createElement("div");
-          overlay.className = "glitch-overlay";
-          overlay.style.position = "absolute";
-          overlay.style.top = "0";
-          overlay.style.left = "0";
-          overlay.style.width = "100%";
-          overlay.style.height = "100%";
-          overlay.style.backgroundImage =
-            "linear-gradient(rgba(0, 0, 0, 0.1) 50%, rgba(0, 0, 0, 0.3) 50%)";
-          overlay.style.backgroundSize = "100% 4px";
-          overlay.style.zIndex = "1";
-          transitionContainer.appendChild(overlay);
+            // Create overlay
+            const overlay = document.createElement("div");
+            overlay.className = "glitch-overlay";
+            overlay.style.position = "absolute";
+            overlay.style.top = "0";
+            overlay.style.left = "0";
+            overlay.style.width = "100%";
+            overlay.style.height = "100%";
+            overlay.style.backgroundImage =
+                "linear-gradient(rgba(0, 0, 0, 0.1) 50%, rgba(0, 0, 0, 0.3) 50%)";
+            overlay.style.backgroundSize = "100% 4px";
+            overlay.style.zIndex = "1";
+            transitionContainer.appendChild(overlay);
 
-          // Create scanlines
-          const scanlines = document.createElement("div");
-          scanlines.className = "glitch-scanlines";
-          scanlines.style.position = "absolute";
-          scanlines.style.top = "0";
-          scanlines.style.left = "0";
-          scanlines.style.width = "100%";
-          scanlines.style.height = "100%";
-          scanlines.style.backgroundImage =
-            "linear-gradient(to bottom, transparent, rgba(255, 255, 255, 0.05) 50%, transparent 50%)";
-          scanlines.style.backgroundSize = "100% 2px";
-          scanlines.style.zIndex = "2";
-          transitionContainer.appendChild(scanlines);
+            // Create scanlines
+            const scanlines = document.createElement("div");
+            scanlines.className = "glitch-scanlines";
+            scanlines.style.position = "absolute";
+            scanlines.style.top = "0";
+            scanlines.style.left = "0";
+            scanlines.style.width = "100%";
+            scanlines.style.height = "100%";
+            scanlines.style.backgroundImage =
+                "linear-gradient(to bottom, transparent, rgba(255, 255, 255, 0.05) 50%, transparent 50%)";
+            scanlines.style.backgroundSize = "100% 2px";
+            scanlines.style.zIndex = "2";
+            transitionContainer.appendChild(scanlines);
 
-          // Create RGB shift layer
-          const rgbLayer = document.createElement("div");
-          rgbLayer.className = "glitch-rgb";
-          rgbLayer.style.position = "absolute";
-          rgbLayer.style.top = "0";
-          rgbLayer.style.left = "0";
-          rgbLayer.style.width = "100%";
-          rgbLayer.style.height = "100%";
-          rgbLayer.style.mixBlendMode = "screen";
-          rgbLayer.style.zIndex = "3";
-          transitionContainer.appendChild(rgbLayer);
+            // Create RGB shift layer
+            const rgbLayer = document.createElement("div");
+            rgbLayer.className = "glitch-rgb";
+            rgbLayer.style.position = "absolute";
+            rgbLayer.style.top = "0";
+            rgbLayer.style.left = "0";
+            rgbLayer.style.width = "100%";
+            rgbLayer.style.height = "100%";
+            rgbLayer.style.mixBlendMode = "screen";
+            rgbLayer.style.zIndex = "3";
+            transitionContainer.appendChild(rgbLayer);
 
-          // Create horizontal glitch slices
-          for (let i = 0; i < 3; i++) {
-            const slice = document.createElement("div");
-            slice.className = "glitch-slice";
-            slice.style.position = "absolute";
-            slice.style.width = "100%";
-            slice.style.height = "33.33%";
-            slice.style.top = i * 33.33 + "%";
-            slice.style.left = "0";
-            slice.style.zIndex = "4";
-            transitionContainer.appendChild(slice);
-          }
+            // Create horizontal glitch slices
+            for (let i = 0; i < 3; i++) {
+                const slice = document.createElement("div");
+                slice.className = "glitch-slice";
+                slice.style.position = "absolute";
+                slice.style.width = "100%";
+                slice.style.height = "33.33%";
+                slice.style.top = i * 33.33 + "%";
+                slice.style.left = "0";
+                slice.style.zIndex = "4";
+                transitionContainer.appendChild(slice);
+            }
 
-          // Create glitch text
-          const glitchText = document.createElement("div");
-          glitchText.className = "glitch-text";
-          glitchText.textContent = "LOADING";
-          glitchText.setAttribute("data-text", "LOADING");
-          glitchText.style.position = "relative";
-          glitchText.style.color = "#fff";
-          glitchText.style.fontFamily = "'Courier New', monospace";
-          glitchText.style.fontSize = "3rem";
-          glitchText.style.fontWeight = "bold";
-          glitchText.style.textTransform = "uppercase";
-          glitchText.style.letterSpacing = "0.25em";
-          glitchText.style.textShadow = "2px 0 #ff00ea, -2px 0 #00eaff";
-          glitchText.style.zIndex = "5";
-          transitionContainer.appendChild(glitchText);
+            // Create glitch text
+            const glitchText = document.createElement("div");
+            glitchText.className = "glitch-text";
+            glitchText.textContent = "LOADING";
+            glitchText.setAttribute("data-text", "LOADING");
+            glitchText.style.position = "relative";
+            glitchText.style.color = "#fff";
+            glitchText.style.fontFamily = "'Courier New', monospace";
+            glitchText.style.fontSize = "3rem";
+            glitchText.style.fontWeight = "bold";
+            glitchText.style.textTransform = "uppercase";
+            glitchText.style.letterSpacing = "0.25em";
+            glitchText.style.textShadow = "2px 0 #ff00ea, -2px 0 #00eaff";
+            glitchText.style.zIndex = "5";
+            transitionContainer.appendChild(glitchText);
 
-          // Add to document
-          document.body.appendChild(transitionContainer);
+            // Add to document
+            document.body.appendChild(transitionContainer);
         }
 
         // Add click event to the Enter button
         const enterButton = document.getElementById("enter-button");
         if (enterButton) {
-          enterButton.addEventListener("click", function (e) {
-            e.preventDefault();
+            enterButton.addEventListener("click", function (e) {
+                e.preventDefault();
 
-            const href = this.getAttribute("href");
-            const transition = document.querySelector(".page-transition");
+                const href = this.getAttribute("href");
+                const transition = document.querySelector(".page-transition");
 
-            // Generate random loading text
-            const glitchTexts = [
-              "LOADING",
-              "PLEASE WAIT",
-              "REDIRECTING",
-              "NAVIGATING",
-              "PROCESSING",
-              "CONNECTING",
-              "PREPARING",
-              "LOADING PAGE",
-              "ALMOST THERE",
-              "ONE MOMENT",
-            ];
-            const randomText =
-              glitchTexts[Math.floor(Math.random() * glitchTexts.length)];
-            const glitchTextElement = document.querySelector(".glitch-text");
-            if (glitchTextElement) {
-              glitchTextElement.textContent = randomText;
-              glitchTextElement.setAttribute("data-text", randomText);
-            }
+                // Generate random loading text
+                const glitchTexts = [
+                    "LOADING",
+                    "PLEASE WAIT",
+                    "REDIRECTING",
+                    "NAVIGATING",
+                    "PROCESSING",
+                    "CONNECTING",
+                    "PREPARING",
+                    "LOADING PAGE",
+                    "ALMOST THERE",
+                    "ONE MOMENT",
+                ];
+                const randomText =
+                    glitchTexts[Math.floor(Math.random() * glitchTexts.length)];
+                const glitchTextElement = document.querySelector(".glitch-text");
+                if (glitchTextElement) {
+                    glitchTextElement.textContent = randomText;
+                    glitchTextElement.setAttribute("data-text", randomText);
+                }
 
-            // Show transition
-            transition.style.visibility = "visible";
-            transition.style.opacity = "1";
+                // Show transition
+                transition.style.visibility = "visible";
+                transition.style.opacity = "1";
 
-            // Prevent scrolling
-            document.body.style.overflow = "hidden";
+                // Prevent scrolling
+                document.body.style.overflow = "hidden";
 
-            // Add transition effects
-            document.body.style.filter = "brightness(0.85)";
+                // Add transition effects
+                document.body.style.filter = "brightness(0.85)";
 
-            // Navigate after delay - longer delay for better transition
-            setTimeout(() => {
-              window.location.href = href;
-            }, 1200);
-          });
+                // Navigate after delay - longer delay for better transition
+                setTimeout(() => {
+                    window.location.href = href;
+                }, 1200);
+            });
         }
-      }
+    }
 
-      // Only run these effects on the splash page
-      if (!window.location.pathname.includes("Pages/")) {
+    // Only run these effects on the splash page
+    if (!window.location.pathname.includes("Pages/")) {
         // Start all effects after initial animation
         setTimeout(() => {
-          randomGlitch();
-          addTrackingLines();
-          addScreenFlicker();
-          initSplashPageTransition(); // Add the page transition effect
+            randomGlitch();
+            addTrackingLines();
+            addScreenFlicker();
+            initSplashPageTransition(); // Add the page transition effect
 
-          // Handle automatic redirect with proper timing
-          let redirectTimer = setTimeout(() => {
+            // Handle automatic redirect with proper timingsetTimeout(() => {
             // Show transition effect before redirecting
             const transition = document.querySelector(".page-transition");
             if (transition) {
-              // Generate random loading text
-              const glitchTexts = [
-                "LOADING",
-                "PLEASE WAIT",
-                "REDIRECTING",
-                "NAVIGATING",
-                "PROCESSING",
-                "CONNECTING",
-                "PREPARING",
-                "LOADING PAGE",
-                "ALMOST THERE",
-                "ONE MOMENT",
-              ];
-              const randomText =
-                glitchTexts[Math.floor(Math.random() * glitchTexts.length)];
-              const glitchTextElement = document.querySelector(".glitch-text");
-              if (glitchTextElement) {
-                glitchTextElement.textContent = randomText;
-                glitchTextElement.setAttribute("data-text", randomText);
-              }
+                // Generate random loading text
+                const glitchTexts = [
+                    "LOADING",
+                    "PLEASE WAIT",
+                    "REDIRECTING",
+                    "NAVIGATING",
+                    "PROCESSING",
+                    "CONNECTING",
+                    "PREPARING",
+                    "LOADING PAGE",
+                    "ALMOST THERE",
+                    "ONE MOMENT",
+                ];
+                const randomText =
+                    glitchTexts[Math.floor(Math.random() * glitchTexts.length)];
+                const glitchTextElement = document.querySelector(".glitch-text");
+                if (glitchTextElement) {
+                    glitchTextElement.textContent = randomText;
+                    glitchTextElement.setAttribute("data-text", randomText);
+                }
 
-              // Show transition
-              transition.style.visibility = "visible";
-              transition.style.opacity = "1";
+                // Show transition
+                transition.style.visibility = "visible";
+                transition.style.opacity = "1";
 
-              // Prevent scrolling
-              document.body.style.overflow = "hidden";
+                // Prevent scrolling
+                document.body.style.overflow = "hidden";
 
-              // Add transition effects
-              document.body.style.filter = "brightness(0.85)";
+                // Add transition effects
+                document.body.style.filter = "brightness(0.85)";
 
-              // Navigate after a longer delay to ensure animations complete
-              setTimeout(() => {
-                window.location.href = "Pages/index.html";
-              }, 1500);
+                // Navigate after a longer delay to ensure animations complete
+                setTimeout(() => {
+                    window.location.href = "Pages/index.html";
+                }, 1500);
             } else {
-              // Fallback if transition element doesn't exist
-              window.location.href = "Pages/index.html";
+                // Fallback if transition element doesn't exist
+                window.location.href = "Pages/index.html";
             }
-          }, 7000); // 9 seconds total time on splash page (2s initial + 7s here)
-        }, 2000);
-      }
-    </script>
-  </body>
+        }, 9000);
+    }
+</script>
+</body>
 </html>

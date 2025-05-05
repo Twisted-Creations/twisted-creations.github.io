@@ -1,5 +1,7 @@
 {
-  "extends": ["html-validate:recommended"],
+  "extends": [
+    "html-validate:recommended"
+  ],
   "rules": {
     "element-required-attributes": "error",
     "no-missing-references": "error",
@@ -21,7 +23,9 @@
     "svg-focusable": "error",
     "valid-id": "error"
   },
-  "elements": ["html5"],
+  "elements": [
+    "html5"
+  ],
   "transform": {
     "strip-whitespace": true,
     "attribute-quotes": true

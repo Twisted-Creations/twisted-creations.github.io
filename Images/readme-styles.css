@@ -1,53 +1,53 @@
 /* Base styles for rounded images */
 
 @media screen and (prefers-reduced-motion: reduce) {
-  .rounded-image {
+    .rounded-image {
+        border-radius: 30px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+        max-width: 300px;
+        width: 100%;
+        display: block;
+        margin: 0 auto;
+        transition: none;
+        object-fit: cover; /* Ensures proper image scaling */
+    }
+}
+
+.rounded-image {
     border-radius: 30px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
     max-width: 300px;
     width: 100%;
     display: block;
     margin: 0 auto;
-    transition: none;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
     object-fit: cover; /* Ensures proper image scaling */
-  }
-}
-
-.rounded-image {
-  border-radius: 30px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
-  max-width: 300px;
-  width: 100%;
-  display: block;
-  margin: 0 auto;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  object-fit: cover; /* Ensures proper image scaling */
 }
 
 /* Hover effect for interactive contexts */
 
 .rounded-image:hover,
 .rounded-image:focus {
-  transform: scale(1.02);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+    transform: scale(1.02);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
 }
 
 /* Container styles for centered content */
 
 main {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-  padding: 20px;
-  box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+    box-sizing: border-box;
 }
 
 /* Base body styles */
 
 body {
-  margin: 0;
-  font-family: Arial, Helvetica, sans-serif;
-  background-color: #1a1a1a;
-  color: white;
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #1a1a1a;
+    color: white;
 }

@@ -1,4 +1,4 @@
-# Workflow for deploying static website to GitHub Pages
+# Workflow for deploying a static website to GitHub Pages
 # Documentation: https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site
 
 name: Deploy Website to GitHub Pages
@@ -6,7 +6,7 @@ name: Deploy Website to GitHub Pages
 on:
   # Runs on pushes targeting the default branch
   push:
-    branches: ["master"]
+    branches: [ "master" ]
     paths-ignore:
       - "README.md"
       - ".github/**/*.md"
@@ -14,7 +14,7 @@ on:
 
   # Runs on pull requests to preview changes
   pull_request:
-    branches: ["master"]
+    branches: [ "master" ]
     paths-ignore:
       - "README.md"
       - ".github/**/*.md"
@@ -36,7 +36,7 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  # Build and deploy job
+  # Build and deploy a job
   deploy:
     name: Deploy to GitHub Pages
     environment:
@@ -55,7 +55,7 @@ jobs:
       - name: Generate sitemap.xml
         run: |
           echo '<?xml version="1.0" encoding="UTF-8"?>' > sitemap.xml
-          echo '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' >> sitemap.xml
+          echo '<urlset xmlns="https://www.sitemaps.org/schemas/sitemap/0.9">' >> sitemap.xml
 
           # Add homepage
           echo '  <url>' >> sitemap.xml

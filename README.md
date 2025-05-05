@@ -7,7 +7,9 @@
 
 ## 📋 Overview
 
-This repository contains the source code for the official Twisted Creations website. Our site showcases our game development studio, team members, and our upcoming game projects including "Abandoned: The Asylum of Madness."
+This repository contains the source code for the official Twisted Creations website.
+Our site showcases our game
+development studio, team members, and our upcoming game projects, including "Abandoned: The Asylum of Madness."
 
 ## 🔧 Development Setup
 
@@ -56,7 +58,9 @@ This project uses GitHub Actions for automated validation:
 
 ## 🎮 About Twisted Creations
 
-We are a passionate group of game developers focused on creating high-quality gaming experiences using Godot 4.4. Our first major project is "Abandoned: The Asylum of Madness" (ATAM), which is part of our "Twisted Childhood Memories" series.
+We are a passionate group of game developers focused on creating high-quality gaming experiences using Godot 4.4. Our
+first major project is "Abandoned: The Asylum of Madness" (ATAM), which is part of our "Twisted Childhood Memories"
+series.
 
 ## 🚀 Website Features
 
@@ -66,14 +70,16 @@ We are a passionate group of game developers focused on creating high-quality ga
 - Dynamic background image scaling with smooth transitions
 - Modern CSS with variables, Grid, and Flexbox layouts
 - Accessibility features including reduced motion support
-- SEO optimizations with proper meta tags, sitemap, and robots.txt
+- SEO optimizations with proper meta-tags, sitemap, and robots.txt
 - Information about our studio and development philosophy
 - Details about our team members and their roles
 - Updates on our current and upcoming game projects
 
 ## 🛠️ Development Status
 
-This website is currently a work in progress and is being actively developed. Features and content are continuously being added and improved.
+This website is currently a work in progress and is being actively developed.
+Features and content are continuously
+being added and improved.
 
 ## 📱 Mobile Support
 
@@ -120,4 +126,4 @@ For more information about Twisted Creations, please visit our website or contac
 
 ---
 
-&copy; 2024 Twisted Creations. All rights reserved.
+&copy; 2025 Twisted Creations. All rights reserved.
