@@ -2,6 +2,8 @@
 # This workflow runs on a schedule to ensure all links remain valid
 
 name: Check for Broken Links
+permissions:
+  contents: read
 
 on:
   # Run weekly on Monday at 00:00 UTC
