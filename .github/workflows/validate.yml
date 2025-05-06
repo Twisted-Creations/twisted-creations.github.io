@@ -2,6 +2,8 @@
 # This workflow runs on pull requests and pushes to ensure code quality
 
 name: Validate Website
+permissions:
+  contents: read
 
 on:
   # Runs on pushes targeting any branch
