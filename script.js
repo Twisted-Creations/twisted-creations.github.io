@@ -162,6 +162,8 @@ function initPageTransitions() {
         return href &&
             !href.startsWith('#') &&
             !href.startsWith('javascript:') &&
+            !href.startsWith('data:') &&
+            !href.startsWith('vbscript:') &&
             !href.startsWith('mailto:') &&
             !href.startsWith('tel:') &&
             !href.startsWith('http') &&
