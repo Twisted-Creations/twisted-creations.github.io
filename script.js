@@ -183,7 +183,7 @@ function initPageTransitions() {
             link.getAttribute("target") === "_blank" ||
             link.hasAttribute("data-transition-processed") ||
             (href && href.startsWith("#")) ||
-            (href && href.startsWith("javascript:")) ||
+            (href && (href.startsWith("javascript:") || href.startsWith("data:") || href.startsWith("vbscript:"))) ||
             (href && href.startsWith("mailto:")) ||
             (href && href.startsWith("tel:")) ||
             (href && href.startsWith("http"))
