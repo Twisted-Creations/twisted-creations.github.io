@@ -567,7 +567,7 @@ function initSmoothBackgroundScaling() {
     }
 
     // Verify the path is correct by checking if we're on GitHub Pages
-    if (window.location.hostname.includes("github.io")) {
+    if (window.location.hostname === "github.io" || window.location.hostname.endsWith(".github.io")) {
         // For GitHub Pages, we might need to adjust paths based on the repository name
         const repoName = "twisted-creations.github.io";
         const repoPath = pathSegments.indexOf(repoName);
