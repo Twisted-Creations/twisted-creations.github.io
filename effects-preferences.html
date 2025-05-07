@@ -203,23 +203,45 @@
         const continueButton = document.getElementById("continue-button");
         const reducedButton = document.getElementById("reduced-button");
 
-        // Add event listeners
-        continueButton.addEventListener("click", function () {
+        // Function to clear caches and set preferences
+        function setPreferenceAndRedirect(reducedEffects) {
             // Save preference
             localStorage.setItem("effectsWarningAcknowledged", "true");
-            localStorage.setItem("reducedEffects", "false");
+            localStorage.setItem("reducedEffects", reducedEffects.toString());
 
-            // Redirect to the main page
-            window.location.href = "index.html";
+            // Set a timestamp to invalidate cached content
+            localStorage.setItem("effectsPreferenceUpdated", Date.now().toString());
+
+            // Clear service worker cache if available
+            if ('serviceWorker' in navigator && 'caches' in window) {
+                // Attempt to clear caches
+                caches.keys().then(cacheNames => {
+                    return Promise.all(
+                        cacheNames.map(cacheName => {
+                            if (cacheName.includes('twisted-creations')) {
+                                return caches.delete(cacheName);
+                            }
+                        })
+                    );
+                }).catch(error => {
+                    console.log('Cache clearing failed:', error);
+                }).finally(() => {
+                    // Redirect to the main page with a cache bypass
+                    window.location.href = "index.html?t=" + Date.now();
+                });
+            } else {
+                // Redirect to the main page with a cache bypass
+                window.location.href = "index.html?t=" + Date.now();
+            }
+        }
+
+        // Add event listeners
+        continueButton.addEventListener("click", function () {
+            setPreferenceAndRedirect(false);
         });
 
         reducedButton.addEventListener("click", function () {
-            // Save preference
-            localStorage.setItem("effectsWarningAcknowledged", "true");
-            localStorage.setItem("reducedEffects", "true");
-
-            // Redirect to the main page
-            window.location.href = "index.html";
+            setPreferenceAndRedirect(true);
         });
     });
 </script>

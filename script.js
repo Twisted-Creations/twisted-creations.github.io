@@ -1,7 +1,5 @@
 // Wait for the DOM to be fully loaded before running scripts
 document.addEventListener("DOMContentLoaded", function () {
-    console.log("DOM fully loaded, initializing functions");
-
     // Initialize page transitions first to ensure it's available
     initPageTransitions();
 
@@ -12,7 +10,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Special handling for the devlog page
     if (document.getElementById("devlog-entries")) {
-        console.log("Devlog page detected, initializing filter");
         setTimeout(() => {
             initDevlogFilter();
         }, 100); // Small delay to ensure DOM is fully processed
@@ -32,11 +29,8 @@ document.addEventListener("DOMContentLoaded", function () {
  * Creates a smooth transition effect when navigating between pages
  */
 function initPageTransitions() {
-    console.log("Initializing page transitions");
-
     // Create the transition elements if they don't exist
     if (!document.querySelector(".page-transition")) {
-        console.log("Creating transition elements");
         // Create the main container
         const transitionContainer = document.createElement("div");
         transitionContainer.className = "page-transition";
@@ -138,7 +132,6 @@ function initPageTransitions() {
 
     // Verify the transition container exists
     const transitionCheck = document.querySelector(".page-transition");
-    console.log("Transition container exists:", !!transitionCheck);
 
     // Ensure the transition container is properly sized for the viewport
     function updateTransitionSize() {
@@ -170,15 +163,10 @@ function initPageTransitions() {
             href.trim() !== '';
     });
 
-    console.log("Found all links:", allLinks.length);
-    console.log("Filtered to internal links:", internalLinks.length);
-
     // Add click event listeners to all internal links
-    console.log("Found internal links:", internalLinks.length);
 
     internalLinks.forEach((link) => {
         const href = link.getAttribute("href");
-        console.log("Processing link:", href);
 
         // Skip links that open in new tabs or have already been processed
         if (
@@ -190,13 +178,11 @@ function initPageTransitions() {
             (href && href.startsWith("tel:")) ||
             (href && href.startsWith("http"))
         ) {
-            console.log("Skipping link:", href);
             return;
         }
 
         // Mark as processed to avoid duplicate listeners
         link.setAttribute("data-transition-processed", "true");
-        console.log("Added transition to link:", href);
 
         // Use a single event handler for both click and touchend events
         const handleNavigation = function (e) {
@@ -206,11 +192,9 @@ function initPageTransitions() {
             }
 
             const href = this.getAttribute("href");
-            console.log("Navigation triggered for:", href);
 
             // Don't handle if href is missing or hash links (same-page navigation)
             if (!href || href.startsWith("#")) {
-                console.log("Skipping navigation for:", href);
                 return;
             }
 
@@ -218,20 +202,15 @@ function initPageTransitions() {
             e.preventDefault();
             e.stopPropagation();
 
-            console.log("Navigation handler triggered for:", href);
-
             // Get the transition element
             let transition = document.querySelector(".page-transition");
-            console.log("Found transition element:", !!transition);
 
             if (!transition) {
-                console.log("No transition element found, creating one now");
-                // Create transition element if it doesn't exist
+                // Create a transition element if it doesn't exist
                 initPageTransitions();
                 // Try to get it again
                 transition = document.querySelector(".page-transition");
                 if (!transition) {
-                    console.log("Still couldn't create transition element, navigating without transition");
                     window.location.href = href;
                     return;
                 }
@@ -306,18 +285,7 @@ function initPageTransitions() {
             const navigationDelay = reducedEffects ? 300 : isMobile ? 600 : 800;
 
             setTimeout(() => {
-                // Handle relative paths correctly based on current location
-                if (href.startsWith("./") ||
-                    href.startsWith("../") ||
-                    (!href.startsWith("/") && !href.startsWith("http") && !href.includes("/"))) {
-
-                    // For simple relative paths like "about-us.html"
-                    console.log("Navigating to relative path:", href);
-                    window.location.href = href;
-                } else {
-                    console.log("Navigating to absolute path:", href);
-                    window.location.href = href;
-                }
+                window.location.href = href;
             }, navigationDelay);
         };
 

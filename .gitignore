@@ -1,11 +1,42 @@
 # Node.js dependencies
 node_modules/
+npm-debug.log
+yarn-error.log
+yarn-debug.log
+package-lock.json
+.npm/
 
 # OS files
 .DS_Store
 Thumbs.db
+desktop.ini
+*.lnk
 
 # Editor directories and files
 .idea/
+.vscode/
 *.swp
 *.swo
+*.sublime-workspace
+*.sublime-project
+
+# Environment files
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Build and distribution files
+dist/
+build/
+coverage/
+.cache/
+
+# Logs
+logs/
+*.log
+
+# Temporary files
+tmp/
+temp/
