@@ -1,5 +1,22 @@
 # Changelog
 
+## May 7, 2025-Site Fixes and Updates
+
+### Changed
+
+- removed imagemin-cli in favor of image-minimizer-webpack-plugin as it is now depreciated
+- cleaned up/optimized the code by removing console logs and unused variables and functions
+- moved splash screen styles to their own file
+- updated/removed some npm packages
+
+### Fixed
+
+- effects preferences saving to local storage instead of the browser, leading to issues with a cached version of the
+  page being shown instead of the live version
+- fixed some security vulnerabilities found with CodeQL
+- updated got to a non-vulnerable version
+- fixed a link in the sitemap being http instead of https
+
 ## April 17, 2025—Website Modernization
 
 ### Added

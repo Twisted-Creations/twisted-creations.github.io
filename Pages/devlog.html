@@ -67,6 +67,41 @@
         <!-- Website Development Entry -->
         <div class="content-box devlog-entry" data-category="website">
             <span class="category-tag website-tag">Website Update</span>
+            <h3>May 7, 2025: Site Fixes and Updates</h3>
+            <p>
+                Today we have released a general site update containing some under the hood works and bug fixes. as well
+                as fixing some security issues.
+            </p>
+
+            <h4>Security Fixes</h4>
+            <p>
+                We've fixed a few security vulnerabilities revolving around outdated dependencies and sanitization
+                issues.
+            </p>
+
+            <h4>Changes</h4>
+            <ul>
+                <li>removed imagemin-cli in favor of image-minimizer-webpack-plugin as it is now depreciated</li>
+                <li>cleaned up/optimized the code by removing console logs and unused variables and functions</li>
+                <li>moved splash screen styles to their own file</li>
+                <li>updated/removed some npm packages</li>
+            </ul>
+
+            <h4>Fixed</h4>
+            <ul>
+                <li>effects preferences saving to local storage instead of the browser, leading to issues with a cached
+                    version of the
+                    page being shown instead of the live version
+                </li>
+                <li>fixed some security vulnerabilities found with CodeQL</li>
+                <li>updated got to a non-vulnerable version</li>
+                <li>fixed a link in the sitemap being http instead of https</li>
+            </ul>
+        </div>
+
+        <!-- Website Development Entry -->
+        <div class="content-box devlog-entry" data-category="website">
+            <span class="category-tag website-tag">Website Update</span>
             <h3>April 17, 2025: Website Modernization</h3>
             <p>
                 We've completed a comprehensive modernization of our website to
