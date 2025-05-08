@@ -1,4 +1,4 @@
-// Enhanced glitch effects for the splash page - optimized for all devices
+// Enhanced professional effects for the splash page - optimized for all devices
 document.addEventListener("DOMContentLoaded", function () {
     // Only run on the splash page
     if (window.location.pathname.includes("Pages/")) {
@@ -25,7 +25,7 @@ document.addEventListener("DOMContentLoaded", function () {
         } else {
             // Fallback if the function isn't available yet
             const animationElements = document.querySelectorAll(
-                ".glitch-effect, .tracking-lines, .flicker-overlay"
+                ".particle-container, .subtle-glow"
             );
             animationElements.forEach((element) => {
                 if (element && element.parentNode) {
@@ -34,9 +34,9 @@ document.addEventListener("DOMContentLoaded", function () {
             });
 
             // Clear any intervals
-            if (window.glitchInterval) {
-                clearInterval(window.glitchInterval);
-                window.glitchInterval = null;
+            if (window.effectsInterval) {
+                clearInterval(window.effectsInterval);
+                window.effectsInterval = null;
             }
 
             // Add class to stop animations
@@ -53,97 +53,42 @@ function isMobileDevice() {
     );
 }
 
-// Add glitch effects to the splash page - optimized for mobile and respecting reduced effects setting
-function randomGlitch() {
+// Add a subtle glow effect to the logo
+function addLogoGlow() {
     const logo = document.querySelector(".splash-logo h1");
     if (!logo) return; // Safety check
 
-    // Check if reduced effects are enabled - if so, don't apply glitch effects
+    // Check if reduced effects are enabled
     if (window.reducedEffects === true || document.body.classList.contains("reduced-effects")) {
+        // For reduced effects, just add a subtle static glow
+        logo.style.textShadow = "0 0 10px rgba(42, 71, 179, 0.5)";
         return;
     }
 
-    const mobile = isMobileDevice();
-
-    // Adjust timing based on a device
-    const glitchDuration = Math.random() * 100 + 50;
-    const glitchDelay = mobile
-        ? Math.random() * 1500 + 500
-        : Math.random() * 3000 + 1000;
-
-    // Random glitch effects - more intense on mobile
-    const glitchEffects = [
-        // Effect 1: Color shift - works well on mobile
-        () => {
-            logo.style.textShadow = "2px 0 #ff00ea, -2px 0 #00eaff";
-            logo.style.transform = "skew(1deg)";
-        },
-        // Effect 2: Shake - reduced intensity for mobile
-        () => {
-            const intensity = mobile ? 3 : 6;
-            const shakeX = Math.random() * intensity - intensity / 2;
-            const shakeY = Math.random() * intensity - intensity / 2;
-            logo.style.transform = `translate(${shakeX}px, ${shakeY}px)`;
-        },
-        // Effect 3: Split - more visible on mobile
-        () => {
-            logo.style.textShadow = mobile
-                ? "-2px 0 #ff00ea, 2px 0 #00eaff"
-                : "-3px 0 #ff00ea, 3px 0 #00eaff";
-            logo.style.letterSpacing = mobile ? "2px" : "3px";
-        },
-        // Effect 4: Flash - good for mobile
-        () => {
-            logo.style.filter = "brightness(1.5) contrast(1.2)";
-            logo.style.textShadow = "0 0 8px #fff";
-        },
-    ];
-
-    // Choose a random effect - bias toward more mobile-friendly effects on small screens
-    let effectIndex = Math.floor(Math.random() * glitchEffects.length);
-
-    if (mobile && Math.random() > 0.5) {
-        // On mobile, prefer effects 0 and 3 which work better on small screens
-        effectIndex = Math.random() > 0.5 ? 0 : 3;
-    }
-
-    const randomEffect = glitchEffects[effectIndex];
-
-    // Store the timeout so we can clear it if needed
-    window.glitchTimeout = setTimeout(() => {
-        // Apply random effect
-        randomEffect();
-
-        // Add scanlines occasionally - more visible on mobile
-        const glitchEffect = document.querySelector(".glitch-effect");
-        if (glitchEffect && Math.random() > (mobile ? 0.5 : 0.7)) {
-            glitchEffect.style.opacity = mobile ? "0.7" : "0.6";
+    // Create a subtle pulsing glow effect
+    function pulseGlow() {
+        // Don't animate if effects are paused
+        if (document.body.classList.contains("effects-paused")) {
+            return;
         }
 
-        // Store the reset timeout so we can clear it if needed
-        window.glitchResetTimeout = setTimeout(() => {
-            // Reset to normal
-            logo.style.textShadow = "0 0 15px rgba(26, 39, 179, 0.7)";
-            logo.style.transform = "skew(0)";
-            logo.style.letterSpacing = "2px";
-            logo.style.filter = "none";
-            if (glitchEffect) {
-                glitchEffect.style.opacity = "0.3";
-            }
+        const intensity = Math.sin(Date.now() / 1000) * 0.2 + 0.8; // Value between 0.6 and 1.0
+        const glowSize = 10 + (intensity * 5); // Between 10 px and 15 px
+        const glowOpacity = 0.5 + (intensity * 0.3); // Between 0.5 and 0.8
 
-            // Only continue with random glitches if not paused and not in reduced effects mode
-            if (!document.body.classList.contains("effects-paused") &&
-                !window.reducedEffects &&
-                !document.body.classList.contains("reduced-effects")) {
-                randomGlitch();
-            }
-        }, glitchDuration);
-    }, glitchDelay);
+        logo.style.textShadow = `0 0 ${glowSize}px rgba(42, 71, 179, ${glowOpacity})`;
+
+        // Request next frame
+        window.logoGlowFrame = requestAnimationFrame(pulseGlow);
+    }
+
+    // Start the glow animation
+    pulseGlow();
 }
 
-// Add VHS tracking lines effect
-function addTrackingLines() {
-    // Check if reduced effects are enabled - if so, don't add tracking lines
+// Add a subtle particle effect in the background
+function addParticleEffect() {
+    // Check if reduced effects are enabled
     if (window.reducedEffects === true || document.body.classList.contains("reduced-effects")) {
         return;
     }
@@ -151,98 +96,126 @@ function addTrackingLines() {
     const container = document.querySelector(".splash-container");
     if (!container) return; // Safety check
 
-    // Check if tracking lines already exist
-    if (document.querySelector(".tracking-lines")) return;
+    // Check if a particle container already exists
+    if (document.querySelector(".particle-container")) return;
 
-    const trackingLines = document.createElement("div");
-    trackingLines.className = "tracking-lines";
-    trackingLines.style.position = "absolute";
-    trackingLines.style.top = "0";
-    trackingLines.style.left = "0";
-    trackingLines.style.width = "100%";
-    trackingLines.style.height = "100%";
-    trackingLines.style.background =
-        "linear-gradient(to bottom, transparent 0%, rgba(255, 255, 255, 0.05) 50%, transparent 51%, transparent 100%)";
-    trackingLines.style.backgroundSize = "100% 8px";
-    trackingLines.style.animation = "trackingLines 10s linear infinite";
-    trackingLines.style.zIndex = "3";
-    trackingLines.style.opacity = "0.2";
-    trackingLines.style.pointerEvents = "none";
-    container.appendChild(trackingLines);
+    // Create particle container
+    const particleContainer = document.createElement("div");
+    particleContainer.className = "particle-container";
+    particleContainer.style.position = "absolute";
+    particleContainer.style.top = "0";
+    particleContainer.style.left = "0";
+    particleContainer.style.width = "100%";
+    particleContainer.style.height = "100%";
+    particleContainer.style.zIndex = "1";
+    particleContainer.style.pointerEvents = "none";
+    particleContainer.style.overflow = "hidden";
+    container.appendChild(particleContainer);
 
-    // Add keyframes for tracking lines if they don't exist
-    if (!document.getElementById("tracking-lines-keyframes")) {
+    // Determine the number of particles based on a device
+    const mobile = isMobileDevice();
+    const particleCount = mobile ? 15 : 30;
+
+    // Create particles
+    for (let i = 0; i < particleCount; i++) {
+        createParticle(particleContainer);
+    }
+
+    // Add keyframes for particle animation if they don't exist
+    if (!document.getElementById("particle-keyframes")) {
         const style = document.createElement("style");
-        style.id = "tracking-lines-keyframes";
+        style.id = "particle-keyframes";
         style.textContent = `
-      @keyframes trackingLines {
-        0% { background-position: 0 0; }
-        100% { background-position: 0 100%; }
-      }
-    `;
+            @keyframes float-up {
+                0% { transform: translateY(100%) translateX(0); opacity: 0; }
+                10% { opacity: 0.7; }
+                90% { opacity: 0.5; }
+                100% { transform: translateY(-100%) translateX(var(--x-drift)); opacity: 0; }
+            }
+        `;
         document.head.appendChild(style);
     }
 }
 
-// Random screen flicker effect
-function addScreenFlicker() {
-    // Check if reduced effects are enabled - if so, don't add a screen flicker
+// Create a single particle
+function createParticle(container) {
+    const particle = document.createElement("div");
+
+    // Random properties
+    const size = Math.random() * 4 + 2; // 2-6px
+    const xPos = Math.random() * 100; // 0-100%
+    const duration = Math.random() * 10 + 10; // 10-20s
+    const delay = Math.random() * 5; // 0-5s
+    const xDrift = (Math.random() * 100 - 50) + "px"; // -50px to +50px drift
+
+    // Set particle styles
+    particle.style.position = "absolute";
+    particle.style.bottom = "-10px";
+    particle.style.left = xPos + "%";
+    particle.style.width = size + "px";
+    particle.style.height = size + "px";
+    particle.style.borderRadius = "50%";
+    particle.style.backgroundColor = "rgba(255, 255, 255, 0.3)";
+    particle.style.boxShadow = "0 0 " + (size / 2) + "px rgba(255, 255, 255, 0.5)";
+    particle.style.opacity = "0";
+    particle.style.setProperty("--x-drift", xDrift);
+    particle.style.animation = `float-up ${duration}s linear ${delay}s infinite`;
+
+    container.appendChild(particle);
+    return particle;
+}
+
+// Add subtle background gradient movement
+function addGradientMovement() {
+    // Check if reduced effects are enabled
     if (window.reducedEffects === true || document.body.classList.contains("reduced-effects")) {
         return;
     }
 
+    const background = document.querySelector(".splash-background");
+    if (!background) return; // Safety check
+
+    // Create a subtle moving gradient overlay
+    const gradientOverlay = document.createElement("div");
+    gradientOverlay.className = "gradient-overlay";
+    gradientOverlay.style.position = "absolute";
+    gradientOverlay.style.top = "0";
+    gradientOverlay.style.left = "0";
+    gradientOverlay.style.width = "100%";
+    gradientOverlay.style.height = "100%";
+    gradientOverlay.style.background = "radial-gradient(circle at 50% 50%, rgba(42, 71, 179, 0.1), transparent 70%)";
+    gradientOverlay.style.zIndex = "0";
+    gradientOverlay.style.opacity = "0.6";
+    gradientOverlay.style.pointerEvents = "none";
+
+    // Add to container
     const container = document.querySelector(".splash-container");
-    if (!container) return; // Safety check
+    if (container) {
+        container.appendChild(gradientOverlay);
+    }
 
-    // Check if a flicker overlay already exists
-    if (document.querySelector(".flicker-overlay")) return;
+    // Animate the gradient position
+    let angle = 0;
 
-    const flickerOverlay = document.createElement("div");
-    flickerOverlay.className = "flicker-overlay";
-    flickerOverlay.style.position = "absolute";
-    flickerOverlay.style.top = "0";
-    flickerOverlay.style.left = "0";
-    flickerOverlay.style.width = "100%";
-    flickerOverlay.style.height = "100%";
-    flickerOverlay.style.backgroundColor = "rgba(255, 255, 255, 0.03)";
-    flickerOverlay.style.zIndex = "4";
-    flickerOverlay.style.pointerEvents = "none";
-    flickerOverlay.style.opacity = "0";
-    container.appendChild(flickerOverlay);
-
-    // Random flicker function - adjusted based on a device
-    function flicker() {
-        // Don't flicker if effects are paused or reduced
-        if (document.body.classList.contains("effects-paused") ||
-            window.reducedEffects === true ||
-            document.body.classList.contains("reduced-effects")) {
+    function moveGradient() {
+        // Don't animate if effects are paused
+        if (document.body.classList.contains("effects-paused")) {
             return;
         }
 
-        const mobile = isMobileDevice();
+        angle += 0.2;
+        const radius = 10; // How far the gradient moves
+        const x = 50 + Math.sin(angle * Math.PI / 180) * radius;
+        const y = 50 + Math.cos(angle * Math.PI / 180) * radius;
 
-        // Determine flicker probability and intensity based on a device
-        const flickerProbability = mobile ? 0.8 : 0.9;
-        const flickerIntensity = mobile ? 0.3 : 0.2;
-        const flickerDelay = mobile ? 800 : 1000;
+        gradientOverlay.style.background = `radial-gradient(circle at ${x}% ${y}%, rgba(42, 71, 179, 0.15), transparent 70%)`;
 
-        if (Math.random() > flickerProbability) {
-            flickerOverlay.style.opacity = Math.random() * flickerIntensity;
-            setTimeout(() => {
-                flickerOverlay.style.opacity = "0";
-            }, Math.random() * 100);
-        }
-
-        // Store the timeout so we can clear it if needed
-        window.flickerTimeout = setTimeout(flicker, Math.random() * flickerDelay);
+        // Request next frame
+        window.gradientFrame = requestAnimationFrame(moveGradient);
     }
 
-    // Only start flickering if effects are not paused and not in reduced mode
-    if (!document.body.classList.contains("effects-paused") &&
-        !window.reducedEffects &&
-        !document.body.classList.contains("reduced-effects")) {
-        flicker();
-    }
+    // Start the gradient animation
+    moveGradient();
 }
 
 // Create a transition container for page transitions
@@ -253,35 +226,21 @@ function createTransitionContainer() {
         const transitionContainer = document.createElement("div");
         transitionContainer.className = "page-transition";
 
-        // Create overlay
+        // Create overlay with gradient
         const overlay = document.createElement("div");
-        overlay.className = "glitch-overlay";
+        overlay.className = "transition-overlay";
         transitionContainer.appendChild(overlay);
 
-        // Create scanlines
-        const scanlines = document.createElement("div");
-        scanlines.className = "glitch-scanlines";
-        transitionContainer.appendChild(scanlines);
+        // Create loading text
+        const loadingText = document.createElement("div");
+        loadingText.className = "loading-text";
+        loadingText.textContent = "LOADING";
+        transitionContainer.appendChild(loadingText);
 
-        // Create RGB shift layer
-        const rgbLayer = document.createElement("div");
-        rgbLayer.className = "glitch-rgb";
-        transitionContainer.appendChild(rgbLayer);
-
-        // Create horizontal glitch slices
-        for (let i = 0; i < 3; i++) {
-            const slice = document.createElement("div");
-            slice.className = "glitch-slice";
-            slice.style.top = i * 33.33 + "%";
-            transitionContainer.appendChild(slice);
-        }
-
-        // Create glitch text
-        const glitchText = document.createElement("div");
-        glitchText.className = "glitch-text";
-        glitchText.textContent = "LOADING";
-        glitchText.setAttribute("data-text", "LOADING");
-        transitionContainer.appendChild(glitchText);
+        // Create a loading spinner
+        const spinner = document.createElement("div");
+        spinner.className = "loading-spinner";
+        transitionContainer.appendChild(spinner);
 
         // Add to document
         document.body.appendChild(transitionContainer);
@@ -307,7 +266,7 @@ function setupManualTransition() {
 function stopAllSplashEffects() {
     // 1. Remove all animation elements
     const animationElements = document.querySelectorAll(
-        ".glitch-effect, .tracking-lines, .flicker-overlay"
+        ".particle-container, .gradient-overlay, .subtle-glow"
     );
     animationElements.forEach((element) => {
         if (element && element.parentNode) {
@@ -322,10 +281,15 @@ function stopAllSplashEffects() {
         }
     });
 
-    // 2. Clear any intervals or timeouts
-    if (window.glitchInterval) {
-        clearInterval(window.glitchInterval);
-        window.glitchInterval = null;
+    // 2. Clear any animation frames
+    if (window.logoGlowFrame) {
+        cancelAnimationFrame(window.logoGlowFrame);
+        window.logoGlowFrame = null;
+    }
+
+    if (window.gradientFrame) {
+        cancelAnimationFrame(window.gradientFrame);
+        window.gradientFrame = null;
     }
 
     // 3. Reset any animated elements to their original state
@@ -373,25 +337,10 @@ function triggerTransition(href) {
     // Stop ALL splash page animations and effects
     stopAllSplashEffects();
 
-    // Generate random glitch text
-    const glitchTexts = [
-        "LOADING",
-        "ERROR",
-        "BETRAYED",
-        "FEAR",
-        "DARKNESS",
-        "TWISTED",
-        "HELP US",
-        "ABANDONED",
-        "VOID",
-        "UNKNOWN",
-    ];
-    const randomText =
-        glitchTexts[Math.floor(Math.random() * glitchTexts.length)];
-    const glitchTextElement = document.querySelector(".glitch-text");
-    if (glitchTextElement) {
-        glitchTextElement.textContent = randomText;
-        glitchTextElement.setAttribute("data-text", randomText);
+    // Set loading text
+    const loadingTextElement = document.querySelector(".loading-text");
+    if (loadingTextElement) {
+        loadingTextElement.textContent = "LOADING";
     }
 
     // Show transition
@@ -402,33 +351,14 @@ function triggerTransition(href) {
     // Prevent scrolling
     document.body.style.overflow = "hidden";
 
-    // Add glitch effects - reduced if needed
+    // Add subtle fade effect
     const reduced = window.reducedEffects === true;
 
-    // Apply milder filter for reduced effects
-    document.body.style.filter = reduced
-        ? "hue-rotate(45deg) contrast(1.2)"
-        : "hue-rotate(90deg) contrast(1.5)";
-
-    // Add random screen shake for desktop (unless reduced effects)
-    if (!isMobileDevice() && !reduced) {
-        const shakeIntensity = 5; // pixels
-        const shakeInterval = setInterval(() => {
-            const randomX =
-                Math.floor(Math.random() * shakeIntensity) - shakeIntensity / 2;
-            const randomY =
-                Math.floor(Math.random() * shakeIntensity) - shakeIntensity / 2;
-            transition.style.transform = `translate(${randomX}px, ${randomY}px)`;
-        }, 50);
-
-        // Clear interval after transition
-        setTimeout(() => {
-            clearInterval(shakeInterval);
-        }, 1000);
-    }
+    // Apply a subtle fade filter
+    document.body.style.filter = "brightness(0.9)";
 
     // Set transition time based on a device and reduced effects
-    const transitionTime = reduced ? 1500 : isMobileDevice() ? 2000 : 2500;
+    const transitionTime = reduced ? 1000 : 1500;
 
     // Redirect after transition completed
     setTimeout(() => {
@@ -487,12 +417,6 @@ function resumeRedirect() {
             redirectMessage.style.opacity = "1";
         });
     }
-
-    // Only start visual effects if not in reduced mode
-    if (!window.reducedEffects && !document.body.classList.contains("reduced-effects")) {
-        randomGlitch();
-        addScreenFlicker();
-    }
 }
 
 // Start all effects with optional reduced intensity
@@ -510,18 +434,16 @@ function startEffects(reducedIntensity = false) {
 
     // Start visual effects with a slight delay
     setTimeout(() => {
-        // Only add the more intensive effects if not in reduced mode
+        // Add a logo glow effect (works in both modes but is more subtle in reduced mode)
+        addLogoGlow();
+
+        // Only add enhanced effects if not in reduced mode
         if (!reducedIntensity) {
-            randomGlitch();
-            addTrackingLines();
-            addScreenFlicker();
-        } else {
-            // For reduced effects, just add minimal effects
-            // Add a single, subtle glitch effect
-            const logo = document.querySelector(".splash-logo h1");
-            if (logo) {
-                logo.style.textShadow = "0 0 15px rgba(26, 39, 179, 0.7)";
-            }
+            // Add particle effects
+            addParticleEffect();
+
+            // Add gradient movement
+            addGradientMovement();
         }
 
         // Always set up transitions
