@@ -1,297 +1,301 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <meta name="theme-color" content="#1a27b3"/>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#1a27b3" />
     <meta
-            name="description"
-            content="Follow the development progress of Abandoned: The Asylum of Madness and other projects by Twisted Creations. Regular updates on features, challenges, and milestones."
+      name="description"
+      content="Follow the development progress of Abandoned: The Asylum of Madness and other projects by Twisted Creations. Regular updates on features, challenges, and milestones."
     />
-    <meta name="robots" content="index, follow"/>
-    <link rel="stylesheet" href="../style.css"/>
-    <link rel="stylesheet" href="../transition.css"/>
-    <link rel="stylesheet" href="../splash-transition.css"/>
-    <link rel="stylesheet" href="../modern-styles.css"/>
+    <meta name="robots" content="index, follow" />
+    <link rel="stylesheet" href="../style.css" />
+    <link rel="stylesheet" href="../unified-transitions.css" />
+    <link rel="stylesheet" href="../modern-styles.css" />
+    <link rel="stylesheet" href="../unified-professional.css" />
     <!-- Preload critical assets -->
     <link
-            rel="preload"
-            href="../Images/Base-Image.png"
-            as="image"
-            type="image/png"
+      rel="preload"
+      href="../Images/Base-Image.png"
+      as="image"
+      type="image/png"
     />
-    <link rel="preload" href="../script.js" as="script"/>
-    <link rel="preload" href="../transition.css" as="style"/>
-    <link rel="preload" href="../splash-transition.css" as="style"/>
+    <link rel="preload" href="../script.js" as="script" />
+    <link rel="preload" href="../transition.css" as="style" />
+    <link rel="preload" href="../splash-transition.css" as="style" />
     <script src="../effects-preference.js"></script>
     <title>Twisted Creations - Development Log</title>
-</head>
-<body>
-<header class="header-container">
-    <h1 class="site-title">Development Log</h1>
-    <nav class="nav-links" aria-label="Main navigation">
+  </head>
+  <body>
+    <header class="header-container">
+      <h1 class="site-title">Development Log</h1>
+      <nav class="nav-links" aria-label="Main navigation">
         <a href="index.html">Homepage</a>
         <a href="about-us.html">About Us</a>
         <a href="our-team.html">Our Team</a>
         <a href="game-info.html">Game Info</a>
         <a href="devlog.html" class="active" aria-current="page">Devlog</a>
-    </nav>
-</header>
+      </nav>
+    </header>
 
-<main class="content-container">
-    <div class="content-box">
+    <main class="content-container">
+      <div class="content-box">
         <h2>Development Updates</h2>
         <p>
-            Welcome to our development log!
-            Here we'll share updates on our
-            progress, challenges we've overcome, and exciting new features we're
-            working on.
+          Welcome to our development log! Here we'll share updates on our
+          progress, challenges we've overcome, and exciting new features we're
+          working on.
         </p>
 
         <!-- Category filter tabs -->
         <div class="devlog-filter">
-            <button class="filter-btn active" data-category="all">
-                All Updates
-            </button>
-            <button class="filter-btn" data-category="game">
-                Game Development
-            </button>
-            <button class="filter-btn" data-category="website">
-                Website Updates
-            </button>
+          <button class="filter-btn active" data-category="all">
+            All Updates
+          </button>
+          <button class="filter-btn" data-category="game">
+            Game Development
+          </button>
+          <button class="filter-btn" data-category="website">
+            Website Updates
+          </button>
         </div>
-    </div>
+      </div>
 
-    <!-- Devlog entries - newest entries should be added at the top -->
-    <div id="devlog-entries" class="devlog-entries-container">
+      <!-- Devlog entries - newest entries should be added at the top -->
+      <div id="devlog-entries" class="devlog-entries-container">
         <!-- Website Development Entry -->
         <div class="content-box devlog-entry" data-category="website">
-            <span class="category-tag website-tag">Website Update</span>
-            <h3>May 7, 2025: Site Fixes and Updates</h3>
-            <p>
-                Today we have released a general site update containing some under the hood works and bug fixes. as well
-                as fixing some security issues.
-            </p>
+          <span class="category-tag website-tag">Website Update</span>
+          <h3>May 7, 2025: Site Fixes and Updates</h3>
+          <p>
+            Today we have released a general site update containing some under
+            the hood works and bug fixes. as well as fixing some security
+            issues.
+          </p>
 
-            <h4>Security Fixes</h4>
-            <p>
-                We've fixed a few security vulnerabilities revolving around outdated dependencies and sanitization
-                issues.
-            </p>
+          <h4>Security Fixes</h4>
+          <p>
+            We've fixed a few security vulnerabilities revolving around outdated
+            dependencies and sanitization issues.
+          </p>
 
-            <h4>Changes</h4>
-            <ul>
-                <li>removed imagemin-cli in favor of image-minimizer-webpack-plugin as it is now depreciated</li>
-                <li>cleaned up/optimized the code by removing console logs and unused variables and functions</li>
-                <li>moved splash screen styles to their own file</li>
-                <li>updated/removed some npm packages</li>
-            </ul>
+          <h4>Changes</h4>
+          <ul>
+            <li>
+              removed imagemin-cli in favor of image-minimizer-webpack-plugin as
+              it is now depreciated
+            </li>
+            <li>
+              cleaned up/optimized the code by removing console logs and unused
+              variables and functions
+            </li>
+            <li>moved splash screen styles to their own file</li>
+            <li>updated/removed some npm packages</li>
+          </ul>
 
-            <h4>Fixed</h4>
-            <ul>
-                <li>effects preferences saving to local storage instead of the browser, leading to issues with a cached
-                    version of the
-                    page being shown instead of the live version
-                </li>
-                <li>fixed some security vulnerabilities found with CodeQL</li>
-                <li>updated got to a non-vulnerable version</li>
-                <li>fixed a link in the sitemap being http instead of https</li>
-            </ul>
-        </div>
-
-        <!-- Website Development Entry -->
-        <div class="content-box devlog-entry" data-category="website">
-            <span class="category-tag website-tag">Website Update</span>
-            <h3>April 17, 2025: Website Modernization</h3>
-            <p>
-                We've completed a comprehensive modernization of our website to
-                improve performance, accessibility, and mobile compatibility while
-                adopting current web standards.
-            </p>
-
-            <h4>Technical Improvements</h4>
-            <p>
-                We've implemented several technical improvements to enhance the
-                website's performance and capabilities:
-            </p>
-            <ul>
-                <li>
-                    Added Progressive Web App (PWA) support for offline access and app
-                    installation
-                </li>
-                <li>
-                    Implemented a service worker for faster loading and offline
-                    capabilities
-                </li>
-                <li>
-                    Created a sitemap.xml and robots.txt for better search engine
-                    optimization
-                </li>
-                <li>Updated package dependencies to use the latest versions</li>
-                <li>
-                    Added modern build tools for CSS and JavaScript optimization
-                </li>
-            </ul>
-
-            <h4>Design and User Experience</h4>
-            <p>
-                We've enhanced the design and user experience with modern
-                approaches:
-            </p>
-            <ul>
-                <li>
-                    Created a new modern-styles.css file with contemporary design
-                    patterns
-                </li>
-                <li>Implemented CSS Grid and Flexbox for more robust layouts</li>
-                <li>
-                    Added new interactive elements like cards and call-to-action
-                    buttons
-                </li>
-                <li>Improved typography and spacing for better readability</li>
-                <li>Enhanced footer with better organization and social links</li>
-            </ul>
-
-            <h4>Accessibility Enhancements</h4>
-            <p>We've made significant improvements to accessibility:</p>
-            <ul>
-                <li>Added proper ARIA attributes throughout the site</li>
-                <li>Improved keyboard navigation and focus management</li>
-                <li>Enhanced color contrast for better readability</li>
-                <li>Added support for screen readers</li>
-                <li>
-                    Implemented prefers-reduced-motion media queries for users who
-                    prefer minimal animations
-                </li>
-            </ul>
-
-            <h4>Mobile Optimization</h4>
-            <p>The site is now fully optimized for mobile devices:</p>
-            <ul>
-                <li>Responsive design that adapts to any screen size</li>
-                <li>Touch-friendly navigation and interactive elements</li>
-                <li>Performance optimizations for mobile devices</li>
-                <li>Improved loading times on slower connections</li>
-                <li>Better handling of touch events and gestures</li>
-            </ul>
-
-            <p>
-                These modernization efforts ensure our website meets current web
-                standards while providing an excellent experience for all users,
-                regardless of their device or accessibility needs.
-                We're committed
-                to maintaining these standards as we continue to develop both our
-                website and our games.
-            </p>
+          <h4>Fixed</h4>
+          <ul>
+            <li>
+              effects preferences saving to local storage instead of the
+              browser, leading to issues with a cached version of the page being
+              shown instead of the live version
+            </li>
+            <li>fixed some security vulnerabilities found with CodeQL</li>
+            <li>updated got to a non-vulnerable version</li>
+            <li>fixed a link in the sitemap being http instead of https</li>
+          </ul>
         </div>
 
         <!-- Website Development Entry -->
         <div class="content-box devlog-entry" data-category="website">
-            <span class="category-tag website-tag">Website Update</span>
-            <h3>April 5, 2025: Website Improvements</h3>
-            <p>
-                We've rolled out several significant improvements to the website
-                today, focusing on accessibility, user experience, and mobile
-                optimization.
-            </p>
+          <span class="category-tag website-tag">Website Update</span>
+          <h3>April 17, 2025: Website Modernization</h3>
+          <p>
+            We've completed a comprehensive modernization of our website to
+            improve performance, accessibility, and mobile compatibility while
+            adopting current web standards.
+          </p>
 
-            <h4>Accessibility Improvements</h4>
-            <p>
-                We've made the site more accessible for users with photosensitivity
-                or epilepsy:
-            </p>
-            <ul>
-                <li>Added a warning screen before any intense effects play</li>
-                <li>
-                    Implemented a "Reduced Effects" mode that minimizes flashing and
-                    animation intensity
-                </li>
-                <li>
-                    Create a site-wide preference system that remembers your choice
-                    across all pages
-                </li>
-                <li>
-                    Add a discreet toggle in the corner of every page to change your
-                    effect preference
-                </li>
-                <li>
-                    Improved accessibility for screen readers with better ARIA
-                    attributes
-                </li>
-            </ul>
+          <h4>Technical Improvements</h4>
+          <p>
+            We've implemented several technical improvements to enhance the
+            website's performance and capabilities:
+          </p>
+          <ul>
+            <li>
+              Added Progressive Web App (PWA) support for offline access and app
+              installation
+            </li>
+            <li>
+              Implemented a service worker for faster loading and offline
+              capabilities
+            </li>
+            <li>
+              Created a sitemap.xml and robots.txt for better search engine
+              optimization
+            </li>
+            <li>Updated package dependencies to use the latest versions</li>
+            <li>
+              Added modern build tools for CSS and JavaScript optimization
+            </li>
+          </ul>
 
-            <h4>Background System Enhancements</h4>
-            <p>We've significantly improved our background image system:</p>
-            <ul>
-                <li>Smooth fade and blur transitions between background states</li>
-                <li>Intelligent image scaling based on device capabilities</li>
-                <li>
-                    Better loading experience with preloading and loading indicators
-                </li>
-                <li>
-                    Reduced motion options for users who prefer minimal animations
-                </li>
-            </ul>
+          <h4>Design and User Experience</h4>
+          <p>
+            We've enhanced the design and user experience with modern
+            approaches:
+          </p>
+          <ul>
+            <li>
+              Created a new modern-styles.css file with contemporary design
+              patterns
+            </li>
+            <li>Implemented CSS Grid and Flexbox for more robust layouts</li>
+            <li>
+              Added new interactive elements like cards and call-to-action
+              buttons
+            </li>
+            <li>Improved typography and spacing for better readability</li>
+            <li>Enhanced footer with better organization and social links</li>
+          </ul>
 
-            <h4>Splash Page Enhancements</h4>
-            <p>The splash page has been enhanced with:</p>
-            <ul>
-                <li>Improved loading animation with better timing</li>
-                <li>
-                    Automatic transition effect before redirecting to the main site
-                </li>
-                <li>Better organization of code with external JavaScript files</li>
-                <li>
-                    Pause functionality that stops all animations until the user
-                    acknowledges the warning
-                </li>
-            </ul>
+          <h4>Accessibility Enhancements</h4>
+          <p>We've made significant improvements to accessibility:</p>
+          <ul>
+            <li>Added proper ARIA attributes throughout the site</li>
+            <li>Improved keyboard navigation and focus management</li>
+            <li>Enhanced color contrast for better readability</li>
+            <li>Added support for screen readers</li>
+            <li>
+              Implemented prefers-reduced-motion media queries for users who
+              prefer minimal animations
+            </li>
+          </ul>
 
-            <h4>Mobile Experience Optimization</h4>
-            <p>We've significantly improved the experience on mobile devices:</p>
-            <ul>
-                <li>
-                    Enhanced detection of mobile devices for better adaptability
-                </li>
-                <li>Optimized visual effects for better performance on mobile</li>
-                <li>Adjusted effect intensity and frequency for smaller screens</li>
-                <li>Improved touch response for interactive elements</li>
-                <li>Performance optimizations for low-power mobile devices</li>
-            </ul>
+          <h4>Mobile Optimization</h4>
+          <p>The site is now fully optimized for mobile devices:</p>
+          <ul>
+            <li>Responsive design that adapts to any screen size</li>
+            <li>Touch-friendly navigation and interactive elements</li>
+            <li>Performance optimizations for mobile devices</li>
+            <li>Improved loading times on slower connections</li>
+            <li>Better handling of touch events and gestures</li>
+          </ul>
 
-            <p>
-                These changes make our site more accessible and performant while
-                still maintaining the aesthetic that defines Twisted Creations.
-                We
-                believe in creating experiences that everyone can enjoy, regardless
-                of their device or sensitivity to visual effects.
-            </p>
+          <p>
+            These modernization efforts ensure our website meets current web
+            standards while providing an excellent experience for all users,
+            regardless of their device or accessibility needs. We're committed
+            to maintaining these standards as we continue to develop both our
+            website and our games.
+          </p>
         </div>
 
         <!-- Website Development Entry -->
         <div class="content-box devlog-entry" data-category="website">
-            <span class="category-tag website-tag">Website Update</span>
-            <h3>April 11, 2024: Website Launch</h3>
-            <p>
-                Today marks the official launch of our studio website!
-                We're excited
-                to have a place to share updates about our projects and connect with
-                our community.
-            </p>
-            <p>
-                We've set up the basic structure of the site with information about
-                our team and our current project, "Abandoned: The Asylum of
-                Madness."
-            </p>
-            <p>
-                Next steps include adding more details about game features and
-                regular development updates.
-            </p>
-        </div>
-    </div>
+          <span class="category-tag website-tag">Website Update</span>
+          <h3>April 5, 2025: Website Improvements</h3>
+          <p>
+            We've rolled out several significant improvements to the website
+            today, focusing on accessibility, user experience, and mobile
+            optimization.
+          </p>
 
-    <!-- Templates for new entries (copy and paste at the top of the entries section) -->
-    <!--
+          <h4>Accessibility Improvements</h4>
+          <p>
+            We've made the site more accessible for users with photosensitivity
+            or epilepsy:
+          </p>
+          <ul>
+            <li>Added a warning screen before any intense effects play</li>
+            <li>
+              Implemented a "Reduced Effects" mode that minimizes flashing and
+              animation intensity
+            </li>
+            <li>
+              Create a site-wide preference system that remembers your choice
+              across all pages
+            </li>
+            <li>
+              Add a discreet toggle in the corner of every page to change your
+              effect preference
+            </li>
+            <li>
+              Improved accessibility for screen readers with better ARIA
+              attributes
+            </li>
+          </ul>
+
+          <h4>Background System Enhancements</h4>
+          <p>We've significantly improved our background image system:</p>
+          <ul>
+            <li>Smooth fade and blur transitions between background states</li>
+            <li>Intelligent image scaling based on device capabilities</li>
+            <li>
+              Better loading experience with preloading and loading indicators
+            </li>
+            <li>
+              Reduced motion options for users who prefer minimal animations
+            </li>
+          </ul>
+
+          <h4>Splash Page Enhancements</h4>
+          <p>The splash page has been enhanced with:</p>
+          <ul>
+            <li>Improved loading animation with better timing</li>
+            <li>
+              Automatic transition effect before redirecting to the main site
+            </li>
+            <li>Better organization of code with external JavaScript files</li>
+            <li>
+              Pause functionality that stops all animations until the user
+              acknowledges the warning
+            </li>
+          </ul>
+
+          <h4>Mobile Experience Optimization</h4>
+          <p>We've significantly improved the experience on mobile devices:</p>
+          <ul>
+            <li>
+              Enhanced detection of mobile devices for better adaptability
+            </li>
+            <li>Optimized visual effects for better performance on mobile</li>
+            <li>Adjusted effect intensity and frequency for smaller screens</li>
+            <li>Improved touch response for interactive elements</li>
+            <li>Performance optimizations for low-power mobile devices</li>
+          </ul>
+
+          <p>
+            These changes make our site more accessible and performant while
+            still maintaining the aesthetic that defines Twisted Creations. We
+            believe in creating experiences that everyone can enjoy, regardless
+            of their device or sensitivity to visual effects.
+          </p>
+        </div>
+
+        <!-- Website Development Entry -->
+        <div class="content-box devlog-entry" data-category="website">
+          <span class="category-tag website-tag">Website Update</span>
+          <h3>April 11, 2024: Website Launch</h3>
+          <p>
+            Today marks the official launch of our studio website! We're excited
+            to have a place to share updates about our projects and connect with
+            our community.
+          </p>
+          <p>
+            We've set up the basic structure of the site with information about
+            our team and our current project, "Abandoned: The Asylum of
+            Madness."
+          </p>
+          <p>
+            Next steps include adding more details about game features and
+            regular development updates.
+          </p>
+        </div>
+      </div>
+
+      <!-- Templates for new entries (copy and paste at the top of the entries section) -->
+      <!--
   Game Development Entry Template:
   <div class="content-box devlog-entry" data-category="game">
     <span class="category-tag game-tag">Game Development</span>
@@ -309,13 +313,14 @@
       [CONTENT]
     </p>
   </div>
-  --></main>
-<footer class="footer-container">
-    <p>
+  -->
+    </main>
+    <footer class="footer-container">
+      <p>
         &copy; <span class="current-year">2024</span> Twisted Creations. All
         rights reserved.
-    </p>
-</footer>
-<script src="../script.js"></script>
-</body>
+      </p>
+    </footer>
+    <script src="../script.js"></script>
+  </body>
 </html>
