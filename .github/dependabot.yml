@@ -43,7 +43,6 @@ updates:
     commit-message:
       prefix: "deps"
       prefix-development: "deps-dev"
-    reviewers:
     labels:
       - "dependencies"
       - "npm"
