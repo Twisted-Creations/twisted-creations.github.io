@@ -1,127 +1,127 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#2a47b3" />
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="theme-color" content="#2a47b3"/>
     <meta
-      name="description"
-      content="Twisted Creations is an indie game development studio creating immersive gaming experiences. Explore our projects and development updates."
+            name="description"
+            content="Twisted Creations is an indie game development studio creating immersive gaming experiences. Explore our projects and development updates."
     />
-    <meta name="robots" content="index, follow" />
+    <meta name="robots" content="index, follow"/>
     <!-- PWA Support -->
-    <link rel="manifest" href="manifest.json" />
-    <link rel="apple-touch-icon" href="Images/icon-192.png" />
+    <link rel="manifest" href="manifest.json"/>
+    <link rel="apple-touch-icon" href="Images/icon-192.png"/>
     <!-- Redirect handled by JavaScript for better control and timing -->
     <title>Twisted Creations | Game Development Studio</title>
     <!-- Preload critical assets -->
     <link
-      rel="preload"
-      href="Images/Base-Image.png"
-      as="image"
-      type="image/png"
+            rel="preload"
+            href="Images/Base-Image.png"
+            as="image"
+            type="image/png"
     />
-    <link rel="stylesheet" href="unified-transitions.css" />
-    <link rel="preload" href="unified-transitions.css" as="style" />
-    <link rel="stylesheet" href="modern-styles.css" />
-    <link rel="stylesheet" href="unified-professional.css" />
-    <link rel="preload" href="unified-professional.css" as="style" />
-    <link rel="preload" href="script.js" as="script" />
+    <link rel="stylesheet" href="unified-transitions.css"/>
+    <link rel="preload" href="unified-transitions.css" as="style"/>
+    <link rel="stylesheet" href="modern-styles.css"/>
+    <link rel="stylesheet" href="unified-professional.css"/>
+    <link rel="preload" href="unified-professional.css" as="style"/>
+    <link rel="preload" href="script.js" as="script"/>
     <script src="script.js" defer></script>
     <script>
-      // Check if a user has already set their effect preferences
-      document.addEventListener("DOMContentLoaded", function () {
-        const warningAcknowledged = localStorage.getItem(
-          "effectsWarningAcknowledged"
-        );
+        // Check if a user has already set their effect preferences
+        document.addEventListener("DOMContentLoaded", function () {
+            const warningAcknowledged = localStorage.getItem(
+                "effectsWarningAcknowledged"
+            );
 
-        // If preferences haven't been set, redirect to the preference page
-        if (warningAcknowledged !== "true") {
-          window.location.href = "effects-preferences.html";
-        } else {
-          // Check if we need to update the service worker cache
-          if ("serviceWorker" in navigator) {
-            navigator.serviceWorker.ready.then((registration) => {
-              // Send a message to a service worker with current preferences
-              if (registration.active) {
-                registration.active.postMessage({
-                  type: "PREFERENCES_UPDATED",
-                  reducedEffects:
-                    localStorage.getItem("reducedEffects") === "true",
-                  timestamp: Date.now(),
-                });
-              }
-            });
-          }
+            // If preferences haven't been set, redirect to the preference page
+            if (warningAcknowledged !== "true") {
+                window.location.href = "effects-preferences.html";
+            } else {
+                // Check if we need to update the service worker cache
+                if ("serviceWorker" in navigator) {
+                    navigator.serviceWorker.ready.then((registration) => {
+                        // Send a message to a service worker with current preferences
+                        if (registration.active) {
+                            registration.active.postMessage({
+                                type: "PREFERENCES_UPDATED",
+                                reducedEffects:
+                                    localStorage.getItem("reducedEffects") === "true",
+                                timestamp: Date.now(),
+                            });
+                        }
+                    });
+                }
 
-          // If preferences are set, prepare for redirect to the main site
-          setTimeout(() => {
-            document.querySelector(".redirect-message").style.opacity = "1";
-          }, 8000);
-        }
-      });
+                // If preferences are set, prepare for redirect to the main site
+                setTimeout(() => {
+                    document.querySelector(".redirect-message").style.opacity = "1";
+                }, 8000);
+            }
+        });
     </script>
     <script src="splash-effects-new.js" defer></script>
     <script>
-      // Register Service Worker for PWA support
-      if ("serviceWorker" in navigator) {
-        window.addEventListener("load", () => {
-          navigator.serviceWorker
-            .register("/service-worker.js")
-            .then((registration) => {
-              // Service worker registered successfully
-              if (registration.installing) {
-                console.log("Service Worker installing");
-              } else if (registration.waiting) {
-                console.log("Service Worker installed but waiting");
-              } else if (registration.active) {
-                console.log("Service Worker active");
-              }
-            })
-            .catch((error) => {
-              // Handle errors more gracefully
-              console.error("Service Worker registration failed:", error);
+        // Register Service Worker for PWA support
+        if ("serviceWorker" in navigator) {
+            window.addEventListener("load", () => {
+                navigator.serviceWorker
+                    .register("/service-worker.js")
+                    .then((registration) => {
+                        // Service worker registered successfully
+                        if (registration.installing) {
+                            console.log("Service Worker installing");
+                        } else if (registration.waiting) {
+                            console.log("Service Worker installed but waiting");
+                        } else if (registration.active) {
+                            console.log("Service Worker active");
+                        }
+                    })
+                    .catch((error) => {
+                        // Handle errors more gracefully
+                        console.error("Service Worker registration failed:", error);
 
-              // Add fallback behavior for browsers without service worker support
-              document.body.classList.add("no-service-worker");
+                        // Add fallback behavior for browsers without service worker support
+                        document.body.classList.add("no-service-worker");
+                    });
             });
-        });
-      } else {
-        // For browsers that don't support service workers
-        console.log("Service Workers not supported in this browser");
-        document.body.classList.add("no-service-worker");
-      }
+        } else {
+            // For browsers that don't support service workers
+            console.log("Service Workers not supported in this browser");
+            document.body.classList.add("no-service-worker");
+        }
     </script>
     <!-- Splash page styles are now included in unified-professional.css -->
-    <link rel="stylesheet" href="splash-styles.css" />
-    <link rel="preload" href="splash-styles.css" as="style" />
-  </head>
-  <body>
-    <div class="splash-container">
-      <div class="splash-background"></div>
-      <div class="vignette"></div>
+    <link rel="stylesheet" href="splash-styles.css"/>
+    <link rel="preload" href="splash-styles.css" as="style"/>
+</head>
+<body>
+<div class="splash-container">
+    <div class="splash-background"></div>
+    <div class="vignette"></div>
 
-      <div class="splash-logo">
+    <div class="splash-logo">
         <h1>TWISTED CREATIONS</h1>
-      </div>
-
-      <div class="splash-tagline">Game Development Studio</div>
-
-      <div class="loading-bar-container">
-        <div class="loading-bar"></div>
-      </div>
-
-      <div class="redirect-message">
-        Redirecting to the main site...
-        <a href="Pages/index.html" class="redirect-link" id="enter-button"
-          >Enter Now</a
-        >
-      </div>
     </div>
 
-    <script>
-      // Add more intense glitch effects to the splash page
-      function randomGlitch() {
+    <div class="splash-tagline">Game Development Studio</div>
+
+    <div class="loading-bar-container">
+        <div class="loading-bar"></div>
+    </div>
+
+    <div class="redirect-message">
+        Redirecting to the main site...
+        <a href="Pages/index.html" class="redirect-link" id="enter-button"
+        >Enter Now</a
+        >
+    </div>
+</div>
+
+<script>
+    // Add more intense glitch effects to the splash page
+    function randomGlitch() {
         const logo = document.querySelector(".splash-logo h1");
         if (!logo) return; // Safety check
 
@@ -130,55 +130,55 @@
 
         // Random glitch effects
         const glitchEffects = [
-          // Effect 1: Color shift
-          () => {
-            logo.style.textShadow = "2px 0 #ff00ea, -2px 0 #00eaff";
-            logo.style.transform = "skew(1deg)";
-          },
-          // Effect 2: Shake
-          () => {
-            const shakeX = Math.random() * 6 - 3;
-            const shakeY = Math.random() * 6 - 3;
-            logo.style.transform = `translate(${shakeX}px, ${shakeY}px)`;
-          },
-          // Effect 3: Split
-          () => {
-            logo.style.textShadow = "-3px 0 #ff00ea, 3px 0 #00eaff";
-            logo.style.letterSpacing = "3px";
-          },
+            // Effect 1: Color shift
+            () => {
+                logo.style.textShadow = "2px 0 #ff00ea, -2px 0 #00eaff";
+                logo.style.transform = "skew(1deg)";
+            },
+            // Effect 2: Shake
+            () => {
+                const shakeX = Math.random() * 6 - 3;
+                const shakeY = Math.random() * 6 - 3;
+                logo.style.transform = `translate(${shakeX}px, ${shakeY}px)`;
+            },
+            // Effect 3: Split
+            () => {
+                logo.style.textShadow = "-3px 0 #ff00ea, 3px 0 #00eaff";
+                logo.style.letterSpacing = "3px";
+            },
         ];
 
         // Choose a random effect
         const randomEffect =
-          glitchEffects[Math.floor(Math.random() * glitchEffects.length)];
+            glitchEffects[Math.floor(Math.random() * glitchEffects.length)];
 
         setTimeout(() => {
-          // Apply random effect
-          randomEffect();
+            // Apply random effect
+            randomEffect();
 
-          // Add scanlines occasionally
-          const glitchEffect = document.querySelector(".glitch-effect");
-          if (glitchEffect && Math.random() > 0.7) {
-            glitchEffect.style.opacity = "0.6";
-          }
-
-          setTimeout(() => {
-            // Reset to normal
-            logo.style.textShadow = "0 0 15px rgba(26, 39, 179, 0.7)";
-            logo.style.transform = "skew(0)";
-            logo.style.letterSpacing = "2px";
-            if (glitchEffect) {
-              glitchEffect.style.opacity = "0.3";
+            // Add scanlines occasionally
+            const glitchEffect = document.querySelector(".glitch-effect");
+            if (glitchEffect && Math.random() > 0.7) {
+                glitchEffect.style.opacity = "0.6";
             }
 
-            // Continue with random glitches
-            randomGlitch();
-          }, glitchDuration);
-        }, glitchDelay);
-      }
+            setTimeout(() => {
+                // Reset to normal
+                logo.style.textShadow = "0 0 15px rgba(26, 39, 179, 0.7)";
+                logo.style.transform = "skew(0)";
+                logo.style.letterSpacing = "2px";
+                if (glitchEffect) {
+                    glitchEffect.style.opacity = "0.3";
+                }
 
-      // Add VHS tracking lines effect
-      function addTrackingLines() {
+                // Continue with random glitches
+                randomGlitch();
+            }, glitchDuration);
+        }, glitchDelay);
+    }
+
+    // Add VHS tracking lines effect
+    function addTrackingLines() {
         const container = document.querySelector(".splash-container");
         if (!container) return; // Safety check
 
@@ -193,7 +193,7 @@
         trackingLines.style.width = "100%";
         trackingLines.style.height = "100%";
         trackingLines.style.background =
-          "linear-gradient(to bottom, transparent 0%, rgba(255, 255, 255, 0.05) 50%, transparent 51%, transparent 100%)";
+            "linear-gradient(to bottom, transparent 0%, rgba(255, 255, 255, 0.05) 50%, transparent 51%, transparent 100%)";
         trackingLines.style.backgroundSize = "100% 8px";
         trackingLines.style.animation = "trackingLines 10s linear infinite";
         trackingLines.style.zIndex = "3";
@@ -203,20 +203,20 @@
 
         // Add keyframes for tracking lines if they don't exist
         if (!document.getElementById("tracking-lines-keyframes")) {
-          const style = document.createElement("style");
-          style.id = "tracking-lines-keyframes";
-          style.textContent = `
+            const style = document.createElement("style");
+            style.id = "tracking-lines-keyframes";
+            style.textContent = `
             @keyframes trackingLines {
               0% { background-position: 0 0; }
               100% { background-position: 0 100%; }
             }
           `;
-          document.head.appendChild(style);
+            document.head.appendChild(style);
         }
-      }
+    }
 
-      // Random screen flicker effect
-      function addScreenFlicker() {
+    // Random screen flicker effect
+    function addScreenFlicker() {
         const container = document.querySelector(".splash-container");
         if (!container) return; // Safety check
 
@@ -238,214 +238,100 @@
 
         // Random flicker function
         function flicker() {
-          if (Math.random() > 0.9) {
-            flickerOverlay.style.opacity = Math.random() * 0.2;
-            setTimeout(() => {
-              flickerOverlay.style.opacity = "0";
-            }, Math.random() * 100);
-          }
-          setTimeout(flicker, Math.random() * 1000);
+            if (Math.random() > 0.9) {
+                flickerOverlay.style.opacity = Math.random() * 0.2;
+                setTimeout(() => {
+                    flickerOverlay.style.opacity = "0";
+                }, Math.random() * 100);
+            }
+            setTimeout(flicker, Math.random() * 1000);
         }
 
         flicker();
-      }
+    }
 
-      // Add a page transition effect for the Enter button
-      function initSplashPageTransition() {
-        // Create the transition elements if they don't exist
-        if (!document.querySelector(".page-transition")) {
-          // Create the main container
-          const transitionContainer = document.createElement("div");
-          transitionContainer.className = "page-transition";
-          transitionContainer.style.position = "fixed";
-          transitionContainer.style.top = "0";
-          transitionContainer.style.left = "0";
-          transitionContainer.style.width = "100vw";
-          transitionContainer.style.height = "100vh";
-          transitionContainer.style.backgroundColor = "rgba(0, 0, 0, 0.9)";
-          transitionContainer.style.zIndex = "9999";
-          transitionContainer.style.opacity = "0";
-          transitionContainer.style.visibility = "hidden";
-          transitionContainer.style.transition = "opacity 0.3s ease";
-          transitionContainer.style.display = "flex";
-          transitionContainer.style.alignItems = "center";
-          transitionContainer.style.justifyContent = "center";
+    // Use the transition effect from splash-effects-new.js instead of creating a duplicate
+    function initSplashPageTransition() {
+        // The transition container is now created by splash-effects-new.js
+        // We don't need to create it again here
 
-          // Create overlay
-          const overlay = document.createElement("div");
-          overlay.className = "glitch-overlay";
-          overlay.style.position = "absolute";
-          overlay.style.top = "0";
-          overlay.style.left = "0";
-          overlay.style.width = "100%";
-          overlay.style.height = "100%";
-          overlay.style.backgroundImage =
-            "linear-gradient(rgba(0, 0, 0, 0.1) 50%, rgba(0, 0, 0, 0.3) 50%)";
-          overlay.style.backgroundSize = "100% 4px";
-          overlay.style.zIndex = "1";
-          transitionContainer.appendChild(overlay);
+        // We also don't need to add a click event listener to the Enter button
+        // as it's already handled by setupManualTransition() in splash-effects-new.js
+    }
 
-          // Create scanlines
-          const scanlines = document.createElement("div");
-          scanlines.className = "glitch-scanlines";
-          scanlines.style.position = "absolute";
-          scanlines.style.top = "0";
-          scanlines.style.left = "0";
-          scanlines.style.width = "100%";
-          scanlines.style.height = "100%";
-          scanlines.style.backgroundImage =
-            "linear-gradient(to bottom, transparent, rgba(255, 255, 255, 0.05) 50%, transparent 50%)";
-          scanlines.style.backgroundSize = "100% 2px";
-          scanlines.style.zIndex = "2";
-          transitionContainer.appendChild(scanlines);
-
-          // Create RGB shift layer
-          const rgbLayer = document.createElement("div");
-          rgbLayer.className = "glitch-rgb";
-          rgbLayer.style.position = "absolute";
-          rgbLayer.style.top = "0";
-          rgbLayer.style.left = "0";
-          rgbLayer.style.width = "100%";
-          rgbLayer.style.height = "100%";
-          rgbLayer.style.mixBlendMode = "screen";
-          rgbLayer.style.zIndex = "3";
-          transitionContainer.appendChild(rgbLayer);
-
-          // Create horizontal glitch slices
-          for (let i = 0; i < 3; i++) {
-            const slice = document.createElement("div");
-            slice.className = "glitch-slice";
-            slice.style.position = "absolute";
-            slice.style.width = "100%";
-            slice.style.height = "33.33%";
-            slice.style.top = i * 33.33 + "%";
-            slice.style.left = "0";
-            slice.style.zIndex = "4";
-            transitionContainer.appendChild(slice);
-          }
-
-          // Create glitch text
-          const glitchText = document.createElement("div");
-          glitchText.className = "glitch-text";
-          glitchText.textContent = "LOADING";
-          glitchText.setAttribute("data-text", "LOADING");
-          glitchText.style.position = "relative";
-          glitchText.style.color = "#fff";
-          glitchText.style.fontFamily = "'Courier New', monospace";
-          glitchText.style.fontSize = "3rem";
-          glitchText.style.fontWeight = "bold";
-          glitchText.style.textTransform = "uppercase";
-          glitchText.style.letterSpacing = "0.25em";
-          glitchText.style.textShadow = "2px 0 #ff00ea, -2px 0 #00eaff";
-          glitchText.style.zIndex = "5";
-          transitionContainer.appendChild(glitchText);
-
-          // Add to document
-          document.body.appendChild(transitionContainer);
-        }
-
-        // Add click event to the Enter button
-        const enterButton = document.getElementById("enter-button");
-        if (enterButton) {
-          enterButton.addEventListener("click", function (e) {
-            e.preventDefault();
-
-            const href = this.getAttribute("href");
-            const transition = document.querySelector(".page-transition");
-
-            // Generate random loading text
-            const glitchTexts = [
-              "LOADING",
-              "PLEASE WAIT",
-              "REDIRECTING",
-              "NAVIGATING",
-              "PROCESSING",
-              "CONNECTING",
-              "PREPARING",
-              "LOADING PAGE",
-              "ALMOST THERE",
-              "ONE MOMENT",
-            ];
-            const randomText =
-              glitchTexts[Math.floor(Math.random() * glitchTexts.length)];
-            const glitchTextElement = document.querySelector(".glitch-text");
-            if (glitchTextElement) {
-              glitchTextElement.textContent = randomText;
-              glitchTextElement.setAttribute("data-text", randomText);
-            }
-
-            // Show transition
-            transition.style.visibility = "visible";
-            transition.style.opacity = "1";
-
-            // Prevent scrolling
-            document.body.style.overflow = "hidden";
-
-            // Add transition effects
-            document.body.style.filter = "brightness(0.85)";
-
-            // Navigate after delay - longer delay for better transition
-            setTimeout(() => {
-              window.location.href = href;
-            }, 1200);
-          });
-        }
-      }
-
-      // Only run these effects on the splash page
-      if (!window.location.pathname.includes("Pages/")) {
+    // Only run these effects on the splash page
+    if (!window.location.pathname.includes("Pages/")) {
         // Start all effects after initial animation
         setTimeout(() => {
-          randomGlitch();
-          addTrackingLines();
-          addScreenFlicker();
-          initSplashPageTransition(); // Add the page transition effect
+            randomGlitch();
+            addTrackingLines();
+            addScreenFlicker();
+            initSplashPageTransition(); // Add the page transition effect
 
-          // Handle automatic redirect with proper timingsetTimeout(() => {
-          // Show transition effect before redirecting
-          const transition = document.querySelector(".page-transition");
-          if (transition) {
-            // Generate random loading text
-            const glitchTexts = [
-              "LOADING",
-              "PLEASE WAIT",
-              "REDIRECTING",
-              "NAVIGATING",
-              "PROCESSING",
-              "CONNECTING",
-              "PREPARING",
-              "LOADING PAGE",
-              "ALMOST THERE",
-              "ONE MOMENT",
-            ];
-            const randomText =
-              glitchTexts[Math.floor(Math.random() * glitchTexts.length)];
-            const glitchTextElement = document.querySelector(".glitch-text");
-            if (glitchTextElement) {
-              glitchTextElement.textContent = randomText;
-              glitchTextElement.setAttribute("data-text", randomText);
+            // Handle automatic redirect with proper timingsetTimeout(() => {
+            // Use the triggerTransition function from splash-effects-new.js for consistent behavior
+            if (typeof triggerTransition === "function") {
+                triggerTransition("Pages/index.html");
+            } else {
+                // Fallback if the function isn't available
+                const transition = document.querySelector(".page-transition");
+                if (transition) {
+                    // Generate random loading text
+                    const glitchTexts = [
+                        "LOADING",
+                        "PLEASE WAIT",
+                        "REDIRECTING",
+                        "NAVIGATING",
+                        "PROCESSING",
+                        "CONNECTING",
+                        "PREPARING",
+                        "LOADING PAGE",
+                        "ALMOST THERE",
+                        "ONE MOMENT",
+                    ];
+                    const randomText =
+                        glitchTexts[Math.floor(Math.random() * glitchTexts.length)];
+                    const glitchTextElement = document.querySelector(".glitch-text");
+                    if (glitchTextElement) {
+                        glitchTextElement.textContent = randomText;
+                        glitchTextElement.setAttribute("data-text", randomText);
+                    }
+
+                    // Update loading text as well
+                    const loadingTextElement = document.querySelector(".loading-text");
+                    if (loadingTextElement) {
+                        loadingTextElement.textContent = randomText;
+                    }
+
+                    // Show transition using the active class
+                    transition.classList.add("active");
+
+                    // Prevent scrolling
+                    document.body.style.overflow = "hidden";
+
+                    // Add transition effects
+                    document.body.style.filter = "brightness(0.8)";
+
+                    // Apply blur to background elements only, not text
+                    const backgroundElements = document.querySelectorAll('.splash-container, .splash-background, .vignette');
+                    backgroundElements.forEach(element => {
+                        if (element && element.style) {
+                            element.style.transition = "filter 0.3s cubic-bezier(0.4, 0.0, 0.2, 1)";
+                            element.style.filter = "blur(5px)";
+                        }
+                    });
+
+                    // Navigate after a longer delay to ensure animations complete
+                    setTimeout(() => {
+                        window.location.href = "Pages/index.html";
+                    }, 1500);
+                } else {
+                    // Fallback if transition element doesn't exist
+                    window.location.href = "Pages/index.html";
+                }
             }
-
-            // Show transition
-            transition.style.visibility = "visible";
-            transition.style.opacity = "1";
-
-            // Prevent scrolling
-            document.body.style.overflow = "hidden";
-
-            // Add transition effects
-            document.body.style.filter = "brightness(0.85)";
-
-            // Navigate after a longer delay to ensure animations complete
-            setTimeout(() => {
-              window.location.href = "Pages/index.html";
-            }, 1500);
-          } else {
-            // Fallback if transition element doesn't exist
-            window.location.href = "Pages/index.html";
-          }
         }, 9000);
-      }
-    </script>
-  </body>
+    }
+</script>
+</body>
 </html>

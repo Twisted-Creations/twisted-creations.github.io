@@ -1,21 +1,21 @@
 // Effects preference utility - applies user's preference across all pages
 (function () {
-  // Check if the reduced effects preference is set
-  const reducedEffects = localStorage.getItem("reducedEffects") === "true";
+    // Check if the reduced effects preference is set
+    const reducedEffects = localStorage.getItem("reducedEffects") === "true";
 
-  // Set a global flag that other scripts can check
-  window.reducedEffects = reducedEffects;
+    // Set a global flag that other scripts can check
+    window.reducedEffects = reducedEffects;
 
-  // Create a stylesheet for reduced effects instead of inline styles
-  function createReducedEffectsStylesheet() {
-    // Check if the stylesheet already exists
-    if (document.getElementById("reduced-effects-stylesheet")) {
-      return;
-    }
+    // Create a stylesheet for reduced effects instead of inline styles
+    function createReducedEffectsStylesheet() {
+        // Check if the stylesheet already exists
+        if (document.getElementById("reduced-effects-stylesheet")) {
+            return;
+        }
 
-    const reducedEffectsStyle = document.createElement("style");
-    reducedEffectsStyle.id = "reduced-effects-stylesheet";
-    reducedEffectsStyle.textContent = `
+        const reducedEffectsStyle = document.createElement("style");
+        reducedEffectsStyle.id = "reduced-effects-stylesheet";
+        reducedEffectsStyle.textContent = `
           /* Reduced effects mode - applied site-wide */
           .reduced-effects .page-transition {
             transition: opacity 0.5s ease !important; /* Smoother transitions */
@@ -50,29 +50,29 @@
             animation-timing-function: linear !important;
           }
         `;
-    document.head.appendChild(reducedEffectsStyle);
-  }
-
-  // Function to apply reduced effects
-  function applyReducedEffects() {
-    if (document.body && reducedEffects) {
-      document.body.classList.add("reduced-effects");
-      createReducedEffectsStylesheet();
-    }
-  }
-
-  // Create the toggle button with CSS classes instead of inline styles
-  function createToggleButton() {
-    // Check if the toggle already exists (to prevent duplicates)
-    if (document.querySelector(".effects-toggle")) {
-      return;
+        document.head.appendChild(reducedEffectsStyle);
     }
 
-    // Create a stylesheet for the toggle button if it doesn't exist
-    if (!document.getElementById("effects-toggle-styles")) {
-      const toggleStyles = document.createElement("style");
-      toggleStyles.id = "effects-toggle-styles";
-      toggleStyles.textContent = `
+    // Function to apply reduced effects
+    function applyReducedEffects() {
+        if (document.body && reducedEffects) {
+            document.body.classList.add("reduced-effects");
+            createReducedEffectsStylesheet();
+        }
+    }
+
+    // Create the toggle button with CSS classes instead of inline styles
+    function createToggleButton() {
+        // Check if the toggle already exists (to prevent duplicates)
+        if (document.querySelector(".effects-toggle")) {
+            return;
+        }
+
+        // Create a stylesheet for the toggle button if it doesn't exist
+        if (!document.getElementById("effects-toggle-styles")) {
+            const toggleStyles = document.createElement("style");
+            toggleStyles.id = "effects-toggle-styles";
+            toggleStyles.textContent = `
                 .effects-toggle {
                     position: fixed;
                     bottom: 20px;
@@ -128,96 +128,96 @@
                     }
                 }
             `;
-      document.head.appendChild(toggleStyles);
-    }
-
-    // Add a toggle button in the corner for users to change their preference
-    const toggleContainer = document.createElement("div");
-    toggleContainer.className = `effects-toggle ${
-      reducedEffects ? "reduced" : "full"
-    }`;
-
-    // Add an icon to make it more visible
-    const currentMode = reducedEffects ? "🔅" : "✨";
-    toggleContainer.textContent = reducedEffects
-      ? `${currentMode} Switch to Full Effects`
-      : `${currentMode} Switch to Reduced Effects`;
-
-    // Toggle effects when clicked
-    toggleContainer.addEventListener("click", () => {
-      const currentSetting = localStorage.getItem("reducedEffects") === "true";
-      const newSetting = !currentSetting;
-
-      // Save new preference
-      localStorage.setItem("reducedEffects", newSetting.toString());
-      localStorage.setItem("effectsPreferenceUpdated", Date.now().toString());
-
-      // Show feedback before reload
-      toggleContainer.className = "effects-toggle applying";
-
-      // Update text with the appropriate icon
-      const newMode = newSetting ? "🔅" : "✨";
-      toggleContainer.textContent = `${newMode} Applying changes...`;
-
-      // Clear service worker cache if available
-      if ("serviceWorker" in navigator && "caches" in window) {
-        caches
-          .keys()
-          .then((cacheNames) => {
-            return Promise.all(
-              cacheNames
-                .filter((cacheName) => cacheName.includes("twisted-creations"))
-                .map((cacheName) => caches.delete(cacheName))
-            );
-          })
-          .catch((error) => {
-            console.log("Cache clearing failed:", error);
-          });
-      }
-
-      // Reload the page to apply changes after a short delay
-      setTimeout(() => {
-        window.location.reload(true); // Force reload from server
-      }, 500);
-    });
-
-    // Add to document
-    document.body.appendChild(toggleContainer);
-  }
-
-  // Function to initialize everything when DOM is ready
-  function init() {
-    if (document.body) {
-      // Apply reduced effects immediately if needed
-      applyReducedEffects();
-
-      // Create a toggle button with a delay to ensure other elements are loaded
-      setTimeout(createToggleButton, 1000);
-
-      // Add a backup check in case the first attempt fails
-      setTimeout(() => {
-        if (!document.querySelector(".effects-toggle")) {
-          createToggleButton();
+            document.head.appendChild(toggleStyles);
         }
-      }, 3000);
+
+        // Add a toggle button in the corner for users to change their preference
+        const toggleContainer = document.createElement("div");
+        toggleContainer.className = `effects-toggle ${
+            reducedEffects ? "reduced" : "full"
+        }`;
+
+        // Add an icon to make it more visible
+        const currentMode = reducedEffects ? "🔅" : "✨";
+        toggleContainer.textContent = reducedEffects
+            ? `${currentMode} Switch to Full Effects`
+            : `${currentMode} Switch to Reduced Effects`;
+
+        // Toggle effects when clicked
+        toggleContainer.addEventListener("click", () => {
+            const currentSetting = localStorage.getItem("reducedEffects") === "true";
+            const newSetting = !currentSetting;
+
+            // Save new preference
+            localStorage.setItem("reducedEffects", newSetting.toString());
+            localStorage.setItem("effectsPreferenceUpdated", Date.now().toString());
+
+            // Show feedback before reload
+            toggleContainer.className = "effects-toggle applying";
+
+            // Update text with the appropriate icon
+            const newMode = newSetting ? "🔅" : "✨";
+            toggleContainer.textContent = `${newMode} Applying changes...`;
+
+            // Clear service worker cache if available
+            if ("serviceWorker" in navigator && "caches" in window) {
+                caches
+                    .keys()
+                    .then((cacheNames) => {
+                        return Promise.all(
+                            cacheNames
+                                .filter((cacheName) => cacheName.includes("twisted-creations"))
+                                .map((cacheName) => caches.delete(cacheName))
+                        );
+                    })
+                    .catch((error) => {
+                        console.log("Cache clearing failed:", error);
+                    });
+            }
+
+            // Reload the page to apply changes after a short delay
+            setTimeout(() => {
+                window.location.reload(true); // Force reload from server
+            }, 500);
+        });
+
+        // Add to document
+        document.body.appendChild(toggleContainer);
+    }
+
+    // Function to initialize everything when DOM is ready
+    function init() {
+        if (document.body) {
+            // Apply reduced effects immediately if needed
+            applyReducedEffects();
+
+            // Create a toggle button with a delay to ensure other elements are loaded
+            setTimeout(createToggleButton, 1000);
+
+            // Add a backup check in case the first attempt fails
+            setTimeout(() => {
+                if (!document.querySelector(".effects-toggle")) {
+                    createToggleButton();
+                }
+            }, 3000);
+        } else {
+            // If the body isn't ready yet, try again in a moment
+            setTimeout(init, 100);
+        }
+    }
+
+    // Initialize based on document readiness
+    if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", init);
     } else {
-      // If the body isn't ready yet, try again in a moment
-      setTimeout(init, 100);
+        // Document already loaded, run init directly
+        init();
     }
-  }
 
-  // Initialize based on document readiness
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", init);
-  } else {
-    // Document already loaded, run init directly
-    init();
-  }
-
-  // Add a fallback initialization for any edge cases
-  window.addEventListener("load", () => {
-    if (!document.querySelector(".effects-toggle")) {
-      createToggleButton();
-    }
-  });
+    // Add a fallback initialization for any edge cases
+    window.addEventListener("load", () => {
+        if (!document.querySelector(".effects-toggle")) {
+            createToggleButton();
+        }
+    });
 })();

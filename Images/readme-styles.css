@@ -3,7 +3,7 @@
 @media screen and (prefers-reduced-motion: reduce) {
     .rounded-image {
         border-radius: 30px;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+        box-shadow: 0 4px 12px rgb(0 0 0 / 50%);
         max-width: 300px;
         width: 100%;
         display: block;
@@ -15,7 +15,7 @@
 
 .rounded-image {
     border-radius: 30px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 4px 12px rgb(0 0 0 / 50%);
     max-width: 300px;
     width: 100%;
     display: block;
@@ -29,7 +29,7 @@
 .rounded-image:hover,
 .rounded-image:focus {
     transform: scale(1.02);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 8px 24px rgb(0 0 0 / 50%);
 }
 
 /* Container styles for centered content */
