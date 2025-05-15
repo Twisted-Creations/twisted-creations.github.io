@@ -1176,7 +1176,7 @@ em {
     .page-transition.active {
         opacity: 1;
         visibility: visible;
-        transition: none; /* Even faster transition */
+        transition: opacity 0.5s, visibility 0.5s;
 
         /* Prevent scrolling during transition */
         overflow: hidden;
@@ -1190,7 +1190,7 @@ em {
 .page-transition.active {
     opacity: 1;
     visibility: visible;
-    transition: visibility 0s, opacity 0.05s; /* Even faster transition */
+    
 
     /* Prevent scrolling during transition */
     overflow: hidden;

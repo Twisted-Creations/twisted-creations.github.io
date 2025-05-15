@@ -195,7 +195,7 @@ function addGradientMovement() {
     gradientOverlay.style.background =
         "radial-gradient(circle at 50% 50%, rgba(42, 71, 179, 0.1), transparent 70%)";
     gradientOverlay.style.zIndex = "0";
-    gradientOverlay.style.opacity = "0.6";
+    gradientOverlay.style.opacity = "0";
     gradientOverlay.style.pointerEvents = "none";
 
     // Add to container
@@ -372,7 +372,7 @@ function triggerTransition(href) {
         if (element && element.style) {
             // Apply a transition to the opacity
             element.style.transition = "opacity 0.3s ease-out";
-            element.style.opacity = "0.2"; // Reduce opacity but don't remove completely
+            element.style.opacity = "0"; // Set to 0 for complete fade-out
         }
     });
 
