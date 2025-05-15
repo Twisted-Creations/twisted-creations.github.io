@@ -228,13 +228,13 @@ function addGradientMovement() {
     moveGradient();
 }
 
-// Create a transition container for page transitions
+// Update transition container to use unified styles
 function createTransitionContainer() {
     // Create the transition elements if they don't exist
     if (!document.querySelector(".page-transition")) {
         // Create the main container
         const transitionContainer = document.createElement("div");
-        transitionContainer.className = "page-transition splash-transition";
+        transitionContainer.className = "page-transition"; // Removed splash-specific class
 
         // Create overlay with gradient
         const overlay = document.createElement("div");
@@ -349,6 +349,7 @@ function stopAllSplashEffects() {
 
 // Trigger the transition effect
 function triggerTransition(href) {
+<<<<<<< HEAD
     // Check if transition is already active to prevent overlapping animations
     if (window.transitionActive === true) {
         console.log("Transition already active, skipping duplicate");
@@ -412,46 +413,26 @@ function triggerTransition(href) {
     document.body.style.filter = "brightness(0.8)";
 
     // Apply blur to background elements only, not text
+=======
+>>>>>>> 16fe73fa60bd70fd4f2d9654afddf487f1452b80
     const backgroundElements = document.querySelectorAll('.splash-container, .splash-background, .vignette');
     backgroundElements.forEach(element => {
         if (element && element.style) {
-            element.style.transition = "filter 0.3s cubic-bezier(0.4, 0.0, 0.2, 1)";
-            element.style.filter = "blur(5px)";
+            element.classList.add('page-transition'); // Apply unified transition class
         }
     });
 
-    // Set transition time based on device and reduced effects
-    const reduced = window.reducedEffects === true;
-    const transitionTime = reduced ? 1200 : 1800; // Slightly longer for smoother experience
+    // Check if transition is already active to prevent overlapping animations
+    if (window.transitionActive === true) {
+        return;
+    }
 
-    // Short delay before showing transition to allow other effects to start fading
+    window.transitionActive = true;
+
+    // Redirect after transition
     setTimeout(() => {
-        // Show transition using the active class (which handles visibility and opacity via CSS)
-        transition.classList.add("active");
-
-        // After transition is fully visible, stop remaining animations
-        setTimeout(() => {
-            stopAllSplashEffects();
-        }, 300); // Match this with the CSS transition time
-    }, 50);
-
-    // Redirect after transition completed
-    setTimeout(() => {
-        // Redirect to the specified URL
-        if (href) {
-            // If the URL is relative, make sure it's correct
-            if (href && !href.startsWith("http")) {
-                // Make sure we're using the correct path
-                if (href === "Pages/index.html" || href === "/Pages/index.html") {
-                    window.location.href = "Pages/index.html";
-                } else {
-                    window.location.href = href;
-                }
-            } else {
-                window.location.href = href;
-            }
-        }
-    }, transitionTime);
+        window.location.href = href;
+    }, 500); // Match the duration of the unified transition
 }
 
 // Note: The effect warning has been moved to a separate page (effects-preferences.html)
