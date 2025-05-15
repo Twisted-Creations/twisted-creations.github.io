@@ -64,7 +64,7 @@ function addLogoGlow() {
         document.body.classList.contains("reduced-effects")
     ) {
         // For reduced effects, add a subtle static glow
-        logo.classList.add("static-glow");
+        logo.style.textShadow = "0 0 10px rgba(42, 71, 179, 0.5)";
         return;
     }
 
@@ -75,7 +75,11 @@ function addLogoGlow() {
             return;
         }
 
-        logo.classList.add("pulsing-glow");
+        const intensity = Math.sin(Date.now() / 1000) * 0.2 + 0.8; // Value between 0.6 and 1.0
+        const glowSize = 10 + intensity * 5; // Between 10 px and 15 px
+        const glowOpacity = 0.5 + intensity * 0.3; // Between 0.5 and 0.8
+
+        logo.style.textShadow = `0 0 ${glowSize}px rgba(42, 71, 179, ${glowOpacity})`;
 
         // Request next frame
         window.logoGlowFrame = requestAnimationFrame(pulseGlow);
@@ -104,6 +108,14 @@ function addParticleEffect() {
     // Create particle container
     const particleContainer = document.createElement("div");
     particleContainer.className = "particle-container";
+    particleContainer.style.position = "absolute";
+    particleContainer.style.top = "0";
+    particleContainer.style.left = "0";
+    particleContainer.style.width = "100%";
+    particleContainer.style.height = "100%";
+    particleContainer.style.zIndex = "1";
+    particleContainer.style.pointerEvents = "none";
+    particleContainer.style.overflow = "hidden";
     container.appendChild(particleContainer);
 
     // Determine the number of particles based on a device
@@ -114,12 +126,46 @@ function addParticleEffect() {
     for (let i = 0; i < particleCount; i++) {
         createParticle(particleContainer);
     }
+
+    // Add keyframes for particle animation if they don't exist
+    if (!document.getElementById("particle-keyframes")) {
+        const style = document.createElement("style");
+        style.id = "particle-keyframes";
+        style.textContent = `
+            @keyframes float-up {
+                0% { transform: translateY(100%) translateX(0); opacity: 0; }
+                10% { opacity: 0.7; }
+                90% { opacity: 0.5; }
+                100% { transform: translateY(-100%) translateX(var(--x-drift)); opacity: 0; }
+            }
+        `;
+        document.head.appendChild(style);
+    }
 }
 
 // Create a single particle
 function createParticle(container) {
     const particle = document.createElement("div");
-    particle.className = "particle";
+
+    // Random properties
+    const size = Math.random() * 4 + 2; // 2-6px
+    const xPos = Math.random() * 100; // 0-100%
+    const duration = Math.random() * 10 + 10; // 10-20s
+    const delay = Math.random() * 5; // 0-5s
+    const xDrift = Math.random() * 100 - 50 + "px"; // -50px to +50px drift
+
+    // Set particle styles
+    particle.style.position = "absolute";
+    particle.style.bottom = "-10px";
+    particle.style.left = xPos + "%";
+    particle.style.width = size + "px";
+    particle.style.height = size + "px";
+    particle.style.borderRadius = "50%";
+    particle.style.backgroundColor = "rgba(255, 255, 255, 0.3)";
+    particle.style.boxShadow = "0 0 " + size / 2 + "px rgba(255, 255, 255, 0.5)";
+    particle.style.opacity = "0";
+    particle.style.setProperty("--x-drift", xDrift);
+    particle.style.animation = `float-up ${duration}s linear ${delay}s infinite`;
 
     container.appendChild(particle);
     return particle;
@@ -141,6 +187,16 @@ function addGradientMovement() {
     // Create a subtle moving gradient overlay
     const gradientOverlay = document.createElement("div");
     gradientOverlay.className = "gradient-overlay";
+    gradientOverlay.style.position = "absolute";
+    gradientOverlay.style.top = "0";
+    gradientOverlay.style.left = "0";
+    gradientOverlay.style.width = "100%";
+    gradientOverlay.style.height = "100%";
+    gradientOverlay.style.background =
+        "radial-gradient(circle at 50% 50%, rgba(42, 71, 179, 0.1), transparent 70%)";
+    gradientOverlay.style.zIndex = "0";
+    gradientOverlay.style.opacity = "0.6";
+    gradientOverlay.style.pointerEvents = "none";
 
     // Add to container
     const container = document.querySelector(".splash-container");
@@ -158,8 +214,11 @@ function addGradientMovement() {
         }
 
         angle += 0.2;
+        const radius = 10; // How far the gradient moves
+        const x = 50 + Math.sin((angle * Math.PI) / 180) * radius;
+        const y = 50 + Math.cos((angle * Math.PI) / 180) * radius;
 
-        gradientOverlay.classList.add("moving-gradient");
+        gradientOverlay.style.background = `radial-gradient(circle at ${x}% ${y}%, rgba(42, 71, 179, 0.15), transparent 70%)`;
 
         // Request next frame
         window.gradientFrame = requestAnimationFrame(moveGradient);
@@ -263,7 +322,10 @@ function stopAllSplashEffects() {
     // 3. Reset any animated elements to their original state
     const logo = document.querySelector(".splash-logo h1");
     if (logo) {
-        logo.classList.remove("static-glow", "pulsing-glow");
+        logo.style.textShadow = "";
+        logo.style.transform = "";
+        logo.style.letterSpacing = "";
+        logo.style.filter = "";
     }
 
     // 4. Stop any CSS animations by adding a class that forces animations to none
@@ -320,10 +382,16 @@ function resumeRedirect() {
     // Reset and restart the loading bar animation
     if (loadingBar) {
         // Reset the loading bar to 0%
-        loadingBar.classList.add("reset-loading-bar");
+        loadingBar.style.width = "0%";
+
+        // Set a fixed duration for the animation (9 seconds)
+        loadingBar.style.animationDuration = "9s";
+
+        // Force a reflow to restart the animation
+        void loadingBar.offsetWidth;
 
         // Start the animation
-        loadingBar.classList.add("start-loading-bar");
+        loadingBar.style.animationPlayState = "running";
     }
 
     // Make the redirect message visible only after loading bar animation completes
@@ -331,12 +399,12 @@ function resumeRedirect() {
 
     if (redirectMessage && loadingBar) {
         // Hide the redirect message initially
-        redirectMessage.classList.add("hide-redirect-message");
+        redirectMessage.style.opacity = "0";
 
         // Add an event listener for the end of the loading bar animation
         loadingBar.addEventListener("animationend", () => {
             // Show the redirect message when loading animation completes
-            redirectMessage.classList.add("show-redirect-message");
+            redirectMessage.style.opacity = "1";
         });
     }
 }
