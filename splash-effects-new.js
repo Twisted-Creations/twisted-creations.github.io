@@ -352,114 +352,21 @@ function triggerTransition(href) {
     const backgroundElements = document.querySelectorAll('.splash-container, .splash-background, .vignette');
     backgroundElements.forEach(element => {
         if (element && element.style) {
-            element.style.transition = "filter 0.5s ease-in-out";
-            element.style.filter = "blur(3px) brightness(0.8)"; // Adjusted for smoother effect
+            element.classList.add('page-transition'); // Apply unified transition class
         }
     });
 
     // Check if transition is already active to prevent overlapping animations
     if (window.transitionActive === true) {
-        console.log("Transition already active, skipping duplicate");
         return;
     }
 
-    // Set flag to prevent multiple transitions
     window.transitionActive = true;
 
-    const transition = document.querySelector(".page-transition");
-    if (!transition) return;
-
-    // Prepare for transition by gradually reducing animations
-    // instead of stopping them abruptly
-    const animationElements = document.querySelectorAll(
-        ".particle-container, .gradient-overlay, .subtle-glow"
-    );
-
-    // Fade out animations gradually
-    animationElements.forEach((element) => {
-        if (element && element.style) {
-            // Apply a transition to the opacity
-            element.style.transition = "opacity 0.3s ease-out";
-            element.style.opacity = "0.2"; // Reduce opacity but don't remove completely
-        }
-    });
-
-    // Generate random loading text
-    const glitchTexts = [
-        "LOADING",
-        "PLEASE WAIT",
-        "REDIRECTING",
-        "NAVIGATING",
-        "PROCESSING",
-        "CONNECTING",
-        "PREPARING",
-        "LOADING PAGE",
-        "ALMOST THERE",
-        "ONE MOMENT",
-    ];
-    const randomText = glitchTexts[Math.floor(Math.random() * glitchTexts.length)];
-
-    // Update loading text
-    const loadingTextElement = document.querySelector(".loading-text");
-    if (loadingTextElement) {
-        loadingTextElement.textContent = randomText;
-    }
-
-    // Update glitch text
-    const glitchTextElement = document.querySelector(".glitch-text");
-    if (glitchTextElement) {
-        glitchTextElement.textContent = randomText;
-        glitchTextElement.setAttribute("data-text", randomText);
-    }
-
-    // Prevent scrolling
-    document.body.style.overflow = "hidden";
-
-    // Apply filters with transition to darken and blur the background
-    document.body.style.transition = "filter 0.3s cubic-bezier(0.4, 0.0, 0.2, 1)";
-    document.body.style.filter = "brightness(0.8)";
-
-    // Apply blur to background elements only, not text
-    const backgroundElements = document.querySelectorAll('.splash-container, .splash-background, .vignette');
-    backgroundElements.forEach(element => {
-        if (element && element.style) {
-            element.style.transition = "filter 0.3s cubic-bezier(0.4, 0.0, 0.2, 1)";
-            element.style.filter = "blur(5px)";
-        }
-    });
-
-    // Set transition time based on device and reduced effects
-    const reduced = window.reducedEffects === true;
-    const transitionTime = reduced ? 1200 : 1800; // Slightly longer for smoother experience
-
-    // Short delay before showing transition to allow other effects to start fading
+    // Redirect after transition
     setTimeout(() => {
-        // Show transition using the active class (which handles visibility and opacity via CSS)
-        transition.classList.add("active");
-
-        // After transition is fully visible, stop remaining animations
-        setTimeout(() => {
-            stopAllSplashEffects();
-        }, 300); // Match this with the CSS transition time
-    }, 50);
-
-    // Redirect after transition completed
-    setTimeout(() => {
-        // Redirect to the specified URL
-        if (href) {
-            // If the URL is relative, make sure it's correct
-            if (href && !href.startsWith("http")) {
-                // Make sure we're using the correct path
-                if (href === "Pages/index.html" || href === "/Pages/index.html") {
-                    window.location.href = "Pages/index.html";
-                } else {
-                    window.location.href = href;
-                }
-            } else {
-                window.location.href = href;
-            }
-        }
-    }, transitionTime);
+        window.location.href = href;
+    }, 500); // Match the duration of the unified transition
 }
 
 // Note: The effect warning has been moved to a separate page (effects-preferences.html)
