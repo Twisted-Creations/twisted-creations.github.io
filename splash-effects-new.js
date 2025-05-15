@@ -228,13 +228,13 @@ function addGradientMovement() {
     moveGradient();
 }
 
-// Create a transition container for page transitions
+// Update transition container to use unified styles
 function createTransitionContainer() {
     // Create the transition elements if they don't exist
     if (!document.querySelector(".page-transition")) {
         // Create the main container
         const transitionContainer = document.createElement("div");
-        transitionContainer.className = "page-transition splash-transition";
+        transitionContainer.className = "page-transition"; // Removed splash-specific class
 
         // Create overlay with gradient
         const overlay = document.createElement("div");
@@ -349,6 +349,14 @@ function stopAllSplashEffects() {
 
 // Trigger the transition effect
 function triggerTransition(href) {
+    const backgroundElements = document.querySelectorAll('.splash-container, .splash-background, .vignette');
+    backgroundElements.forEach(element => {
+        if (element && element.style) {
+            element.style.transition = "filter 0.5s ease-in-out";
+            element.style.filter = "blur(3px) brightness(0.8)"; // Adjusted for smoother effect
+        }
+    });
+
     // Check if transition is already active to prevent overlapping animations
     if (window.transitionActive === true) {
         console.log("Transition already active, skipping duplicate");
