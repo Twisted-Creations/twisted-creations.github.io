@@ -310,10 +310,10 @@
                     // Prevent scrolling
                     document.body.style.overflow = "hidden";
 
-                    // Remove inline JavaScript that applies custom styles to ensure unified transitions are used
+                    // Restore inline JavaScript that applies custom styles
                     document.querySelectorAll('.splash-container, .splash-background, .vignette').forEach(element => {
-                        element.style.transition = '';
-                        element.style.filter = '';
+                        element.style.transition = "filter 0.3s cubic-bezier(0.4, 0.0, 0.2, 1)";
+                        element.style.filter = "blur(5px)";
                     });
 
                     // Navigate after a longer delay to ensure animations complete
