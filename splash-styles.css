@@ -112,7 +112,7 @@ body {
 .redirect-message {
     font-size: 0.9rem;
     opacity: 0;
-    transition: var(--unified-opacity-transition);
+    transition: var(--unified-opacity-transition); /* Use unified transition */
 }
 
 .redirect-link {
