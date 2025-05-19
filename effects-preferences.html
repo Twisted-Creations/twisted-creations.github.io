@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8"/>
-    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <meta charset="UTF-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <title>Visual Effects Preferences - Twisted Creations</title>
-    <link rel="stylesheet" href="professional-styles.css"/>
-    <link rel="icon" href="Images/favicon-32x32.png" type="image/x-icon"/>
+    <link rel="stylesheet" href="professional-styles.css" />
+    <link rel="icon" href="Images/favicon-32x32.png" type="image/x-icon" />
     <style>
         /* Base styles */
         body {
@@ -29,11 +30,9 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: radial-gradient(
-                    circle at center,
+            background: radial-gradient(circle at center,
                     rgba(42, 71, 179, 0.2),
-                    rgba(15, 26, 42, 0.8)
-            );
+                    rgba(15, 26, 42, 0.8));
             z-index: -1;
             pointer-events: none;
         }
@@ -56,7 +55,7 @@
         /* Title with subtle glow effect */
         .preferences-title {
             font-family: "Montserrat", "Segoe UI", Tahoma, Geneva, Verdana,
-            sans-serif;
+                sans-serif;
             font-size: clamp(1.8rem, 4vw, 2.2rem);
             margin-bottom: 25px;
             letter-spacing: 0.05em;
@@ -85,9 +84,11 @@
             0% {
                 text-shadow: 0 0 5px rgba(42, 71, 179, 0.5);
             }
+
             50% {
                 text-shadow: 0 0 15px rgba(42, 71, 179, 0.8);
             }
+
             100% {
                 text-shadow: 0 0 10px rgba(42, 71, 179, 0.7);
             }
@@ -120,7 +121,7 @@
             border-radius: 8px;
             font-size: 0.95rem;
             font-family: "Montserrat", "Segoe UI", Tahoma, Geneva, Verdana,
-            sans-serif;
+                sans-serif;
             text-transform: uppercase;
             letter-spacing: 0.05em;
             font-weight: 600;
@@ -144,7 +145,7 @@
             border-radius: 8px;
             font-size: 0.95rem;
             font-family: "Montserrat", "Segoe UI", Tahoma, Geneva, Verdana,
-            sans-serif;
+                sans-serif;
             text-transform: uppercase;
             letter-spacing: 0.05em;
             font-weight: 600;
@@ -169,12 +170,10 @@
             left: -100%;
             width: 100%;
             height: 100%;
-            background: linear-gradient(
-                    90deg,
+            background: linear-gradient(90deg,
                     transparent,
                     rgba(255, 255, 255, 0.2),
-                    transparent
-            );
+                    transparent);
             transition: left 0.7s ease;
         }
 
@@ -211,96 +210,96 @@
         }
     </style>
 </head>
+
 <body>
-<div class="preferences-container">
-    <h2 class="preferences-title">VISUAL EFFECTS PREFERENCES</h2>
+    <div class="preferences-container">
+        <h2 class="preferences-title">VISUAL EFFECTS PREFERENCES</h2>
 
-    <p class="preferences-text">
-        This site contains visual transitions and animations that can be
-        adjusted to your preference.
-        <br/><br/>
-        You can choose between full visual effects or a reduced version for a
-        more subtle experience.
-        <br/><br/>
-        <span class="subtle"
-        >Your preference will be saved for future visits.</span
-        >
-    </p>
+        <p class="preferences-text">
+            This site contains visual transitions and animations that can be
+            adjusted to your preference.
+            <br /><br />
+            You can choose between full visual effects or a reduced version for a
+            more subtle experience.
+            <br /><br />
+            <span class="subtle">Your preference will be saved for future visits.</span>
+        </p>
 
-    <div class="options-box">
-        <h3>Effect Options:</h3>
-        <p>
-            <strong>Full Effects:</strong> Includes smooth transitions, subtle
-            animations, and visual enhancements for a more immersive experience.
-        </p>
-        <p>
-            <strong>Reduced Effects:</strong> Minimizes animations, simplifies
-            transitions, and provides a more straightforward browsing experience.
-        </p>
+        <div class="options-box">
+            <h3>Effect Options:</h3>
+            <p>
+                <strong>Full Effects:</strong> Includes smooth transitions, subtle
+                animations, and visual enhancements for a more immersive experience.
+            </p>
+            <p>
+                <strong>Reduced Effects:</strong> Minimizes animations, simplifies
+                transitions, and provides a more straightforward browsing experience.
+            </p>
+        </div>
+
+        <div class="preferences-buttons">
+            <button class="reduced-button" id="reduced-button">
+                REDUCED EFFECTS
+            </button>
+            <button class="full-button" id="continue-button">FULL EFFECTS</button>
+        </div>
     </div>
 
-    <div class="preferences-buttons">
-        <button class="reduced-button" id="reduced-button">
-            REDUCED EFFECTS
-        </button>
-        <button class="full-button" id="continue-button">FULL EFFECTS</button>
-    </div>
-</div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // Get the buttons
+            const continueButton = document.getElementById("continue-button");
+            const reducedButton = document.getElementById("reduced-button");
 
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-        // Get the buttons
-        const continueButton = document.getElementById("continue-button");
-        const reducedButton = document.getElementById("reduced-button");
+            // Function to clear caches and set preferences
+            function setPreferenceAndRedirect(reducedEffects) {
+                // Save preference
+                localStorage.setItem("effectsWarningAcknowledged", "true");
+                localStorage.setItem("reducedEffects", reducedEffects.toString());
 
-        // Function to clear caches and set preferences
-        function setPreferenceAndRedirect(reducedEffects) {
-            // Save preference
-            localStorage.setItem("effectsWarningAcknowledged", "true");
-            localStorage.setItem("reducedEffects", reducedEffects.toString());
+                // Set a timestamp to invalidate cached content
+                localStorage.setItem(
+                    "effectsPreferenceUpdated",
+                    Date.now().toString()
+                );
 
-            // Set a timestamp to invalidate cached content
-            localStorage.setItem(
-                "effectsPreferenceUpdated",
-                Date.now().toString()
-            );
-
-            // Clear service worker cache if available
-            if ("serviceWorker" in navigator && "caches" in window) {
-                // Attempt to clear caches
-                caches
-                    .keys()
-                    .then((cacheNames) => {
-                        return Promise.all(
-                            cacheNames.map((cacheName) => {
-                                if (cacheName.includes("twisted-creations")) {
-                                    return caches.delete(cacheName);
-                                }
-                            })
-                        );
-                    })
-                    .catch((error) => {
-                        console.log("Cache clearing failed:", error);
-                    })
-                    .finally(() => {
-                        // Redirect to the main page with a cache bypass
-                        window.location.href = "index.html?t=" + Date.now();
-                    });
-            } else {
-                // Redirect to the main page with a cache bypass
-                window.location.href = "index.html?t=" + Date.now();
+                // Clear service worker cache if available
+                if ("serviceWorker" in navigator && "caches" in window) {
+                    // Attempt to clear caches
+                    caches
+                        .keys()
+                        .then((cacheNames) => {
+                            return Promise.all(
+                                cacheNames.map((cacheName) => {
+                                    if (cacheName.includes("twisted-creations")) {
+                                        return caches.delete(cacheName);
+                                    }
+                                })
+                            );
+                        })
+                        .catch((error) => {
+                            console.log("Cache clearing failed:", error);
+                        })
+                        .finally(() => {
+                            // Redirect to the main page with a cache bypass
+                            window.location.href = "index.html?t=" + Date.now();
+                        });
+                } else {
+                    // Redirect to the main page with a cache bypass
+                    window.location.href = "index.html?t=" + Date.now();
+                }
             }
-        }
 
-        // Add event listeners
-        continueButton.addEventListener("click", function () {
-            setPreferenceAndRedirect(false);
-        });
+            // Add event listeners
+            continueButton.addEventListener("click", function () {
+                setPreferenceAndRedirect(false);
+            });
 
-        reducedButton.addEventListener("click", function () {
-            setPreferenceAndRedirect(true);
+            reducedButton.addEventListener("click", function () {
+                setPreferenceAndRedirect(true);
+            });
         });
-    });
-</script>
+    </script>
 </body>
+
 </html>

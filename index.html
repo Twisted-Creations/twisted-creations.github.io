@@ -1,33 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <meta name="theme-color" content="#2a47b3"/>
-    <meta
-            name="description"
-            content="Twisted Creations is an indie game development studio creating immersive gaming experiences. Explore our projects and development updates."
-    />
-    <meta name="robots" content="index, follow"/>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#2a47b3" />
+    <meta name="description"
+        content="Twisted Creations is an indie game development studio creating immersive gaming experiences. Explore our projects and development updates." />
+    <meta name="robots" content="index, follow" />
     <!-- PWA Support -->
-    <link rel="manifest" href="manifest.json"/>
-    <link rel="apple-touch-icon" href="Images/icon-192.png"/>
-    <link rel="icon" href="Images/favicon-32x32.png" type="image/x-icon"/>
+    <link rel="manifest" href="manifest.json" />
+    <link rel="apple-touch-icon" href="Images/icon-192.png" />
+    <link rel="icon" href="Images/favicon-32x32.png" type="image/x-icon" />
     <!-- Redirect handled by JavaScript for better control and timing -->
     <title>Twisted Creations | Game Development Studio</title>
     <!-- Preload critical assets -->
-    <link
-            rel="preload"
-            href="Images/Base-Image.png"
-            as="image"
-            type="image/png"
-    />
-    <link rel="stylesheet" href="unified-transitions.css"/>
-    <link rel="preload" href="unified-transitions.css" as="style"/>
-    <link rel="stylesheet" href="modern-styles.css"/>
-    <link rel="stylesheet" href="unified-professional.css"/>
-    <link rel="preload" href="unified-professional.css" as="style"/>
-    <link rel="preload" href="script.js" as="script"/>
+    <link rel="preload" href="Images/Base-Image.png" as="image" type="image/png" />
+    <link rel="stylesheet" href="unified-transitions.css" />
+    <link rel="preload" href="unified-transitions.css" as="style" />
+    <link rel="stylesheet" href="modern-styles.css" />
+    <link rel="stylesheet" href="unified-professional.css" />
+    <link rel="preload" href="unified-professional.css" as="style" />
+    <link rel="preload" href="script.js" as="script" />
     <script src="script.js" defer></script>
     <script>
         // Check if a user has already set their effect preferences
@@ -94,187 +88,195 @@
         }
     </script>
     <!-- Splash page styles are now included in unified-professional.css -->
-    <link rel="stylesheet" href="splash-styles.css"/>
-    <link rel="preload" href="splash-styles.css" as="style"/>
+    <link rel="stylesheet" href="splash-styles.css" />
+    <link rel="preload" href="splash-styles.css" as="style" />
 </head>
+
 <body>
-<div class="splash-container">
-    <div class="splash-background"></div>
-    <div class="vignette"></div>
+    <div class="splash-container">
+        <div class="splash-background"></div>
+        <div class="vignette"></div>
 
-    <div class="splash-logo">
-        <h1>TWISTED CREATIONS</h1>
+        <div class="splash-logo">
+            <h1>TWISTED CREATIONS</h1>
+        </div>
+
+        <div class="splash-tagline">Game Development Studio</div>
+
+        <div class="loading-bar-container">
+            <div class="loading-bar"></div>
+        </div>
+
+        <div class="redirect-message">
+            Redirecting to the main site...
+            <a href="Pages/index.html" class="redirect-link" id="enter-button">Enter Now</a>
+        </div>
     </div>
 
-    <div class="splash-tagline">Game Development Studio</div>
+    <script>
+        // Add more intense glitch effects to the splash page
+        function randomGlitch() {
+            const logo = document.querySelector(".splash-logo h1");
+            if (!logo) return; // Safety check
 
-    <div class="loading-bar-container">
-        <div class="loading-bar"></div>
-    </div>
+            const glitchDuration = Math.random() * 100 + 50;
+            const glitchDelay = Math.random() * 3000 + 1000; // More frequent glitches
 
-    <div class="redirect-message">
-        Redirecting to the main site...
-        <a href="Pages/index.html" class="redirect-link" id="enter-button"
-        >Enter Now</a
-        >
-    </div>
-</div>
+            // Subtle professional effects
+            const glitchEffects = [
+                // Effect 1: Gentle glow
+                () => {
+                    logo.style.textShadow = "0 0 15px rgba(42, 62, 177, 0.7)";
+                    logo.style.transform = "scale(1.01)";
+                },
+                // Effect 2: Slight movement
+                () => {
+                    const moveY = Math.random() * 2 - 1;
+                    logo.style.transform = `translateY(${moveY}px)`;
+                },
+                // Effect 3: Color enhancement
+                () => {
+                    logo.style.textShadow = "0 0 12px rgba(42, 62, 177, 0.8)";
+                    logo.style.letterSpacing = "2.2px";
+                },
+            ];
 
-<script>
-    // Add more intense glitch effects to the splash page
-    function randomGlitch() {
-        const logo = document.querySelector(".splash-logo h1");
-        if (!logo) return; // Safety check
-
-        const glitchDuration = Math.random() * 100 + 50;
-        const glitchDelay = Math.random() * 3000 + 1000; // More frequent glitches
-
-        // Random glitch effects
-        const glitchEffects = [
-            // Effect 1: Color shift
-            () => {
-                logo.style.textShadow = "2px 0 #ff00ea, -2px 0 #00eaff";
-                logo.style.transform = "skew(1deg)";
-            },
-            // Effect 2: Shake
-            () => {
-                const shakeX = Math.random() * 6 - 3;
-                const shakeY = Math.random() * 6 - 3;
-                logo.style.transform = `translate(${shakeX}px, ${shakeY}px)`;
-            },
-            // Effect 3: Split
-            () => {
-                logo.style.textShadow = "-3px 0 #ff00ea, 3px 0 #00eaff";
-                logo.style.letterSpacing = "3px";
-            },
-        ];
-
-        // Choose a random effect
-        const randomEffect =
-            glitchEffects[Math.floor(Math.random() * glitchEffects.length)];
-
-        setTimeout(() => {
-            // Apply random effect
-            randomEffect();
-
-            // Add scanlines occasionally
-            const glitchEffect = document.querySelector(".glitch-effect");
-            if (glitchEffect && Math.random() > 0.7) {
-                glitchEffect.style.opacity = "0.6";
-            }
+            // Choose a random effect
+            const randomEffect =
+                glitchEffects[Math.floor(Math.random() * glitchEffects.length)];
 
             setTimeout(() => {
-                // Reset to normal
-                logo.style.textShadow = "0 0 15px rgba(26, 39, 179, 0.7)";
-                logo.style.transform = "skew(0)";
-                logo.style.letterSpacing = "2px";
-                if (glitchEffect) {
-                    glitchEffect.style.opacity = "0.3";
+                // Apply random effect
+                randomEffect();
+
+                // Add scanlines occasionally
+                const glitchEffect = document.querySelector(".glitch-effect");
+                if (glitchEffect && Math.random() > 0.7) {
+                    glitchEffect.style.opacity = "0.6";
                 }
 
-                // Continue with random glitches
-                randomGlitch();
-            }, glitchDuration);
-        }, glitchDelay);
-    }
+                setTimeout(() => {
+                    // Reset to normal
+                    logo.style.textShadow = "0 0 15px rgba(26, 39, 179, 0.7)";
+                    logo.style.transform = "skew(0)";
+                    logo.style.letterSpacing = "2px";
+                    if (glitchEffect) {
+                        glitchEffect.style.opacity = "0.3";
+                    }
 
-    // Add VHS tracking lines effect
-    function addTrackingLines() {
-        const container = document.querySelector(".splash-container");
-        if (!container) return; // Safety check
+                    // Continue with random glitches
+                    randomGlitch();
+                }, glitchDuration);
+            }, glitchDelay);
+        }
 
-        // Check if tracking lines already exist
-        if (document.querySelector(".tracking-lines")) return;
+        // Add subtle line effect
+        function addTrackingLines() {
+            const container = document.querySelector(".splash-container");
+            if (!container) return; // Safety check
 
-        const trackingLines = document.createElement("div");
-        trackingLines.className = "tracking-lines";
-        trackingLines.style.position = "absolute";
-        trackingLines.style.top = "0";
-        trackingLines.style.left = "0";
-        trackingLines.style.width = "100%";
-        trackingLines.style.height = "100%";
-        trackingLines.style.background =
-            "linear-gradient(to bottom, transparent 0%, rgba(255, 255, 255, 0.05) 50%, transparent 51%, transparent 100%)";
-        trackingLines.style.backgroundSize = "100% 8px";
-        trackingLines.style.animation = "trackingLines 10s linear infinite";
-        trackingLines.style.zIndex = "3";
-        trackingLines.style.opacity = "0.2";
-        trackingLines.style.pointerEvents = "none";
-        container.appendChild(trackingLines);
+            // Check if tracking lines already exist
+            if (document.querySelector(".tracking-lines")) return;
 
-        // Add keyframes for tracking lines if they don't exist
-        if (!document.getElementById("tracking-lines-keyframes")) {
-            const style = document.createElement("style");
-            style.id = "tracking-lines-keyframes";
-            style.textContent = `
+            const trackingLines = document.createElement("div");
+            trackingLines.className = "tracking-lines";
+            trackingLines.style.position = "absolute";
+            trackingLines.style.top = "0";
+            trackingLines.style.left = "0";
+            trackingLines.style.width = "100%";
+            trackingLines.style.height = "100%";
+            trackingLines.style.background =
+                "linear-gradient(to bottom, transparent 0%, rgba(255, 255, 255, 0.02) 50%, transparent 51%, transparent 100%)";
+            trackingLines.style.backgroundSize = "100% 12px";
+            trackingLines.style.animation = "trackingLines 15s linear infinite";
+            trackingLines.style.zIndex = "3";
+            trackingLines.style.opacity = "0.1";
+            trackingLines.style.pointerEvents = "none";
+            container.appendChild(trackingLines);
+
+            // Add keyframes for tracking lines if they don't exist
+            if (!document.getElementById("tracking-lines-keyframes")) {
+                const style = document.createElement("style");
+                style.id = "tracking-lines-keyframes";
+                style.textContent = `
             @keyframes trackingLines {
               0% { background-position: 0 0; }
               100% { background-position: 0 100%; }
             }
           `;
-            document.head.appendChild(style);
-        }
-    }
-
-    // Random screen flicker effect
-    function addScreenFlicker() {
-        const container = document.querySelector(".splash-container");
-        if (!container) return; // Safety check
-
-        // Check if a flicker overlay already exists
-        if (document.querySelector(".flicker-overlay")) return;
-
-        const flickerOverlay = document.createElement("div");
-        flickerOverlay.className = "flicker-overlay";
-        flickerOverlay.style.position = "absolute";
-        flickerOverlay.style.top = "0";
-        flickerOverlay.style.left = "0";
-        flickerOverlay.style.width = "100%";
-        flickerOverlay.style.height = "100%";
-        flickerOverlay.style.backgroundColor = "rgba(255, 255, 255, 0.03)";
-        flickerOverlay.style.zIndex = "4";
-        flickerOverlay.style.pointerEvents = "none";
-        flickerOverlay.style.opacity = "0";
-        container.appendChild(flickerOverlay);
-
-        // Random flicker function
-        function flicker() {
-            if (Math.random() > 0.9) {
-                flickerOverlay.style.opacity = Math.random() * 0.2;
-                setTimeout(() => {
-                    flickerOverlay.style.opacity = "0";
-                }, Math.random() * 100);
+                document.head.appendChild(style);
             }
-            setTimeout(flicker, Math.random() * 1000);
         }
 
-        flicker();
-    }
+        // Subtle background effect
+        function addScreenFlicker() {
+            const container = document.querySelector(".splash-container");
+            if (!container) return; // Safety check
 
-    // Use the transition effect from splash-effects-new.js instead of creating a duplicate
-    function initSplashPageTransition() {
-        // The transition container is now created by splash-effects-new.js
-        // We don't need to create it again here
+            // Check if a flicker overlay already exists
+            if (document.querySelector(".flicker-overlay")) return;
 
-        // We also don't need to add a click event listener to the Enter button
-        // as it's already handled by setupManualTransition() in splash-effects-new.js
-    }
+            const flickerOverlay = document.createElement("div");
+            flickerOverlay.className = "flicker-overlay";
+            flickerOverlay.style.position = "absolute";
+            flickerOverlay.style.top = "0";
+            flickerOverlay.style.left = "0";
+            flickerOverlay.style.width = "100%";
+            flickerOverlay.style.height = "100%";
+            flickerOverlay.style.background = "radial-gradient(circle at center, rgba(42, 62, 177, 0.03) 0%, transparent 70%)";
+            flickerOverlay.style.zIndex = "4";
+            flickerOverlay.style.pointerEvents = "none";
+            flickerOverlay.style.opacity = "0";
+            container.appendChild(flickerOverlay);
 
-    // Only run these effects on the splash page
-    if (!window.location.pathname.includes("Pages/")) {
-        // Start all effects after initial animation
-        setTimeout(() => {
-            randomGlitch();
-            addTrackingLines();
-            addScreenFlicker();
-            initSplashPageTransition(); // Add the page transition effect
+            // Subtle pulse effect
+            function pulse() {
+                // Gentle fade in
+                flickerOverlay.style.opacity = "0.3";
+                flickerOverlay.style.transition = "opacity 2s ease-in-out";
 
-            // Handle automatic redirect with proper timingsetTimeout(() => {
-            // Use the triggerTransition function from splash-effects-new.js for consistent behavior
-            if (typeof triggerTransition === "function") {
-                triggerTransition("Pages/index.html");
-            } else {
-                // Fallback if the function isn't available
+                setTimeout(() => {
+                    // Gentle fade out
+                    flickerOverlay.style.opacity = "0";
+                    flickerOverlay.style.transition = "opacity 2s ease-in-out";
+                }, 2000);
+
+                setTimeout(pulse, 5000);
+            }
+
+            pulse();
+        }
+
+        // Use the transition effect from splash-effects-new.js instead of creating a duplicate
+        function initSplashPageTransition() {
+            // The transition container is now created by splash-effects-new.js
+            // We don't need to create it again here
+
+            // We also don't need to add a click event listener to the Enter button
+            // as it's already handled by setupManualTransition() in splash-effects-new.js
+        }
+
+        // Only run these effects on the splash page
+        if (!window.location.pathname.includes("Pages/")) {
+            // Start all effects after initial animation
+            setTimeout(() => {
+                randomGlitch();
+                addTrackingLines();
+                addScreenFlicker();
+                initSplashPageTransition(); // Add the page transition effect
+                setTimeout(() => {
+                    try {
+                        // Use the triggerTransition function from splash-effects-new.js for consistent behavior
+                        if (typeof triggerTransition === "function") {
+                            triggerTransition("Pages/index.html");
+                        } else {
+                            // Fallback code...
+                        }
+                    } catch (error) {
+                        console.error("Transition failed, performing direct navigation:", error);
+                        window.location.href = "Pages/index.html";
+                    }
+                }, 9000);
                 const transition = document.querySelector(".page-transition");
                 if (transition) {
                     // Generate random loading text
@@ -330,9 +332,9 @@
                     // Fallback if transition element doesn't exist
                     window.location.href = "Pages/index.html";
                 }
-            }
-        }, 9000);
-    }
-</script>
+            }, 9000);
+        }
+    </script>
 </body>
+
 </html>

@@ -1,11 +1,12 @@
 {
   "name": "twisted-creations-website",
   "version": "1.0.0",
-  "description": "Twisted Creations website",
-  "private": true,
-  "scripts": {
-    "test": "echo \"No tests configured\"",
-    "validate:html": "html-validate \"**/*.html\"",
+"scripts": {
+     "test": "echo \"No tests configured\"",
+    "format": "biome format --write",
+    "lint:js": "biome lint",
+     "validate:html": "html-validate \"**/*.html\""
+  },
     "validate:css": "stylelint \"**/*.css\" --allow-empty-input",
     "validate:js": "eslint \"**/*.js\"",
     "validate:all": "npm run validate:html && npm run validate:css && npm run validate:js",
@@ -13,9 +14,9 @@
     "build:css": "postcss style.css modern-styles.css -o dist/styles.min.css",
     "build:js": "terser script.js -o dist/script.min.js",
     "build": "npm run build:css && npm run build:js",
-    "dev": "browser-sync start --server --files \"**/*.html, **/*.css, **/*.js\""
-  },
+    "dev": "browser-sync start --server --files \"**/*.html, **/*.css, **/*.js\"",
   "devDependencies": {
+    "@biomejs/biome": "1.9.4",
     "@eslint/js": "9.27.0",
     "autoprefixer": "^10.4.21",
     "browser-sync": "^3.0.4",
@@ -29,8 +30,8 @@
     "stylelint": "^16.18.0",
     "stylelint-config-standard": "^38.0.0",
     "terser": "^5.39.2"
-  },
-  "browserslist": [
+  }
+  "browserslist" [
     "> 1%",
     "last 2 versions",
     "not dead"
