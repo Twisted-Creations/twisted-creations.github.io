@@ -31,7 +31,7 @@
     "stylelint-config-standard": "^38.0.0",
     "terser": "^5.39.2"
   }
-  "browserslist" [
+  "browserslist": [
     "> 1%",
     "last 2 versions",
     "not dead"
