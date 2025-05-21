@@ -70,7 +70,7 @@ body {
 	background-color: var(--color-dark);
 
 	/* Prevent FOUC (Flash of Unstyled Content) */
-	opacity: 0;
+	opacity: 1; /* Changed from 0 to 1 to ensure content is always visible */
 	transition: opacity 0.3s ease-in;
 }
 

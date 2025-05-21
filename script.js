@@ -18,10 +18,16 @@ document.addEventListener("DOMContentLoaded", () => {
 	addCurrentYearToFooter();
 	initSmoothBackgroundScaling();
 
-	// Show content after a short delay to ensure the background is loaded
-	setTimeout(() => {
+	// Show content immediately to prevent invisible content issues
+	document.body.classList.add("content-loaded");
+});
+
+// Add a fallback to ensure content is always visible
+window.addEventListener("load", () => {
+	// Double-check that content-loaded class is applied
+	if (!document.body.classList.contains("content-loaded")) {
 		document.body.classList.add("content-loaded");
-	}, 100);
+	}
 });
 
 /**
@@ -173,7 +179,7 @@ function initPageTransitions() {
 
 	// Add click event listeners to all internal links
 
-	internalLinks.forEach((link) => {
+	for (const link of internalLinks) {
 		const href = link.getAttribute("href");
 
 		// Skip links that open in new tabs or have already been processed
@@ -189,7 +195,7 @@ function initPageTransitions() {
 			href?.startsWith("tel:") ||
 			href?.startsWith("http")
 		) {
-			return;
+			continue;
 		}
 
 		// Mark as processed to avoid duplicate listeners
@@ -316,7 +322,7 @@ function initPageTransitions() {
 		// Add event listeners for both click and touchend
 		link.addEventListener("click", handleNavigation, { passive: false });
 		link.addEventListener("touchend", handleNavigation, { passive: false });
-	});
+	}
 }
 
 /**
@@ -571,6 +577,11 @@ function initSmoothBackgroundScaling() {
 		bgImagePath = "./Images/Base-Image.png";
 	}
 
+	// Log the path for debugging
+	console.log("Background image path:", bgImagePath);
+	console.log("Path segments:", pathSegments);
+	console.log("Is in subfolder:", isInSubfolder);
+
 	// Verify the path is correct by checking if we're on GitHub Pages
 	if (
 		window.location.hostname === "github.io" ||
@@ -586,33 +597,57 @@ function initSmoothBackgroundScaling() {
 		}
 	}
 
-	// Create a background container element
-	const bgContainer = document.createElement("div");
-	bgContainer.classList.add("background-container");
-	bgContainer.setAttribute("aria-hidden", "true"); // Hide from screen readers
+	// Check if a background container already exists
+	let bgContainer = document.querySelector(".background-container");
 
-	// Insert the background container as the first child of the body
-	document.body.insertBefore(bgContainer, document.body.firstChild);
+	// If it doesn't exist, create it
+	if (!bgContainer) {
+		bgContainer = document.createElement("div");
+		bgContainer.classList.add("background-container");
+		bgContainer.setAttribute("aria-hidden", "true"); // Hide from screen readers
+
+		// Insert the background container as the first child of the body
+		document.body.insertBefore(bgContainer, document.body.firstChild);
+		console.log("Background container created");
+	} else {
+		console.log("Background container already exists");
+	}
 
 	// Preload the background image with error handling
 	function preloadImage(src, onSuccess, onError) {
+		console.log("Attempting to preload image:", src);
 		const img = new Image();
 
 		img.onload = () => {
+			console.log("Image loaded successfully:", src);
 			if (typeof onSuccess === "function") {
 				onSuccess(img);
 			}
 		};
 
-		img.onerror = () => {
-			console.warn(`Failed to load image: ${src}`);
-			if (typeof onError === "function") {
-				onError();
-			}
-		};
+		img.onerror = (e) => {
+			console.error(`Failed to load image: ${src}`, e);
+			// Try an alternative path if the image fails to load
+			const altSrc = src.replace(/^\.\.\//, "./").replace(/^\.\//, "../");
+			console.log("Trying alternative path:", altSrc);
 
-		// Set crossOrigin to anonymous for CORS-enabled servers
-		img.crossOrigin = "anonymous";
+			const altImg = new Image();
+			altImg.onload = () => {
+				console.log("Alternative image loaded successfully:", altSrc);
+				if (typeof onSuccess === "function") {
+					onSuccess(altImg);
+				}
+			};
+
+			altImg.onerror = () => {
+				console.error(`Failed to load alternative image: ${altSrc}`);
+				if (typeof onError === "function") {
+					onError();
+				}
+			};
+
+			altImg.src = altSrc;
+		};
 
 		// Set src after setting up event handlers
 		img.src = src;
@@ -632,11 +667,20 @@ function initSmoothBackgroundScaling() {
 
 	// Function to create or update the background image
 	function setupBackgroundImage() {
+		console.log("Setting up background image");
+
 		// Create a loading indicator if this is the first load
 		if (isFirstLoad && !bgContainer.querySelector(".loading-indicator")) {
 			const loadingIndicator = document.createElement("div");
 			loadingIndicator.classList.add("loading-indicator");
 			bgContainer.appendChild(loadingIndicator);
+			console.log("Loading indicator added");
+		}
+
+		// Check if we're in Pages directory and adjust path if needed
+		if (document.location.pathname.includes("/Pages/")) {
+			bgImagePath = "../Images/Base-Image.png";
+			console.log("Adjusted path for Pages directory:", bgImagePath);
 		}
 
 		// Preload the image before showing it

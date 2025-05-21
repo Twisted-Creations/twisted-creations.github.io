@@ -19,6 +19,7 @@
     <script src="../effects-preference.js"></script>
     <link rel="preload" href="../unified-transitions.css" as="style" />
     <link rel="preload" href="../unified-professional.css" as="style" />
+    <script src="../background-fix.js"></script>
     <title>Twisted Creations - Home</title>
 </head>
 
@@ -109,6 +110,29 @@
                     });
             });
         }
+
+        // Ensure content is visible immediately
+        document.addEventListener("DOMContentLoaded", function () {
+            // Force content to be visible
+            document.body.classList.add("content-loaded");
+
+            // Check if we came from a transition
+            if (sessionStorage.getItem('fromTransition') === 'true') {
+                // Clear the flag
+                sessionStorage.removeItem('fromTransition');
+                // Double-check visibility
+                setTimeout(function () {
+                    document.body.classList.add("content-loaded");
+                    document.body.style.opacity = "1";
+                }, 100);
+            }
+        });
+
+        // Fallback to ensure content is always visible
+        window.addEventListener("load", function () {
+            document.body.classList.add("content-loaded");
+            document.body.style.opacity = "1";
+        });
     </script>
 </body>
 

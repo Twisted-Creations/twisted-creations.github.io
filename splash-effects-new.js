@@ -545,6 +545,8 @@ function triggerTransition(href) {
 	const navigationDelay = reducedEffects ? 300 : isMobile ? 600 : 800;
 
 	setTimeout(() => {
+		// Store a flag in sessionStorage to indicate we're coming from a transition
+		sessionStorage.setItem("fromTransition", "true");
 		window.location.href = href;
 	}, navigationDelay);
 }
