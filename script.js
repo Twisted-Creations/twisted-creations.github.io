@@ -1,3 +1,4 @@
+console.log("Script.js loaded");
 // Wait for the DOM to be fully loaded before running scripts
 document.addEventListener("DOMContentLoaded", () => {
 	// Initialize page transitions first to ensure it's available
@@ -15,7 +16,13 @@ document.addEventListener("DOMContentLoaded", () => {
 		}, 100); // Small delay to ensure DOM is fully processed
 	}
 
-	addCurrentYearToFooter();
+	try {
+		console.log("About to call addCurrentYearToFooter");
+		addCurrentYearToFooter();
+		console.log("Successfully called addCurrentYearToFooter");
+	} catch (error) {
+		console.error("Error in addCurrentYearToFooter:", error);
+	}
 	initSmoothBackgroundScaling();
 
 	// Show content immediately to prevent invisible content issues
@@ -27,6 +34,20 @@ window.addEventListener("load", () => {
 	// Double-check that content-loaded class is applied
 	if (!document.body.classList.contains("content-loaded")) {
 		document.body.classList.add("content-loaded");
+	}
+
+	// Try to update the year in the window.onload event
+	console.log("Window loaded, trying to update year");
+	try {
+		const yearElements = document.querySelectorAll(".current-year");
+		console.log("Year elements found in window.onload:", yearElements.length);
+		const currentYear = new Date().getFullYear();
+		yearElements.forEach((element) => {
+			element.textContent = currentYear;
+			console.log("Updated element in window.onload");
+		});
+	} catch (error) {
+		console.error("Error updating year in window.onload:", error);
 	}
 });
 
@@ -489,12 +510,61 @@ function initImageLightbox() {
  * Automatically updates the year in copyright notices
  */
 function addCurrentYearToFooter() {
-	const yearElements = document.querySelectorAll(".current-year");
-	const currentYear = new Date().getFullYear();
+	console.log("Adding current year to footer...");
 
+	// Try multiple selectors to find the year elements
+	let yearElements = document.querySelectorAll(".current-year");
+	console.log("Found year elements with .current-year:", yearElements.length);
+
+	// If no elements found, try looking in the footer
+	if (yearElements.length === 0) {
+		const footers = document.querySelectorAll(".footer-container");
+		console.log("Found footers:", footers.length);
+
+		// Look for spans inside the footer
+		footers.forEach((footer) => {
+			const spans = footer.querySelectorAll("span");
+			console.log("Found spans in footer:", spans.length);
+
+			// Add any spans to our collection
+			spans.forEach((span) => {
+				if (span.classList.contains("current-year")) {
+					console.log("Found span with current-year class");
+					yearElements = [span];
+				}
+			});
+		});
+	}
+
+	const currentYear = new Date().getFullYear();
+	console.log("Current year:", currentYear);
+
+	// Update all found elements
 	yearElements.forEach((element) => {
 		element.textContent = currentYear;
+		console.log("Updated element:", element);
 	});
+
+	// If we still couldn't find any elements, create one in the footer
+	if (yearElements.length === 0) {
+		console.log("No year elements found, trying to create one");
+		const footers = document.querySelectorAll(".footer-container");
+
+		footers.forEach((footer) => {
+			const paragraphs = footer.querySelectorAll("p");
+
+			paragraphs.forEach((p) => {
+				if (p.textContent.includes("©") || p.textContent.includes("&copy;")) {
+					console.log("Found copyright paragraph, inserting year");
+
+					// Replace any existing year with the current year
+					p.innerHTML = p.innerHTML.replace(/\d{4}/, currentYear);
+
+					console.log("Updated copyright text");
+				}
+			});
+		});
+	}
 }
 
 /**
@@ -867,6 +937,20 @@ function initSmoothBackgroundScaling() {
 	window.addEventListener("orientationchange", handleOrientationChange);
 
 	// Cleanup function to remove event listeners when the page unloads
+
+	// Try to update the year directly
+	console.log("Trying to update year directly at end of file");
+	try {
+		const yearElements = document.querySelectorAll(".current-year");
+		console.log("Year elements found at end of file:", yearElements.length);
+		const currentYear = new Date().getFullYear();
+		yearElements.forEach((element) => {
+			element.textContent = currentYear;
+			console.log("Updated element at end of file");
+		});
+	} catch (error) {
+		console.error("Error updating year at end of file:", error);
+	}
 	const cleanup = () => {
 		window.removeEventListener("resize", handleResize);
 		window.removeEventListener("orientationchange", handleOrientationChange);
