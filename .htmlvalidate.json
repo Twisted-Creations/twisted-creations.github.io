@@ -1,33 +1,29 @@
 {
-  "extends": [
-    "html-validate:recommended"
-  ],
-  "rules": {
-    "element-required-attributes": "error",
-    "no-missing-references": "error",
-    "void-style": "off",
-    "doctype-style": "off",
-    "attribute-boolean-style": "off",
-    "no-trailing-whitespace": "off",
-    "prefer-native-element": "off",
-    "wcag/h30": "error",
-    "wcag/h36": "error",
-    "wcag/h37": "error",
-    "wcag/h67": "error",
-    "no-implicit-button-type": "error",
-    "meta-refresh": "error",
-    "heading-level": "error",
-    "no-autoplay": "error",
-    "prefer-button": "error",
-    "require-sri": "off",
-    "svg-focusable": "error",
-    "valid-id": "error"
-  },
-  "elements": [
-    "html5"
-  ],
-  "transform": {
-    "strip-whitespace": true,
-    "attribute-quotes": true
-  }
+	"extends": ["html-validate:recommended"],
+	"rules": {
+		"element-required-attributes": "error",
+		"no-missing-references": "error",
+		"void-style": "off",
+		"doctype-style": "off",
+		"attribute-boolean-style": "off",
+		"no-trailing-whitespace": "off",
+		"prefer-native-element": "off",
+		"wcag/h30": "error",
+		"wcag/h36": "error",
+		"wcag/h37": "error",
+		"wcag/h67": "error",
+		"no-implicit-button-type": "error",
+		"meta-refresh": "error",
+		"heading-level": "error",
+		"no-autoplay": "error",
+		"prefer-button": "error",
+		"require-sri": "off",
+		"svg-focusable": "error",
+		"valid-id": "error"
+	},
+	"elements": ["html5"],
+	"transform": {
+		"strip-whitespace": true,
+		"attribute-quotes": true
+	}
 }

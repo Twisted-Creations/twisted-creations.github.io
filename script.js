@@ -336,18 +336,33 @@ function initMobileMenu() {
 
 	if (!header || !nav) return;
 
-	const mobileMenuBtn = document.createElement("button");
-	mobileMenuBtn.classList.add("mobile-menu-btn");
-	mobileMenuBtn.setAttribute("aria-label", "Toggle navigation menu");
-	mobileMenuBtn.innerHTML = "<span></span><span></span><span></span>";
+	// Check if mobile menu button already exists
+	let mobileMenuBtn = document.querySelector(".mobile-menu-btn");
 
-	// Insert button before the nav
-	header.insertBefore(mobileMenuBtn, nav);
+	// Create button only if it doesn't exist
+	if (!mobileMenuBtn) {
+		mobileMenuBtn = document.createElement("button");
+		mobileMenuBtn.classList.add("mobile-menu-btn");
+		mobileMenuBtn.setAttribute("aria-label", "Toggle navigation menu");
+		mobileMenuBtn.innerHTML = "<span></span><span></span><span></span>";
+
+		// Insert button before the nav
+		header.insertBefore(mobileMenuBtn, nav);
+	}
 
 	// Add mobile class to nav
 	nav.classList.add("desktop-nav");
+
+	// Remove existing event listeners (to prevent duplicates)
+	const newMobileMenuBtn = mobileMenuBtn.cloneNode(true);
+	if (mobileMenuBtn.parentNode) {
+		mobileMenuBtn.parentNode.replaceChild(newMobileMenuBtn, mobileMenuBtn);
+	}
+	mobileMenuBtn = newMobileMenuBtn;
+
 	// Toggle menu on button click
-	mobileMenuBtn.addEventListener("click", () => {
+	mobileMenuBtn.addEventListener("click", (e) => {
+		e.stopPropagation();
 		nav.classList.toggle("show");
 		mobileMenuBtn.classList.toggle("active");
 	});
@@ -357,6 +372,7 @@ function initMobileMenu() {
 		"touchend",
 		(e) => {
 			e.preventDefault(); // Prevent ghost clicks
+			e.stopPropagation();
 			nav.classList.toggle("show");
 			mobileMenuBtn.classList.toggle("active");
 		},

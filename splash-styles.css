@@ -46,12 +46,10 @@ body {
 	left: 0;
 	width: 100%;
 	height: 100%;
-	background-image: url("Images/Base-Image.png");
-	background-size: cover;
-	background-position: center;
-	filter: blur(2px) brightness(0.8); /* Increased brightness */
+	background: linear-gradient(135deg, #0a1525 0%, #1a2a4a 50%, #2a3a6a 100%);
+	background-size: 200% 200%;
 	z-index: -1;
-	animation: gentle-zoom 15s infinite alternate;
+	animation: gradient-shift 15s ease infinite; /* Subtle gradient animation */
 }
 
 .splash-logo {
@@ -141,19 +139,23 @@ body {
 	left: 0;
 	width: 100%;
 	height: 100%;
-	background: radial-gradient(circle, transparent 50%, rgb(15 26 42 / 60%) 100%);
+	background: radial-gradient(circle, transparent 30%, rgb(10 15 30 / 30%) 100%);
 	pointer-events: none;
 	z-index: 1;
 }
 
 /* Animations */
-@keyframes gentle-zoom {
+@keyframes gradient-shift {
 	0% {
-		transform: scale(1);
+		background-position: 0% 50%;
+	}
+
+	50% {
+		background-position: 100% 50%;
 	}
 
 	100% {
-		transform: scale(1.05);
+		background-position: 0% 50%;
 	}
 }
 
@@ -223,10 +225,9 @@ body {
 		font-size: 1rem;
 	}
 
-	/* Ensure background image is visible on mobile */
+	/* Ensure gradient background looks good on mobile */
 	.splash-background {
-		background-size: cover;
-		background-position: center center;
+		background-size: 200% 200%;
 		width: 100%;
 		height: 100%;
 	}
@@ -261,6 +262,8 @@ body {
 @media screen and (prefers-reduced-motion: reduce) {
 	.splash-background {
 		animation: none;
+		background-size: 100% 100%;
+		background-position: center;
 	}
 
 	.splash-logo {

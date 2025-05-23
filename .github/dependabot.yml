@@ -28,9 +28,9 @@ updates:
     # Ignore patch updates for some actions to reduce noise
     ignore:
       - dependency-name: "actions/checkout"
-        update-types: [ "version-update:semver-patch" ]
+        update-types: ["version-update:semver-patch"]
       - dependency-name: "actions/setup-node"
-        update-types: [ "version-update:semver-patch" ]
+        update-types: ["version-update:semver-patch"]
 
   # npm ecosystem for development dependencies
   - package-ecosystem: "npm"
