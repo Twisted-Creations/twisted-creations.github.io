@@ -19,23 +19,22 @@
 
 		// Ensure mobile menu button is properly displayed
 		const mobileMenuBtn = document.querySelector(".mobile-menu-btn");
-		if (mobileMenuBtn) {
-			mobileMenuBtn.style.display = "flex";
-			mobileMenuBtn.style.zIndex = "10000"; // Extremely high z-index to ensure it's above everything
-			mobileMenuBtn.style.position = "fixed"; // Ensure it's fixed position
-			mobileMenuBtn.style.top = "20px"; // Position at the top
-			mobileMenuBtn.style.right = "20px"; // Position at the right
+		if (mobileMenuBtn.dataset.fixed) return;
+		mobileMenuBtn.style.display = "flex";
+		mobileMenuBtn.style.zIndex = "10000"; // Extremely high z-index to ensure it's above everything
+		mobileMenuBtn.style.position = "fixed"; // Ensure it's fixed position
+		mobileMenuBtn.style.top = "20px"; // Position at the top
+		mobileMenuBtn.style.right = "20px"; // Position at the right
 
-			// Firefox-specific fixes
-			if (isFirefox()) {
-				mobileMenuBtn.style.zIndex = "100000"; // Even higher z-index for Firefox
-				mobileMenuBtn.style.transform = "translateZ(0)"; // Force hardware acceleration
-				mobileMenuBtn.style.willChange = "transform"; // Hint for browser optimization
+		// Firefox-specific fixes
+		if (isFirefox()) {
+			mobileMenuBtn.style.zIndex = "100000"; // Even higher z-index for Firefox
+			mobileMenuBtn.style.transform = "translateZ(0)"; // Force hardware acceleration
+			mobileMenuBtn.style.willChange = "transform"; // Hint for browser optimization
 
-				// Make button more visible on Firefox
-				mobileMenuBtn.style.backgroundColor = "rgba(26, 39, 179, 0.9)";
-				mobileMenuBtn.style.boxShadow = "0 0 15px rgba(0, 0, 0, 0.5)";
-			}
+			// Make button more visible on Firefox
+			mobileMenuBtn.style.backgroundColor = "rgba(26, 39, 179, 0.9)";
+			mobileMenuBtn.style.boxShadow = "0 0 15px rgba(0, 0, 0, 0.5)";
 		}
 
 		// Ensure nav links are properly styled for mobile

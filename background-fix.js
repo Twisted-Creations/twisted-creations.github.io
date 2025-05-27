@@ -125,10 +125,7 @@ document.addEventListener("DOMContentLoaded", () => {
 		if (mobileMenuBtn && navLinks) {
 			// Ensure the mobile menu button is visible and properly styled
 			mobileMenuBtn.style.display = "flex";
-			mobileMenuBtn.style.zIndex = "10000"; // Extremely high z-index
-			mobileMenuBtn.style.position = "fixed"; // Ensure it's fixed position
-			mobileMenuBtn.style.top = "20px"; // Position at the top
-			mobileMenuBtn.style.right = "20px"; // Position at the right
+			mobileMenuBtn.classList.add("mobile-menu--fixed"); // declare once in CSS
 
 			// Make sure the nav links have proper z-index
 			navLinks.style.zIndex = "9999"; // Very high z-index
