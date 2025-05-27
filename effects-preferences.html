@@ -5,7 +5,7 @@
     <meta charset="UTF-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <title>Visual Effects Preferences - Twisted Creations</title>
-    <link rel="stylesheet" href="professional-styles.css" />
+    <link rel="stylesheet" href="unified-professional.css" />
     <link rel="icon" href="Images/favicon-32x32.png" type="image/x-icon" />
     <script src="visibility-fix.js"></script>
     <style>
@@ -48,9 +48,13 @@
             padding: 40px;
             border-radius: 12px;
             max-width: 600px;
+            width: 90%;
+            /* Added for better mobile scaling */
             border: 1px solid rgba(255, 255, 255, 0.05);
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
             text-align: center;
+            margin: 0 15px;
+            /* Added for better mobile spacing */
         }
 
         /* Title with subtle glow effect */
@@ -208,6 +212,53 @@
             margin-top: 0;
             color: #ccccdd;
             font-size: 18px;
+        }
+
+        /* Mobile-specific styles */
+        @media screen and (max-width: 768px) {
+            body {
+                overflow-y: auto;
+                /* Allow scrolling on mobile */
+                height: auto;
+                min-height: 100vh;
+            }
+
+            .preferences-container {
+                padding: 25px 20px;
+                width: 85%;
+                margin: 20px 10px;
+            }
+
+            .preferences-title {
+                font-size: 1.6rem;
+            }
+
+            .preferences-buttons {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .full-button,
+            .reduced-button {
+                width: 100%;
+                padding: 12px 20px;
+            }
+
+            .options-box {
+                padding: 15px;
+            }
+        }
+
+        /* Small mobile devices */
+        @media screen and (max-width: 480px) {
+            .preferences-container {
+                padding: 20px 15px;
+                width: 90%;
+            }
+
+            .preferences-title {
+                font-size: 1.4rem;
+            }
         }
     </style>
 </head>

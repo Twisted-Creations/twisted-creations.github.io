@@ -19,6 +19,9 @@ document.addEventListener("DOMContentLoaded", () => {
 			bgContainer.classList.add("background-container");
 			bgContainer.setAttribute("aria-hidden", "true"); // Hide from screen readers
 
+			// Ensure the background container doesn't interfere with other elements
+			bgContainer.style.zIndex = "-1"; // Keep it behind other content
+
 			// Insert the background container as the first child of the body
 			document.body.insertBefore(bgContainer, document.body.firstChild);
 
@@ -29,6 +32,7 @@ document.addEventListener("DOMContentLoaded", () => {
 			// Set the background image
 			bgElement.style.backgroundImage = "url('../Images/Base-Image.png')";
 			bgElement.style.backgroundSize = "cover";
+			bgElement.style.position = "fixed"; // Ensure it stays fixed
 
 			// Apply different background positioning for mobile vs desktop
 			if (isMobile()) {
@@ -42,9 +46,14 @@ document.addEventListener("DOMContentLoaded", () => {
 			} else {
 				// Desktop background positioning
 				bgElement.style.backgroundPosition = "center center";
+				bgElement.style.width = "120%";
+				bgElement.style.height = "120%";
+				bgElement.style.top = "-10%";
+				bgElement.style.left = "-10%";
 			}
 
 			bgElement.style.opacity = "0";
+			bgElement.style.zIndex = "-1"; // Keep it behind other content
 
 			// Add the background image to the container
 			bgContainer.appendChild(bgElement);
@@ -100,6 +109,22 @@ document.addEventListener("DOMContentLoaded", () => {
 			});
 		} else {
 			console.log("Background container already exists");
+		}
+	}
+
+	// Ensure mobile menu is working properly
+	if (isMobile()) {
+		// Check for mobile menu elements
+		const mobileMenuBtn = document.querySelector(".mobile-menu-btn");
+		const navLinks = document.querySelector(".nav-links");
+
+		if (mobileMenuBtn && navLinks) {
+			// Ensure the mobile menu button is visible and properly styled
+			mobileMenuBtn.style.display = "flex";
+			mobileMenuBtn.style.zIndex = "1000";
+
+			// Make sure the nav links have proper z-index
+			navLinks.style.zIndex = "999";
 		}
 	}
 });

@@ -28,19 +28,26 @@
 			// Make sure the nav links are properly positioned
 			navLinks.style.position = "fixed";
 			navLinks.style.top = "0";
-			navLinks.style.right = navLinks.classList.contains("show")
-				? "0"
-				: "-100%";
+
+			// Fix for mobile menu display issue - ensure it's visible when "show" class is present
+			if (navLinks.classList.contains("show")) {
+				navLinks.style.right = "0";
+				navLinks.style.display = "flex";
+			} else {
+				navLinks.style.right = "-100%";
+				// Don't set display: none here to allow transitions to work
+			}
+
 			navLinks.style.width = "75%";
 			navLinks.style.height = "100vh";
 
-			// Update display property based on current state
-			if (navLinks.classList.contains("show")) {
-				navLinks.style.display = "flex";
-			}
-
-			// We don't add event listeners or replace the button here
-			// as they're handled in script.js's initMobileMenu function
+			// Ensure background and other properties are set for visibility
+			navLinks.style.backgroundColor = "rgba(26, 26, 36, 0.92)";
+			navLinks.style.backdropFilter = "blur(8px)";
+			navLinks.style.WebkitBackdropFilter = "blur(8px)";
+			navLinks.style.boxShadow = "0 0 20px rgba(0, 0, 0, 0.3)";
+			navLinks.style.borderLeft = "1px solid rgba(42, 62, 177, 0.3)";
+			navLinks.style.transition = "right 0.4s cubic-bezier(0.23, 1, 0.32, 1)";
 		}
 	};
 
@@ -62,6 +69,34 @@
 
 		// Fix mobile menu issues
 		fixMobileMenu();
+
+		// Add event listener to mobile menu button if it exists
+		const mobileMenuBtn = document.querySelector(".mobile-menu-btn");
+		const navLinks = document.querySelector(".nav-links");
+
+		if (
+			mobileMenuBtn &&
+			navLinks &&
+			!mobileMenuBtn.hasAttribute("data-visibility-fix-processed")
+		) {
+			// Mark as processed to avoid duplicate listeners
+			mobileMenuBtn.setAttribute("data-visibility-fix-processed", "true");
+
+			// Add click event listener to toggle menu visibility
+			mobileMenuBtn.addEventListener("click", () => {
+				if (navLinks.classList.contains("show")) {
+					navLinks.style.right = "0";
+					navLinks.style.display = "flex";
+				} else {
+					// When closing, we delay hiding to allow transition
+					setTimeout(() => {
+						if (!navLinks.classList.contains("show")) {
+							navLinks.style.right = "-100%";
+						}
+					}, 50);
+				}
+			});
+		}
 	});
 
 	// Final fallback to ensure content is always visible
