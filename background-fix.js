@@ -5,6 +5,10 @@ document.addEventListener("DOMContentLoaded", () => {
 	// Helper function to check if we're on mobile
 	const isMobile = () => window.matchMedia("(max-width: 768px)").matches;
 
+	// Helper function to check if we're on Firefox
+	const isFirefox = () =>
+		navigator.userAgent.toLowerCase().indexOf("firefox") > -1;
+
 	// Check if we're on a page that needs the background
 	if (document.location.pathname.includes("/Pages/")) {
 		console.log("On a page in the Pages directory");
@@ -121,10 +125,35 @@ document.addEventListener("DOMContentLoaded", () => {
 		if (mobileMenuBtn && navLinks) {
 			// Ensure the mobile menu button is visible and properly styled
 			mobileMenuBtn.style.display = "flex";
-			mobileMenuBtn.style.zIndex = "1000";
+			mobileMenuBtn.style.zIndex = "10000"; // Extremely high z-index
+			mobileMenuBtn.style.position = "fixed"; // Ensure it's fixed position
+			mobileMenuBtn.style.top = "20px"; // Position at the top
+			mobileMenuBtn.style.right = "20px"; // Position at the right
 
 			// Make sure the nav links have proper z-index
-			navLinks.style.zIndex = "999";
+			navLinks.style.zIndex = "9999"; // Very high z-index
+
+			// Firefox-specific fixes
+			if (isFirefox()) {
+				mobileMenuBtn.style.zIndex = "100000"; // Even higher z-index for Firefox
+				navLinks.style.zIndex = "99999"; // Even higher z-index for Firefox
+
+				// Force hardware acceleration
+				mobileMenuBtn.style.transform = "translateZ(0)";
+				navLinks.style.transform = "translateZ(0)";
+
+				// Make elements more visible
+				mobileMenuBtn.style.backgroundColor = "rgba(26, 39, 179, 0.9)";
+				navLinks.style.backgroundColor = "rgba(26, 26, 36, 0.98)";
+			}
+
+			// Ensure any background elements are behind the menu
+			const bgElements = document.querySelectorAll(
+				".background-container, .bg-image, .active-bg",
+			);
+			bgElements.forEach((el) => {
+				el.style.zIndex = "-1"; // Keep backgrounds behind content
+			});
 		}
 	}
 });

@@ -9,6 +9,10 @@
 	// Helper function to check if we're on mobile
 	const isMobile = () => window.matchMedia("(max-width: 768px)").matches;
 
+	// Helper function to check if we're on Firefox
+	const isFirefox = () =>
+		navigator.userAgent.toLowerCase().indexOf("firefox") > -1;
+
 	// Fix mobile menu styling without duplicating event handlers from script.js
 	const fixMobileMenu = () => {
 		if (!isMobile()) return;
@@ -17,7 +21,21 @@
 		const mobileMenuBtn = document.querySelector(".mobile-menu-btn");
 		if (mobileMenuBtn) {
 			mobileMenuBtn.style.display = "flex";
-			mobileMenuBtn.style.zIndex = "1000"; // Ensure it's above other elements
+			mobileMenuBtn.style.zIndex = "10000"; // Extremely high z-index to ensure it's above everything
+			mobileMenuBtn.style.position = "fixed"; // Ensure it's fixed position
+			mobileMenuBtn.style.top = "20px"; // Position at the top
+			mobileMenuBtn.style.right = "20px"; // Position at the right
+
+			// Firefox-specific fixes
+			if (isFirefox()) {
+				mobileMenuBtn.style.zIndex = "100000"; // Even higher z-index for Firefox
+				mobileMenuBtn.style.transform = "translateZ(0)"; // Force hardware acceleration
+				mobileMenuBtn.style.willChange = "transform"; // Hint for browser optimization
+
+				// Make button more visible on Firefox
+				mobileMenuBtn.style.backgroundColor = "rgba(26, 39, 179, 0.9)";
+				mobileMenuBtn.style.boxShadow = "0 0 15px rgba(0, 0, 0, 0.5)";
+			}
 		}
 
 		// Ensure nav links are properly styled for mobile
@@ -42,12 +60,29 @@
 			navLinks.style.height = "100vh";
 
 			// Ensure background and other properties are set for visibility
-			navLinks.style.backgroundColor = "rgba(26, 26, 36, 0.92)";
+			navLinks.style.backgroundColor = "rgba(26, 26, 36, 0.95)";
 			navLinks.style.backdropFilter = "blur(8px)";
 			navLinks.style.WebkitBackdropFilter = "blur(8px)";
 			navLinks.style.boxShadow = "0 0 20px rgba(0, 0, 0, 0.3)";
 			navLinks.style.borderLeft = "1px solid rgba(42, 62, 177, 0.3)";
 			navLinks.style.transition = "right 0.4s cubic-bezier(0.23, 1, 0.32, 1)";
+
+			// Ensure the menu is always on top of everything
+			navLinks.style.zIndex = "9999"; // Very high z-index to ensure it's above everything
+
+			// Firefox-specific fixes
+			if (isFirefox()) {
+				// Firefox sometimes has issues with fixed positioning and z-index
+				navLinks.style.position = "absolute";
+				navLinks.style.zIndex = "99999"; // Even higher z-index for Firefox
+
+				// Force hardware acceleration to fix rendering issues in Firefox
+				navLinks.style.transform = "translateZ(0)";
+				navLinks.style.willChange = "right";
+
+				// Increase opacity to ensure visibility
+				navLinks.style.backgroundColor = "rgba(26, 26, 36, 0.98)";
+			}
 		}
 	};
 
@@ -84,14 +119,37 @@
 
 			// Add click event listener to toggle menu visibility
 			mobileMenuBtn.addEventListener("click", () => {
+				// Toggle the show class
+				navLinks.classList.toggle("show");
+				mobileMenuBtn.classList.toggle("active");
+
+				// Apply styles based on current state
 				if (navLinks.classList.contains("show")) {
 					navLinks.style.right = "0";
 					navLinks.style.display = "flex";
+
+					// Firefox-specific fix
+					if (isFirefox()) {
+						// Force repaint to ensure menu is visible
+						void navLinks.offsetWidth;
+						navLinks.style.opacity = "1";
+						navLinks.style.visibility = "visible";
+					}
 				} else {
 					// When closing, we delay hiding to allow transition
 					setTimeout(() => {
 						if (!navLinks.classList.contains("show")) {
 							navLinks.style.right = "-100%";
+
+							// Firefox-specific fix
+							if (isFirefox()) {
+								// Delay hiding until transition completes
+								setTimeout(() => {
+									if (!navLinks.classList.contains("show")) {
+										navLinks.style.opacity = "0.98";
+									}
+								}, 400);
+							}
 						}
 					}, 50);
 				}
