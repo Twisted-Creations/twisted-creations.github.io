@@ -8,10 +8,10 @@ function updateFooterYear() {
 	const currentYear = new Date().getFullYear();
 	console.log("Current year:", currentYear);
 
-	yearElements.forEach((element) => {
+	for (const element of yearElements) {
 		element.textContent = currentYear;
-		console.log("Updated year element:", element);
-	});
+	}
+	console.log("Updated year elements");
 }
 
 // Call the function when the DOM is loaded

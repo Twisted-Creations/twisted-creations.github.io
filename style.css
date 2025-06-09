@@ -418,7 +418,7 @@ em {
 	text-align: center;
 	flex: 1 0 auto;
 }
-
+/* Descending specificity selector found. This selector specificity is (0, 1, 0) */
 @media screen and (prefers-reduced-motion: reduce) {
 	.content-box {
 		background-color: var(--color-ui-bg);
@@ -2238,12 +2238,12 @@ em {
 	}
 
 	/* Improve typography on mobile */
-	h1 {
+	.content-container h1 {
 		font-size: 1.8rem;
 	}
 
-	h2 {
-		font-size: 1.4rem;
+	.content-container h2 {
+		font-size: 1.3rem;
 	}
 
 	.site-title {

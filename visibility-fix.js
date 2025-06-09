@@ -170,10 +170,10 @@
 			}
 
 			const contentBoxes = document.querySelectorAll(".content-box");
-			contentBoxes.forEach((box) => {
+			for (const box of contentBoxes) {
 				box.style.width = "95%";
 				box.style.maxWidth = "100%";
-			});
+			}
 
 			// Fix mobile menu again after full load
 			fixMobileMenu();
@@ -196,10 +196,10 @@
 				}
 
 				const contentBoxes = document.querySelectorAll(".content-box");
-				contentBoxes.forEach((box) => {
+				for (const box of contentBoxes) {
 					box.style.width = "95%";
 					box.style.maxWidth = "100%";
-				});
+				}
 
 				// Fix mobile menu after orientation change
 				fixMobileMenu();

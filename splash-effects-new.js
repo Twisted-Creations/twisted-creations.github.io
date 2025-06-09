@@ -23,15 +23,14 @@ document.addEventListener("DOMContentLoaded", () => {
 		if (typeof stopAllSplashEffects === "function") {
 			stopAllSplashEffects();
 		} else {
-			// Fallback if the function isn't available yet
+			// Fallback if the function isn't available yet or fails
 			const animationElements = document.querySelectorAll(
-				".particle-container, .subtle-glow",
+				".particle-container, .gradient-overlay, .subtle-glow",
 			);
-			animationElements.forEach((element) => {
-				if (element?.parentNode) {
-					element.style.opacity = "0";
-				}
-			});
+			for (const element of animationElements) {
+				// Prefer for...of
+				if (element?.parentNode) element.style.opacity = "0";
+			}
 
 			// Clear any intervals
 			if (window.effectsInterval) {
@@ -376,18 +375,16 @@ function stopAllSplashEffects() {
 	const animationElements = document.querySelectorAll(
 		".particle-container, .gradient-overlay, .subtle-glow",
 	);
-	animationElements.forEach((element) => {
-		if (element?.parentNode) {
-			element.style.opacity = "0";
-			// Try to completely remove the element if possible
-			try {
-				element.parentNode.removeChild(element);
-			} catch (e) {
-				// Fallback if removal fails
-				element.style.display = "none";
-			}
+	for (const element of animationElements) {
+		// Prefer for...of
+		if (element?.parentNode) element.style.opacity = "0"; // Try to completely remove the element if possible
+		try {
+			element.parentNode.removeChild(element);
+		} catch (e) {
+			// Fallback if removal fails
+			element.style.display = "none";
 		}
-	});
+	}
 
 	// 2. Clear any animation frames
 	if (window.logoGlowFrame) {
@@ -460,96 +457,93 @@ function triggerTransition(href) {
 	);
 
 	// Fade out animations gradually
-	animationElements.forEach((element) => {
-		if (element?.style) {
-			// Apply a transition to the opacity
-			element.style.transition = "opacity 0.3s ease-out";
-			element.style.opacity = "0"; // Set to 0 for complete fade-out
-		}
-	});
-
-	// Generate random loading text - same options as main site
-	const glitchTexts = [
-		"LOADING",
-		"PLEASE WAIT",
-		"REDIRECTING",
-		"NAVIGATING",
-		"PROCESSING",
-		"PREPARING",
-		"LOADING PAGE",
-		"ALMOST THERE",
-		"JUST A MOMENT",
-	];
-	const randomText =
-		glitchTexts[Math.floor(Math.random() * glitchTexts.length)];
-
-	// Update glitch text
-	const glitchTextElement = document.querySelector(".glitch-text");
-	if (glitchTextElement) {
-		glitchTextElement.textContent = randomText;
-		glitchTextElement.setAttribute("data-text", randomText);
+	for (const element of animationElements) {
+		// Prefer for...of
+		if (element?.style) element.style.transition = "opacity 0.3s ease-out"; // Apply a transition to the opacity
+		element.style.opacity = "0"; // Set to 0 for complete fade-out
 	}
-
-	// Prevent scrolling during transition
-	document.body.style.overflow = "hidden";
-
-	// Force a browser reflow to ensure all styles are applied immediately
-	void transition.offsetWidth;
-
-	// Show the transition
-	transition.classList.add("active");
-	console.log("Activated transition");
-
-	// Force immediate update of glitch text styles - reuse the existing element
-	if (glitchTextElement) {
-		// Force a style recalculation
-		void glitchTextElement.offsetHeight;
-
-		// Apply a tiny transform to trigger hardware acceleration
-		if (!glitchTextElement.style.transform.includes("!important")) {
-			glitchTextElement.style.transform = "translateZ(0)";
-		}
-
-		// Force animation to restart
-		glitchTextElement.style.animationName = "none";
-		void glitchTextElement.offsetHeight;
-		glitchTextElement.style.animationName = "";
-	}
-
-	// Determine if we're on mobile with a simplified check
-	const isMobile =
-		window.innerWidth <= 768 ||
-		/Android|iPhone|iPad|iPod|BlackBerry|IEMobile/i.test(navigator.userAgent);
-
-	// Check if reduced effects mode is enabled
-	const reducedEffects =
-		window.reducedEffects === true ||
-		document.body.classList.contains("reduced-effects");
-
-	// Add transition effects, respecting reduced effects setting
-	if (reducedEffects) {
-		// Minimal effects for reduced mode
-		document.body.style.filter = "brightness(0.98)";
-		// Add a reduced-effects class if not already present
-		if (!document.body.classList.contains("reduced-effects")) {
-			document.body.classList.add("reduced-effects");
-		}
-	} else {
-		// Normal effects based on a device
-		document.body.style.filter = isMobile
-			? "brightness(0.9)"
-			: "brightness(0.85)";
-	}
-
-	// Navigate after a delay - adjusting based on device and effects mode
-	const navigationDelay = reducedEffects ? 300 : isMobile ? 600 : 800;
-
-	setTimeout(() => {
-		// Store a flag in sessionStorage to indicate we're coming from a transition
-		sessionStorage.setItem("fromTransition", "true");
-		window.location.href = href;
-	}, navigationDelay);
 }
+
+// Generate random loading text - same options as main site
+const glitchTexts = [
+	"LOADING",
+	"PLEASE WAIT",
+	"REDIRECTING",
+	"NAVIGATING",
+	"PROCESSING",
+	"PREPARING",
+	"LOADING PAGE",
+	"ALMOST THERE",
+	"JUST A MOMENT",
+];
+const randomText = glitchTexts[Math.floor(Math.random() * glitchTexts.length)];
+
+// Update glitch text
+const glitchTextElement = document.querySelector(".glitch-text");
+if (glitchTextElement) {
+	glitchTextElement.textContent = randomText;
+	glitchTextElement.setAttribute("data-text", randomText);
+}
+
+// Prevent scrolling during transition
+document.body.style.overflow = "hidden";
+
+// Force a browser reflow to ensure all styles are applied immediately
+void transition.offsetWidth;
+
+// Show the transition
+transition.classList.add("active");
+console.log("Activated transition");
+
+// Force immediate update of glitch text styles - reuse the existing element
+if (glitchTextElement) {
+	// Force a style recalculation
+	void glitchTextElement.offsetHeight;
+
+	// Apply a tiny transform to trigger hardware acceleration
+	if (!glitchTextElement.style.transform.includes("!important")) {
+		glitchTextElement.style.transform = "translateZ(0)";
+	}
+
+	// Force animation to restart
+	glitchTextElement.style.animationName = "none";
+	void glitchTextElement.offsetHeight;
+	glitchTextElement.style.animationName = "";
+}
+
+// Determine if we're on mobile with a simplified check
+const isMobile =
+	window.innerWidth <= 768 ||
+	/Android|iPhone|iPad|iPod|BlackBerry|IEMobile/i.test(navigator.userAgent);
+
+// Check if reduced effects mode is enabled
+const reducedEffects =
+	window.reducedEffects === true ||
+	document.body.classList.contains("reduced-effects");
+
+// Add transition effects, respecting reduced effects setting
+if (reducedEffects) {
+	// Minimal effects for reduced mode
+	document.body.style.filter = "brightness(0.98)";
+	// Add a reduced-effects class if not already present
+	if (!document.body.classList.contains("reduced-effects")) {
+		document.body.classList.add("reduced-effects");
+	}
+} else {
+	// Normal effects based on a device
+	document.body.style.filter = isMobile
+		? "brightness(0.9)"
+		: "brightness(0.85)";
+}
+
+// Navigate after a delay - adjusting based on device and effects mode
+const navigationDelay = reducedEffects ? 300 : isMobile ? 600 : 800;
+
+setTimeout(() => {
+	// Store a flag in sessionStorage to indicate we're coming from a transition
+	sessionStorage.setItem("fromTransition", "true");
+	window.location.href = href;
+}, navigationDelay);
 
 // Note: The effect warning has been moved to a separate page (effects-preferences.html)
 

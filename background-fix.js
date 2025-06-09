@@ -148,9 +148,9 @@ document.addEventListener("DOMContentLoaded", () => {
 			const bgElements = document.querySelectorAll(
 				".background-container, .bg-image, .active-bg",
 			);
-			bgElements.forEach((el) => {
+			for (const el of bgElements) {
 				el.style.zIndex = "-1"; // Keep backgrounds behind content
-			});
+			}
 		}
 	}
 });

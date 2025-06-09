@@ -42,10 +42,11 @@ window.addEventListener("load", () => {
 		const yearElements = document.querySelectorAll(".current-year");
 		console.log("Year elements found in window.onload:", yearElements.length);
 		const currentYear = new Date().getFullYear();
-		yearElements.forEach((element) => {
+		for (const element of yearElements) {
+			// Prefer for...of
 			element.textContent = currentYear;
-			console.log("Updated element in window.onload");
-		});
+			console.log("Updated element in window.onload"); // Prefer for...of
+		} // Prefer for...of
 	} catch (error) {
 		console.error("Error updating year in window.onload:", error);
 	}
@@ -201,8 +202,8 @@ function initPageTransitions() {
 	// Add click event listeners to all internal links
 
 	for (const link of internalLinks) {
+		// Prefer for...of
 		const href = link.getAttribute("href");
-
 		// Skip links that open in new tabs or have already been processed
 		if (
 			link.getAttribute("target") === "_blank" ||
@@ -219,7 +220,6 @@ function initPageTransitions() {
 			continue;
 		}
 
-		// Mark as processed to avoid duplicate listeners
 		link.setAttribute("data-transition-processed", "true");
 
 		// Use a single event handler for both click and touchend events
@@ -468,10 +468,9 @@ function initImageLightbox() {
 	document.body.appendChild(lightbox);
 
 	// Add click event to images
-	images.forEach((img) => {
-		// Make images appear clickable
-		img.style.cursor = "pointer";
-
+	for (const img of images) {
+		// Prefer for...of
+		img.style.cursor = "pointer"; // Make images appear clickable
 		img.addEventListener("click", function () {
 			// Set the image source
 			lightboxImg.src = this.src;
@@ -482,7 +481,7 @@ function initImageLightbox() {
 			// Prevent scrolling
 			document.body.style.overflow = "hidden";
 		});
-	});
+	}
 
 	// Close lightbox when clicking close button or outside the image
 	closeBtn.addEventListener("click", closeLightbox);
@@ -522,24 +521,24 @@ function addCurrentYearToFooter() {
 		console.log("Found footers:", footers.length);
 
 		// Look for spans inside the footer
-		footers.forEach((footer) => {
+		for (const footer of footers) {
+			// Prefer for...of
 			const spans = footer.querySelectorAll("span");
-			console.log("Found spans in footer:", spans.length);
-
 			// Add any spans to our collection
-			spans.forEach((span) => {
+			for (const span of spans) {
 				if (span.classList.contains("current-year")) {
+					// Use for...of
 					console.log("Found span with current-year class");
 					yearElements = [span];
 				}
-			});
-		});
+			}
+		}
 	}
-
 	const currentYear = new Date().getFullYear();
 	console.log("Current year:", currentYear);
 
-	// Update all found elements
+	// Update all found elements using forEach (can't break out of forEach)
+	// Consider using a standard for loop if you need to break early
 	yearElements.forEach((element) => {
 		element.textContent = currentYear;
 		console.log("Updated element:", element);
@@ -550,10 +549,11 @@ function addCurrentYearToFooter() {
 		console.log("No year elements found, trying to create one");
 		const footers = document.querySelectorAll(".footer-container");
 
-		footers.forEach((footer) => {
+		for (const footer of footers) {
+			// Prefer for...of
 			const paragraphs = footer.querySelectorAll("p");
-
-			paragraphs.forEach((p) => {
+			for (const p of paragraphs) {
+				// Use for...of
 				if (p.textContent.includes("©") || p.textContent.includes("&copy;")) {
 					console.log("Found copyright paragraph, inserting year");
 
@@ -562,8 +562,8 @@ function addCurrentYearToFooter() {
 
 					console.log("Updated copyright text");
 				}
-			});
-		});
+			}
+		}
 	}
 }
 
@@ -604,15 +604,18 @@ function initDevlogFilter() {
 	});
 
 	// Force "All Updates" to be active by default
-	filterButtons.forEach((btn) => btn.classList.remove("active"));
+	for (const btn of filterButtons) {
+		btn.classList.remove("active");
+	} // Prefer for...of
 	const allButton = document.querySelector('.filter-btn[data-category="all"]');
 	if (allButton) {
 		allButton.classList.add("active");
 	}
 
 	// Add click event to filter buttons
-	filterButtons.forEach((button) => {
+	for (const button of filterButtons) {
 		button.addEventListener("click", function () {
+			// Prefer for...of
 			// Remove the active class from all buttons
 			filterButtons.forEach((btn) => btn.classList.remove("active"));
 
@@ -623,7 +626,8 @@ function initDevlogFilter() {
 			const selectedCategory = this.getAttribute("data-category");
 
 			// Filter entries
-			devlogEntries.forEach((entry) => {
+			for (const entry of devlogEntries) {
+				// Prefer for...of
 				if (
 					selectedCategory === "all" ||
 					entry.getAttribute("data-category") === selectedCategory
@@ -637,9 +641,9 @@ function initDevlogFilter() {
 				} else {
 					entry.classList.add("hidden");
 				}
-			});
+			}
 		});
-	});
+	}
 }
 
 /**
@@ -862,10 +866,10 @@ function initSmoothBackgroundScaling() {
 
 	// Throttle function to limit how often a function can be called
 	function throttle(callback, limit) {
-		let waiting = false;
-		return function () {
+		let isWaiting = false;
+		return function (...args) {
 			if (!waiting) {
-				callback.apply(this, arguments);
+				callback.apply(this, args);
 				waiting = true;
 				setTimeout(() => {
 					waiting = false;
@@ -944,10 +948,10 @@ function initSmoothBackgroundScaling() {
 		const yearElements = document.querySelectorAll(".current-year");
 		console.log("Year elements found at end of file:", yearElements.length);
 		const currentYear = new Date().getFullYear();
-		yearElements.forEach((element) => {
+		for (const element of yearElements) {
 			element.textContent = currentYear;
 			console.log("Updated element at end of file");
-		});
+		} // Prefer for...of
 	} catch (error) {
 		console.error("Error updating year at end of file:", error);
 	}
