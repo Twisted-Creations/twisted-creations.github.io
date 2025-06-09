@@ -537,8 +537,7 @@ function addCurrentYearToFooter() {
 	const currentYear = new Date().getFullYear();
 	console.log("Current year:", currentYear);
 
-	// Update all found elements using forEach (can't break out of forEach)
-	// Consider using a standard for loop if you need to break early
+	// Update all found elements using for...of for consistency
 	yearElements.forEach((element) => {
 		element.textContent = currentYear;
 		console.log("Updated element:", element);
